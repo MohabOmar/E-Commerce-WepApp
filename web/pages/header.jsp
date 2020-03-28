@@ -18,7 +18,7 @@
                     <div class="col-md-4 col-12 text-right">
                         <p class="my-md-4 header-links">
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#login-signup-modal">Login / </a>
-                            <a href="#">Create an Account</a>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#signUp-admin-modal">Create an Account</a>
                         </p>
                     </div>
                 </div>
@@ -26,6 +26,7 @@
 
                 
             <%@include file="loginForm.html" %>
+            <%@include file="SignupClient.jsp" %>
 
 
             <div class="container-fluid p-0">

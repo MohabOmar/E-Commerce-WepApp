@@ -19,6 +19,7 @@
         <script src="https://kit.fontawesome.com/e46fb9d55b.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="./css/style.css">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+        <link rel="stylesheet" href="./css/style2.css">
     </head>
     <body>
 

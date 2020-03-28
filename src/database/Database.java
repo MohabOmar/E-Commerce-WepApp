@@ -67,6 +67,42 @@ public class Database {
         }
     }
     
+    
+    public boolean addClient (Users user)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "SELECT createclient (?,?,?,?,?,?,?,?,?)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, user.getuName());
+            preparedStatment.setString(2, user.getfName());
+            preparedStatment.setString(3, user.getlName());
+            preparedStatment.setString(4, user.getbDate());
+            preparedStatment.setString(5, user.getPassword());
+            preparedStatment.setString(6, user.getJob());
+            preparedStatment.setString(7, user.getEmail());
+            preparedStatment.setString(8, user.getAddress());
+            preparedStatment.setString(9, user.getInterests());
+            
+            result = preparedStatment.executeQuery();
+            
+            while (result.next())
+            {
+                operation = result.getBoolean(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }    
+    
     private void stop()
     {
         try 
