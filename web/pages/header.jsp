@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head></head>
-    <body>
-
         <header>
+
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 col-12">
                         <div class="btn-group">
-                            <button class="btn border dropdown-toggle my-md-4 my-2 text-white" 
-                                    data-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false">EGY
-                            </button>
+                            <button class="btn border dropdown-toggle my-md-4 my-2 text-white" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                EGY</button>
                             <div class="dropdown-menu">
                                 <a href="#" class="dropdown-item">USD</a>
                             </div>
@@ -23,17 +17,22 @@
                     </div>
                     <div class="col-md-4 col-12 text-right">
                         <p class="my-md-4 header-links">
-                            <a href="#" class="px-2">Sign In</a>
-                            <a href="#" class="px-2">Create an Account</a>
-                        </p></p>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#login-signup-modal">Login / </a>
+                            <a href="#">Create an Account</a>
+                        </p>
                     </div>
                 </div>
             </div>
 
+                
+            <%@include file="loginForm.html" %>
+
+
             <div class="container-fluid p-0">
                 <nav class="navbar navbar-expand-lg navbar-light bg-white">
                     <a class="navbar-brand" href="#">Navbar</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                            aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
@@ -61,5 +60,8 @@
                 </nav>
             </div>
         </header>
+
+        
     </body>
+
 </html>

@@ -1,0 +1,54 @@
+       <!-- Bootstrap Modal -->
+
+
+            <!--Login, Signup-->
+            <div id="login-signup-modal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+
+                    <!-- login modal content -->
+                    <div class="modal-content" id="login-modal-content">
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form method="GET" id="Login-Form" role="form" action="main.jsp">
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
+                                        </div>
+                                        <input name="email" id="email" type="email" class="form-control input-lg"
+                                               placeholder="Enter Email" required data-parsley-type="email">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></div>
+                                        <input name="password" id="login-password" type="password"
+                                               class="form-control input-lg" placeholder="Enter Password" required
+                                               data-parsley-length="[6, 10]" data-parsley-trigger="keyup">
+                                    </div>
+                                </div>
+
+                                <div class="checkbox">
+                                    <label><input type="checkbox" value="" checked>Remember me</label>
+                                </div>
+                                <button type="submit" class="btn btn-success btn-block btn-lg">LOGIN</button>
+                            </form>
+                        </div>
+
+
+
+                    </div>
+                    <!-- login modal content -->
+
+                </div>
+            </div>
+
+
+            <!-- Bootstrap Modal -->
