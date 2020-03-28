@@ -1,4 +1,4 @@
-package databaseconnection;
+package database;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -7,7 +7,7 @@ import java.util.logging.Logger;
 
 
 public class Database {
-    private final String url = "jdbc:postgresql://localhost/register";
+    private final String url = "jdbc:postgresql://localhost:5432/oshop";
     private final String user = "postgres";
     private final String password = "amrwsk13";
 
@@ -15,10 +15,8 @@ public class Database {
     private PreparedStatement preparedStatment = null;
     private ResultSet result = null;
     private String sqlCommand;
-    
-    
-    private User userDa= new User();
-    
+        
+    boolean operation = false;
     
     private void connect ()
     {
@@ -34,24 +32,29 @@ public class Database {
         }
     }
     
-    public User getUser (String uname)
+    public boolean addAdmin (Users user)
     {
         try
         {
             connect();
-            sqlCommand = "SELECT * FROM register WHERE uname LIKE ?";
+            sqlCommand = "SELECT createadmin (?,?,?,?,?,?,?,?,?)";
             preparedStatment = connection.prepareStatement(sqlCommand);
-            preparedStatment.setString(1, "%"+uname+"%");
+            preparedStatment.setString(1, user.getuName());
+            preparedStatment.setString(2, user.getfName());
+            preparedStatment.setString(3, user.getlName());
+            preparedStatment.setString(4, user.getbDate());
+            preparedStatment.setString(5, user.getPassword());
+            preparedStatment.setString(6, user.getJob());
+            preparedStatment.setString(7, user.getEmail());
+            preparedStatment.setString(8, user.getAddress());
+            preparedStatment.setString(9, user.getInterests());
             
             result = preparedStatment.executeQuery();
             
-            userDa.getUsers().clear();
-            
-            while(result.next())
+            while (result.next())
             {
-                userDa.setUsers(new User(result.getString(2),result.getString(3),result.getString(4),result.getString(5)));
+                operation = result.getBoolean(1);
             }
-            
         }
         catch (SQLException ex)
         {
@@ -60,16 +63,19 @@ public class Database {
         finally
         {
             stop();
-            return userDa;
+            return operation;
         }
-        
     }
     
     private void stop()
     {
-        try {
+        try 
+        {
             connection.close();
-        } catch (SQLException ex) {
+            System.out.println("Database is stopped");
+        } 
+        catch (SQLException ex) 
+        {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
