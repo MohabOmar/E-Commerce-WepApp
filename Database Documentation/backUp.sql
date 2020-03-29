@@ -17,6 +17,46 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
+-- Name: checkisadmin(text); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.checkisadmin(username text) RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+DECLARE 
+isUserAdmin boolean;
+BEGIN
+SELECT isadmin INTO isUserAdmin FROM users WHERE username in (uname,email);
+IF isUserAdmin THEN RETURN true;
+ELSE RETURN false;
+END IF;
+END;
+$$;
+
+
+ALTER FUNCTION public.checkisadmin(username text) OWNER TO postgres;
+
+--
+-- Name: checklogin(text, text); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION public.checklogin(username text, userpassword text) RETURNS boolean
+    LANGUAGE plpgsql
+    AS $$
+DECLARE
+numberOfusers int;
+BEGIN
+SELECT COUNT(*) INTO numberOfUsers FROM users WHERE username in (uname, email) AND password = userPassword;
+IF numberOfUsers = 0 THEN RETURN false;
+ELSE RETURN true;
+END IF;
+END;
+$$;
+
+
+ALTER FUNCTION public.checklogin(username text, userpassword text) OWNER TO postgres;
+
+--
 -- Name: checkuser(text); Type: FUNCTION; Schema: public; Owner: postgres
 --
 
@@ -350,12 +390,14 @@ COPY public.usercart (cartid, user_id, issubmitted, submitteddate) FROM stdin;
 COPY public.users (uid, uname, fname, lname, bd, password, job, email, creditlimit, balance, address, interests, isadmin) FROM stdin;
 1	qazs	amr	walid	13-12-1993	123456	dev	amrwsk@gmail.com	0	0	agouza	sports	t
 2								0	0			t
-3	moh	mohamed	ibrahim	1993-12-13	123456	dev	mohamed@gmail.com	0	0	mansoura	front end dev	t
 4	mohab							0	0			t
 5	ali	mohab	omar	1994-07-01	iti40	dev	alskdlad@gmail.com	0	0	5465465465	no int	t
 6	afasfasf							0	0			f
 7	123							0	0			t
 8	asdasd	asdasd	asdasd	2020-03-12	asdasd	asdasd	asdasd@gmail.com	0	0	asdas	asdasd	t
+3	moh	mohamed	ibrahim	1993-12-13	123456	dev	mohamed@gmail.com	0	0	mansoura	front end dev	f
+9	q	amr	walid	1993-12-13	123456	1	1212@hotmail.com	0	0	1	1	t
+10	w	amr	walid	0001-12-01	123456	4	alskdlad@gmail.com	0	0	454	5454	t
 \.
 
 
@@ -391,7 +433,7 @@ SELECT pg_catalog.setval('public.usercart_cartid_seq', 1, false);
 -- Name: users_uid_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.users_uid_seq', 8, true);
+SELECT pg_catalog.setval('public.users_uid_seq', 10, true);
 
 
 --
