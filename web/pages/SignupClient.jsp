@@ -34,7 +34,7 @@
                                 <input type="text" placeholder="Please Enter your Address" required name="aAName"/>
                                 <label>Interests</label>
                                 <input type="text" placeholder="Please Enter your Interests" required name="aANTName"/>
-                                <input type="hidden" value="true" name="isAdmin"/>
+                                <input type="hidden" value="false" name="isAdmin"/>
                                 <input type="submit" value="Sign UP" name="submit"/>
                                 <label>
                                         <%

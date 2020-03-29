@@ -22,7 +22,7 @@
         
         if (db.addAdmin(u))
         {
-            response.sendError(200);
+            response.sendRedirect("/test/asdadasd.jsp");
         }
         else
         {
@@ -37,7 +37,7 @@
                 , request.getParameter("aEAName"), request.getParameter("aAName"), request.getParameter("aANTName"));
         if (db.addClient(u))
         {
-            response.sendError(200);
+            response.sendRedirect("/test/main.jsp");
         }
         else
         {

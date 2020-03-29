@@ -16,9 +16,11 @@
                         <h2 class="my-md-3 site-title text-white">MAM</h2>
                     </div>
                     <div class="col-md-4 col-12 text-right">
+                        <%!int x = 0;%>
                         <p class="my-md-4 header-links">
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#login-signup-modal">Login / </a>
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#signUp-admin-modal">Create an Account</a>
+                            <a href="#" id="#">Sign Out</a>
                         </p>
                     </div>
                 </div>

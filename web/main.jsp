@@ -30,35 +30,6 @@
         <%@include file="./pages/footer.html" %>
 
         
-        <!-- DataBase Connection-->
-        <%
-               Connection conn;
-        try {
-            conn = DriverManager.getConnection("jdbc:derby://localhost:1527/webapp", "mohamed", "123");
-            PreparedStatement pst;
-            pst = conn.prepareStatement("SELECT NAME FROM MOHAMED.REG where UNAME like ? and PASS = ? ");
-            String email = request.getParameter("email");
-            String pass = request.getParameter("password");
-            pst.setString(1, email);
-            pst.setString(2, pass);
-            ResultSet rs = pst.executeQuery();
-
-            while (rs.next() == true) {
-                System.out.println(rs.getString(1));
-
-                if (rs.getString(1) != null) {
-                    response.sendRedirect("index.html");
-                    System.out.println("Done");
-//                    out.println("Login Succefuly");
-                }
-            }
-
-        } catch (SQLException ex) {
-//            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }%>
-        
-        <!-- ***********************************  -->
-        
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>

@@ -33,7 +33,7 @@
             {
                 System.out.println("Client");
                 isAdmin = new Cookie("isAdmin", "false");
-                redirectedUrl = "http://www.isClientcom";
+                redirectedUrl = "/test/main.jsp";
             }
             registrationCookie = new Cookie("login", "true");
             response.addCookie(registrationCookie);
