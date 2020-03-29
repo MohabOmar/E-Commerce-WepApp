@@ -20,11 +20,17 @@ public class Users
     private String interests;
     private boolean isAdmin;
     private Vector<Users> users;
+    private String uNameOrEmail;
     
     public Users()
     {
-         users = new Vector();
+        users = new Vector();
     }
+    
+    public Users(String uNameOrEmail)
+    {
+        this.uNameOrEmail = uNameOrEmail;
+    }    
     
     public Users(Vector<Users> users) 
     {
@@ -201,4 +207,14 @@ public class Users
     {
         this.users = users;
     }
+    
+    public String getUNameOrEmail ()
+    {
+        return uNameOrEmail;
+    }
+    
+    public void setUNameOrEmail (String uNameOrEmail)
+    {
+        this.uNameOrEmail = uNameOrEmail;
+    }    
 }

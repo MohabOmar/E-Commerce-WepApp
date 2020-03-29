@@ -101,7 +101,62 @@ public class Database {
             stop();
             return operation;
         }
-    }    
+    }
+    
+    public boolean checkLogin (Users user)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "SELECT checklogin (?,?)";
+            
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, user.getUNameOrEmail());
+            preparedStatment.setString(2, user.getPassword());
+            result = preparedStatment.executeQuery();
+            
+            while (result.next())
+            {
+                operation = result.getBoolean(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }
+    
+    public boolean checkIsAdmin (Users user)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "SELECT checkisadmin (?)";
+            
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, user.getUNameOrEmail());
+            result = preparedStatment.executeQuery();
+            
+            while (result.next())
+            {
+                operation = result.getBoolean(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }        
     
     private void stop()
     {

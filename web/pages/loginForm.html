@@ -14,14 +14,14 @@
                         </div>
 
                         <div class="modal-body">
-                            <form method="GET" id="Login-Form" role="form" action="main.jsp">
+                            <form method="POST" id="Login-Form" role="form" action="pages/loginVal.jsp">
 
                                 <div class="form-group">
                                     <div class="input-group">
                                         <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span>
                                         </div>
-                                        <input name="email" id="email" type="email" class="form-control input-lg"
-                                               placeholder="Enter Email" required data-parsley-type="email">
+                                        <input name="userNameOrEmail" id="email" type="text" required class="form-control input-lg"
+                                               placeholder="Enter User Name Or Email">
                                     </div>
                                 </div>
 
