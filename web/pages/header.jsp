@@ -1,5 +1,4 @@
         <header>
-
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 col-12">
@@ -18,9 +17,12 @@
                     <div class="col-md-4 col-12 text-right">
                         <%!int x = 0;%>
                         <p class="my-md-4 header-links">
+<%if(request.getCookies() != null && request.getCookies().length > 1){if (request.getCookies()[1].getValue().equals("true")){%>
+                            <a href="logout?logout=true" id="signOut">Sign Out</a>
+                            <%}}if(request.getCookies() == null || request.getCookies()[1].getValue().equals("false")){%>
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#login-signup-modal">Login / </a>
-                            <a href="javascript:void(0)" data-toggle="modal" data-target="#signUp-admin-modal">Create an Account</a>
-                            <a href="#" id="#">Sign Out</a>
+                            <a href="javascript:void(0)" data-toggle="modal" data-target="#signUp-admin-modal">Create an Account</a>                            
+                            <%}%>
                         </p>
                     </div>
                 </div>
@@ -28,7 +30,7 @@
 
                 
             <%@include file="loginForm.html" %>
-            <%@include file="SignupClient.jsp" %>
+            <%@include file="Signup.jsp" %>
 
 
             <div class="container-fluid p-0">

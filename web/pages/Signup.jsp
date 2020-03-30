@@ -15,7 +15,7 @@
 
                         <div class="modal-body form-style">
                             <h2>Create Your Shopping Account</h2>
-                            <form id="SignUp-Form" action="pages/registrationVal.jsp" method="POST">
+                            <form id="SignUp-Form" action="signUpCheck" method="POST">
                                 <label>First Name</label>
                                 <input type="text" placeholder="Please Enter your First Name" required name="aFName"/>
                                 <label>Last Name</label>
