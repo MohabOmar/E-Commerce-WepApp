@@ -40,7 +40,7 @@ public class loginCheck extends HttpServlet
                 {
                     System.out.println("Admin");
                     isAdmin = new Cookie("isAdmin", "true");
-                    redirectedUrl = "http://www.isAdminHiiiiiiiiiiii";
+                    redirectedUrl = "/test/admin/main.jsp";
                 }
                 else
                 {
@@ -49,6 +49,7 @@ public class loginCheck extends HttpServlet
                     redirectedUrl = "/test/main.jsp";
                 }
                 registrationCookie = new Cookie("login", "true");
+                //registrationCookie = new Cookie("numberOfuser", );
                 resp.addCookie(registrationCookie);
                 resp.addCookie(isAdmin);
                 resp.sendRedirect(redirectedUrl);

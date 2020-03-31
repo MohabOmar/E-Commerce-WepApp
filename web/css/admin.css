@@ -1,0 +1,138 @@
+.main_body
+{
+    height: 100vh;
+    background-color: rgba(209, 209, 209, 0.452);
+}
+/*Left Vertical Bar Start*/
+.vertical_bar
+{
+    height: 100vh;
+    background-color: white;
+}
+.vertical_bar img
+{
+    display: block;
+    margin: auto;
+    margin-top: 50px;
+    margin-bottom: 70px;
+    height: 50px;
+    width: 50px;
+}
+
+.vertical_bar .tabs
+{
+    margin-top: 50%;
+    margin-bottom: 50%;
+    height: auto;
+    text-align: center;
+    display: block;
+}
+
+.vertical_bar .tabs a
+{
+    display: block;
+    font: 35px arial;
+    margin-top: 15px;
+    line-height: 50px;
+    width: inherit;
+    color: black;
+}
+
+.vertical_bar .tabs a:hover
+{
+    color: rgb(27, 27, 201);
+    cursor: pointer;
+}
+
+.vertical_bar .bottom
+{
+    display: block;
+    height: 45px;
+    width: 45px;
+    margin: auto;
+    border-radius: 50%;
+    margin-top: 100%;
+    text-align: center; 
+    font: 35px arial;
+    color: black;
+    line-height: 50px;
+}
+.vertical_bar .bottom:hover
+{
+    color: rgb(27, 27, 201);
+    cursor: pointer;
+}
+/*Left Vertical Bar End*/
+
+/* Start of the internal Body*/
+.internal_Body
+{
+    height: 100vh;
+}
+
+.internal_Body .top_Bar
+{
+    height: 110px;
+}
+
+.internal_Body .top_Bar .menu_Button
+{
+    height: 110px;
+    line-height: 110px;
+    text-align: center;
+    font-size: 35px;
+    margin: auto;
+}
+
+.internal_Body .top_Bar .menu_Button a
+{
+    color: black;
+}
+
+.internal_Body .top_Bar .menu_Button a:hover
+{
+    color: rgb(27, 27, 201);
+    cursor: pointer;
+}
+
+.internal_Body .top_Bar .top_Menu
+{
+    height: 110px;
+    background-color: white;
+}
+
+.internal_Body .top_Bar .top_Menu .center
+{
+    height: 110px;
+    width: 80%;
+    margin: auto;
+}
+
+.internal_Body .top_Bar .top_Menu .center .cards
+{
+    height: 110px;
+    width: 100px;
+    line-height: 110px;
+    text-align: center;
+    display: inline-block;
+    margin-left: 20px;
+    margin-right: 20px;
+    background-color: yellow;
+}
+/*Start OF The Body*/
+.internal_Body .bottom_Body
+{
+    height: auto;
+}
+
+.internal_Body .bottom_Body .numbers
+{
+    height: 150px;
+    width: 250px;
+    background-color: red;
+    font: 20px bold black;
+    text-align: center;
+    line-height: 150px;
+}
+/*End OF The Body*/
+/*End of the internal Body*/

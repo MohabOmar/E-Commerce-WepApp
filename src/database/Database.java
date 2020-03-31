@@ -159,6 +159,79 @@ public class Database {
         }
     }        
     
+    public int numberOfCategories ()
+    {
+        int number = 17;
+        try
+        {
+            connect();
+            sqlCommand = "SELECT COUNT(*) FROM category";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while(result.next())
+            {
+                number = result.getInt(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return number;
+        }
+    }
+    
+    public int numberOfUsers ()
+    {
+        int number = 17;
+        try
+        {
+            connect();
+            sqlCommand = "SELECT COUNT(*) FROM users";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while(result.next())
+            {
+                number = result.getInt(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return number;
+        }
+    }    
+    
+    public int numberOfSuccessCart ()
+    {
+        int number = 17;
+        try
+        {
+            connect();
+            sqlCommand = "SELECT COUNT(*) FROM usercart WHERE issubmitted = true";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while(result.next())
+            {
+                number = result.getInt(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return number;
+        }
+    }    
+        
+    
     private void stop()
     {
         try 
