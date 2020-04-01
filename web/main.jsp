@@ -1,22 +1,9 @@
-<%-- 
-    Document   : main
-    Created on : Mar 26, 2020, 2:59:10 PM
-    Author     : Mohamed Ibrahim
---%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
-<%
-    if (request.getCookies() == null || request.getCookies().length < 3)
-    {
-        response.sendRedirect("getCookies");
-    }
-%>
 
 <html>
     <head>

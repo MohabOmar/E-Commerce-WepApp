@@ -24,7 +24,7 @@ public class logout extends HttpServlet
     {
         if (req.getParameter("logout").toString().equals("true"))
         {
-            if (req.getCookies()[1].getValue().equals("true"))
+            if (req.getCookies()[2].getValue().equals("true"))
             {
                 resp.addCookie(new Cookie("login", "false"));
                 resp.addCookie(new Cookie("isAdmin", "null"));

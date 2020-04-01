@@ -17,9 +17,10 @@
                     <div class="col-md-4 col-12 text-right">
                         <%!int x = 0;%>
                         <p class="my-md-4 header-links">
-<%if(request.getCookies() != null && request.getCookies().length > 1){if (request.getCookies()[1].getValue().equals("true")){%>
+                            <%if(request.getCookies() == null || request.getCookies().length <= 1){response.sendRedirect("getCookies");}
+                            else if (request.getCookies()[2].getValue().equals("true")){%>
                             <a href="logout?logout=true" id="signOut">Sign Out</a>
-                            <%}}if(request.getCookies() == null || request.getCookies().length == 1|| request.getCookies()[1].getValue().equals("false")){%>
+                            <%}else if(request.getCookies()[2].getValue().equals("false")){%>
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#login-signup-modal">Login / </a>
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#signUp-admin-modal">Create an Account</a>                            
                             <%}%>
