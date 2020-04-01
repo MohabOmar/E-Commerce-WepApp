@@ -78,3 +78,25 @@
 {
 	background: #109177;
 }
+
+
+/* cart */
+
+.Cart{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.inner img{
+    transition: all 1.5s ease;
+}
+
+.inner:hover img{
+    transform: scale(1.5);
+}
+
+
+.nav-tabs{
+    margin-top: 1%;
+    margin-bottom: 1%;
+}

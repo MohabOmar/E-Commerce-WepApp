@@ -21,6 +21,8 @@
         <%@include file="./pages/header.jsp" %>
 
         <%@include file="./pages/main.html" %> 
+        
+        <%@include file="./pages/Mobile.jsp" %> 
 
         <%@include file="./pages/footer.html" %>
 
