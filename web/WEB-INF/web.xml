@@ -12,6 +12,10 @@
         <servlet-name>logout</servlet-name>
         <servlet-class>CheckServlets.logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>getCookies</servlet-name>
+        <servlet-class>CheckServlets.getCookies</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginCheck</servlet-name>
         <url-pattern>/loginCheck</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>getCookies</servlet-name>
+        <url-pattern>/getCookies</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
