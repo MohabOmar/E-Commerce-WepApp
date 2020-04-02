@@ -28,7 +28,7 @@ public class logout extends HttpServlet
             {
                 resp.addCookie(new Cookie("login", "false"));
                 resp.addCookie(new Cookie("isAdmin", "null"));
-                resp.sendRedirect("/test/main.jsp");
+                resp.sendRedirect("/MAM/main.jsp");
             }
             else
             {

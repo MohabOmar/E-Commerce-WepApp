@@ -29,7 +29,7 @@ public class getCookies extends HttpServlet
         registrationCookie = new Cookie("login", "false");
         resp.addCookie(registrationCookie);
         resp.addCookie(isAdmin);  
-        resp.sendRedirect("/test/main.jsp");
+        resp.sendRedirect("/MAM/main.jsp");
     }
     
 }

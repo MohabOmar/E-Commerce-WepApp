@@ -40,13 +40,13 @@ public class loginCheck extends HttpServlet
                 {
                     System.out.println("Admin");
                     isAdmin = new Cookie("isAdmin", "true");
-                    redirectedUrl = "/test/admin/adminHome.jsp";
+                    redirectedUrl = "/MAM/admin/adminHome.jsp";
                 }
                 else
                 {
                     System.out.println("Client");
                     isAdmin = new Cookie("isAdmin", "false");
-                    redirectedUrl = "/test/main.jsp";
+                    redirectedUrl = "/MAM/main.jsp";
                 }
                 registrationCookie = new Cookie("login", "true");
                 //registrationCookie = new Cookie("numberOfuser", );
@@ -58,7 +58,7 @@ public class loginCheck extends HttpServlet
             {
                 registrationCookie = new Cookie("login", "false");
                 resp.addCookie(registrationCookie);
-                resp.sendRedirect("/test/main.jsp");            
+                resp.sendRedirect("/MAM/main.jsp");            
             }
         }
         else

@@ -1,4 +1,27 @@
-        <header>
+<%!  String login = null;%>
+
+<%
+    if (request.getCookies() != null && request.getCookies().length >= 3)
+        {
+            for (int i = 0; i < request.getCookies().length; i++)
+            {
+                if (request.getCookies()[i].getName().equals("login"))
+                {
+                    login = request.getCookies()[i].getValue();
+                }
+            }
+            if (login == null)
+            {
+                response.sendRedirect("getCookies");
+            }
+        }
+    else
+    {
+        response.sendRedirect("getCookies");
+    }%>
+          
+
+<header>
             <div class="container">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 col-12">
@@ -15,12 +38,14 @@
                         <h2 class="my-md-3 site-title text-white">MAM</h2>
                     </div>
                     <div class="col-md-4 col-12 text-right">
-                        <%!int x = 0;%>
+
                         <p class="my-md-4 header-links">
-                            <%if(request.getCookies() == null || request.getCookies().length <= 1){response.sendRedirect("getCookies");}
-                            else if (request.getCookies()[2].getValue().equals("true")){%>
+                            <%
+                            if (login != null && login.equals("true")){%>
                             <a href="logout?logout=true" id="signOut">Sign Out</a>
-                            <%}else if(request.getCookies()[2].getValue().equals("false")){%>
+                            <%}
+                            else if (login != null)
+                            {%>
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#login-signup-modal">Login / </a>
                             <a href="javascript:void(0)" data-toggle="modal" data-target="#signUp-admin-modal">Create an Account</a>                            
                             <%}%>

@@ -34,7 +34,7 @@ public class signUpCheck extends HttpServlet
 
             if (db.addAdmin(user))
             {
-                resp.sendRedirect("/test/asdadasd.jsp");
+                resp.sendRedirect("/MAM/asdadasd.jsp");
             }
             else
             {
@@ -49,16 +49,16 @@ public class signUpCheck extends HttpServlet
                     , req.getParameter("aEAName"), req.getParameter("aAName"), req.getParameter("aANTName"));
             if (db.addClient(user))
             {
-                resp.sendRedirect("/test/main.jsp");
+                resp.sendRedirect("/MAM/main.jsp");
             }
             else
             {
-                resp.sendRedirect("/asdasd");
+                req.getRequestDispatcher("adminRegistration.jsp?invalid=true").forward(req, resp);
             }
         }
         else
         {
-            resp.sendRedirect("/test/main.jsp?invalid=true");
+            resp.sendRedirect("/MAM/main.jsp?invalid=true");
         }        
     }
 }

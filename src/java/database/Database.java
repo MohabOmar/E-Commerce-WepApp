@@ -10,7 +10,7 @@ public class Database {
 
     private final String url = "jdbc:postgresql://localhost:5432/oshop";
     private final String user = "postgres";
-    private final String password = "postgres";
+    private final String password = "amrwsk13";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
