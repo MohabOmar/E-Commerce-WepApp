@@ -35,7 +35,7 @@
                                 <label>Interests</label>
                                 <input type="text" placeholder="Please Enter your Interests" required name="aANTName"/>
                                 <input type="hidden" value="false" name="isAdmin"/>
-                                <input type="submit" value="Sign UP" name="submit"/>
+                                <input type="submit" value="Signup" name="submit"/>
                                 <label>
                                         <%
                                         if (request.getParameter("invalid") != null && request.getParameter("invalid").equals("true"))

@@ -14,20 +14,17 @@
     <div class="row">
         <%
             Database database = new Database();
-            Vector<Product> listOfProducts = database.retrieveSpecificProducts();
+            Vector<Product> listOfProducts = database;
             for (Product p : listOfProducts) {
         %>
         <div class="col-md-5">
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="<%=p.getImg()%>" class="d-block w-100" alt="...">
+                        <img src=".<%=p.getImg()%>" class="d-block w-100" alt="...">
                     </div>
                     <div class="carousel-item">
-                        <img src="<%=p.getImg()%>" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src="<%=p.getImg()%>" class="d-block w-100" alt="...">
+                        <img src=".<%=p.getImg()%>" class="d-block w-100" alt="...">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -52,7 +49,7 @@
             %>
             <p><b>Availability:</b> In Stock</p>
             <%}%>
-            <p><b>Brand:</b> xiaomi</p>
+            <p><b>Brand:</b> <%=p.getProductName()%> </p>
             <p><b>Description:</b> <%=p.getDesc()%></p>
             <label>Quantity</label>
             <input type="text" value="1">
