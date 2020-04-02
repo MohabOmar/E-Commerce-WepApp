@@ -1,11 +1,10 @@
 package database;
 
-import Database_Tables.Users;
+import Database_Tables.*;
 import java.sql.*;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import products.Product;
 
 public class Database {
 
@@ -202,6 +201,32 @@ public class Database {
             return null;
         }
     }
+    
+        public Vector<Product> search(String keyword){
+        try {
+            connect();
+            Vector<Product> products = new Vector();
+            sqlCommand = "select * from products where productname LIKE'" + keyword  +"%'";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                products.add(new Product(result.getInt(1),
+                        result.getInt(2),
+                        result.getString(3),
+                        result.getFloat(4),
+                        result.getInt(5),
+                        result.getString(6),
+                        result.getString(7),
+                        result.getBoolean(8)));
+            }
+            return products;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    } 
+
 
     private void stop() {
         try {

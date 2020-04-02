@@ -26,7 +26,7 @@
     </li>
 </ul>
 <div class="tab-content" id="myTabContent">
-    
+
     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
         <div class="container Cart">
             <div class="row justify-content-center">
@@ -34,8 +34,7 @@
                     Database database = new Database();
                     Vector<Product> listOfProducts = database.retrieveAllProducts();
                     for (Product p : listOfProducts) {
-                        if (p.getCategoryId() == 1)
-                        {
+                        if (p.getCategoryId() == 1) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -46,6 +45,7 @@
                             <h5 class="card-title"><%=p.getProductName()%></h5>
                             <p class="card-text"><%=p.getDesc()%></p>
                             <p class="card-text"><%=p.getPrice()%> EGP</p>
+                            <a href="#" class="btn btn-primary">View</a>
                             <a href="#" class="btn btn-primary">Add To Cart</a>
                         </div>
                     </div>
@@ -55,16 +55,15 @@
             </div>    
         </div>
     </div>
-            
-            
+
+
     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
                     for (Product p : listOfProducts) {
-                        
-                  if(p.getCategoryId() == 2)
-                  {
+
+                        if (p.getCategoryId() == 2) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -75,6 +74,7 @@
                             <h5 class="card-title"><%=p.getProductName()%></h5>
                             <p class="card-text"><%=p.getDesc()%></p>
                             <p class="card-text"><%=p.getPrice()%> EGP</p>
+                            <a href="#" class="btn btn-primary">View</a>
                             <a href="#" class="btn btn-primary">Add To Cart</a>
                         </div>
                     </div>
@@ -84,8 +84,8 @@
             </div>    
         </div>
     </div>
-            
-            
+
+
 </div>
 
 
