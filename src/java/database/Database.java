@@ -10,7 +10,7 @@ public class Database {
 
     private final String url = "jdbc:postgresql://localhost:5432/oshop";
     private final String user = "postgres";
-    private final String password = "amrwsk13";
+    private final String password = "";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -127,7 +127,7 @@ public class Database {
     }
 
     public int numberOfCategories() {
-        int number = 17;
+        int number = 0;
         try {
             connect();
             sqlCommand = "SELECT COUNT(*) FROM category";
@@ -144,7 +144,7 @@ public class Database {
     }
 
     public int numberOfUsers() {
-        int number = 17;
+        int number = 0;
         try {
             connect();
             sqlCommand = "SELECT COUNT(*) FROM users";
@@ -161,7 +161,7 @@ public class Database {
     }
 
     public int numberOfSuccessCart() {
-        int number = 17;
+        int number = 0;
         try {
             connect();
             sqlCommand = "SELECT COUNT(*) FROM usercart WHERE issubmitted = true";
@@ -177,6 +177,23 @@ public class Database {
         }
     }
 
+    public int numberOfProducts() {
+        int number = 0;
+        try {
+            connect();
+            sqlCommand = "SELECT COUNT(*) FROM products";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                number = result.getInt(1);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            return number;
+        }
+    }    
+    
     public Vector<Product> retrieveAllProducts() {
         try {
             connect();
@@ -226,7 +243,54 @@ public class Database {
             return null;
         }
     } 
+        
+    public boolean addCategory (String category)
+    {
+        try {
+            connect();
+            sqlCommand = "SELECT addCategory (?)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, category);
+            result = preparedStatment.executeQuery();
+            
+            while (result.next()) 
+            {
+                operation = result.getBoolean(1);
+            }
+        }
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        finally 
+        {
+            return operation;
+        }        
+    }
 
+    public boolean removeCategory (String category)
+    {
+        try {
+            connect();
+            sqlCommand = "SELECT removeCategory (?)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, category);
+            result = preparedStatment.executeQuery();
+            
+            while (result.next()) 
+            {
+                operation = result.getBoolean(1);
+            }
+        }
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        finally 
+        {
+            return operation;
+        }        
+    }    
 
     private void stop() {
         try {

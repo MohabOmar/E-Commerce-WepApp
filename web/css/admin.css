@@ -73,6 +73,7 @@
 .internal_Body .top_Bar
 {
     height: 110px;
+    background-color: white;
 }
 
 .internal_Body .top_Bar .menu_Button
@@ -97,14 +98,13 @@
 
 .internal_Body .top_Bar .top_Menu
 {
-    height: 110px;
-    background-color: white;
+    height: 110px;    
 }
 
 .internal_Body .top_Bar .top_Menu .center
 {
     height: 110px;
-    width: 80%;
+    width: 52%;
     margin: auto;
 }
 
@@ -117,7 +117,19 @@
     display: inline-block;
     margin-left: 20px;
     margin-right: 20px;
-    background-color: yellow;
+}
+
+.internal_Body .top_Bar .top_Menu .center .cards a
+{
+    color: black;
+    font: 25px;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.internal_Body .top_Bar .top_Menu .center .cards a:hover
+{
+    color: rgb(27, 27, 201);
 }
 /*Start OF The Body*/
 .internal_Body .bottom_Body
@@ -129,10 +141,111 @@
 {
     height: 150px;
     width: 250px;
-    background-color: red;
     font: 20px bold black;
     text-align: center;
     line-height: 150px;
 }
 /*End OF The Body*/
 /*End of the internal Body*/
+
+.info{
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: monospace;
+    display: block;
+}
+.info:hover
+{
+    text-decoration: none;
+    color: white;
+
+}
+
+.card_marign
+{
+    margin-left:  4.1%;
+    margin-right:  4.1%;
+    margin-top: 1%;
+    width: 25%;
+}
+
+.align_text
+{
+    display: block;
+    line-height: 90px;
+    padding-left: 30px
+}
+
+/*
+Starting the Form
+*/
+
+.form_Add
+{
+    width: 40%;
+    height: 500px;
+    border: 1px solid;
+    border-color: rgb(27, 27, 201);
+    border-radius: 25px;
+}
+* {box-sizing: border-box;}
+
+/* Style the input container */
+.input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+/* Style the form icons */
+.icon {
+  padding: 10px;
+  background: rgb(27, 27, 201);
+  color: white;
+  min-width: 50px;
+  text-align: center;
+}
+
+/* Style the input fields */
+.input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+}
+
+/* Set a style for the submit button */
+.btnCat {
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  background-color: rgb(27, 27, 201);
+  margin-top: 10%;
+}
+
+.btn:hover {
+  opacity: 1;
+}
+
+.caImg
+{
+    width: 60%;
+    height: 45%;
+    display: block;
+    margin: auto;
+    margin-bottom: 10%;
+    margin-top: 10%;
+}
+
+.catIcon
+{
+    font-size: 50px;
+    color: blue;
+}

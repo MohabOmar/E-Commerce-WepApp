@@ -1,5 +1,49 @@
 <%@page import="database.Database"%>
+<%!
+    boolean isAdmin = false;
+    boolean isLogin = false;
+    boolean authorization = false;    
+    
+    private boolean checkCookie(Cookie[] cookies)
+    {
+        if (cookies != null)
+        {
+            for (int i = 0; i < cookies.length; i++)
+            {
+                if (cookies[i].getName().equals("isAdmin"))
+                {
+                    if (cookies[i].getValue().equals("true"))
+                    {
+                       isAdmin = true; 
+                    }
+                }
+                else if (cookies[i].getName().equals("login"))
+                {
+                    if (cookies[i].getValue().equals("true"))
+                    {
+                       isLogin = true; 
+                    }
+                }
+            }
+            if (isAdmin == true && isLogin == true)
+            {
+                authorization = true;
+            }
+        }
+        return authorization;
+    }
+%>
+
+<%
+    if (checkCookie(request.getCookies()) == false)
+    {
+        System.out.println(checkCookie(request.getCookies()));
+        response.sendRedirect("noadmin");
+    }
+%>
 <%!Database d = new Database();%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,7 +80,7 @@
                         <div class="col-sm-10 top_Menu">
                             <div class="center">
                                 <div class="cards">
-                                    <a href="#">Categories</a>
+                                    <a href="categories.jsp">Categories</a>
                                 </div>
                                 <div class="cards">
                                     <a href="#">Products</a>
@@ -57,24 +101,44 @@
                         <!--End the menu Button-->
                     </div>
                     <!--End Of The Top Menu-->
-                    <!--Start The Body Method-->
+                        <!--////////////////////////////////////////////////////////////////////////-->                    
+                        <div class="row" style="height: 10%;">
+                            <h3 class="align_text">Admin Portal</h3>
+                        </div>
+                        <!--////////////////////////////////////////////////////////////////////////-->                    
                     <div class="row bottom_Body">
                         <!--////////////////////////////////////////////////////////////////////////-->
-                        <div class="numbers">
-                            <h4>Categories</h4>
-                            <h4>Number Of it is : <%=d.numberOfCategories()%></h4>
-                            <a href="#" >See More</a>
-                        </div>
-                        <div class="numbers">
-                            <h4>Users</h4>
-                            <h4>Number Of it is : <%=d.numberOfUsers()%></h4>
-                            <a href="#" >See More</a>
-                        </div>    
-                        <div class="numbers">
-                            <h4>Users</h4>
-                            <h4>Number Of it is : <%=d.numberOfSuccessCart()%></h4>
-                            <a href="#" >See More</a>
-                        </div>                                              
+
+                        <!--////////////////////////////////////////////////////////////////////////-->
+                        <div class="card card_marign">
+                                 <div class="card-body">
+                                    <h4 class="card-title">Categories</h4>
+                                    <p class="card-text">The Number Of Categories is : <%=d.numberOfCategories()%></p>
+                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>
+                                </div>
+                            </div>
+                            <div class="card card_marign">
+                                 <div class="card-body">
+                                    <h4 class="card-title">Users</h4>
+                                    <p class="card-text">The Number Of Users is : <%=d.numberOfUsers()%></p>
+                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>
+                                    
+                                </div>
+                            </div>         
+                            <div class="card card_marign">
+                                 <div class="card-body">
+                                    <h4 class="card-title">Buy Operations</h4>
+                                    <p class="card-text">The Number Of Buy Operations is : <%=d.numberOfSuccessCart()%></p>
+                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>                                    
+                                </div>
+                            </div>       
+                            <div class="card card_marign">
+                                 <div class="card-body">
+                                    <h4 class="card-title">Products</h4>
+                                    <p class="card-text">The Number Of Products is : <%=d.numberOfProducts()%></p>
+                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>
+                                </div>  
+                            </div>                                 
                         <!--////////////////////////////////////////////////////////////////////////-->
                     </div>
                 </div>
