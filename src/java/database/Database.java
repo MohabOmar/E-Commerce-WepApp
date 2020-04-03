@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://localhost:5432/oshop";
-    private final String user = "postgres";
-    private final String password = "amrwsk13";
+    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
+    private final String user = "ehfhempc";
+    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -192,8 +192,8 @@ public class Database {
         } finally {
             return number;
         }
-    }    
-    
+    }
+
     public Vector<Product> retrieveAllProducts() {
         try {
             connect();
@@ -218,12 +218,12 @@ public class Database {
             return null;
         }
     }
-    
-        public Vector<Product> search(String keyword){
+
+    public Vector<Product> search(String keyword) {
         try {
             connect();
             Vector<Product> products = new Vector();
-            sqlCommand = "select * from products where productname LIKE'" + keyword  +"%'";
+            sqlCommand = "select * from products where productname LIKE'%" + keyword + "%'";
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
             while (result.next()) {
@@ -242,79 +242,88 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    } 
-        
-    public Category showAllCategories ()
-    {
+    }
+
+    public Category showAllCategories() {
         Category c = new Category();
         try {
             connect();
             sqlCommand = "SELECT * FROM category";
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
-            
-            while (result.next()) 
-            {
+
+            while (result.next()) {
                 c.getAllCategories().add(new Category(result.getInt(1), result.getString(2)));
             }
-        }
-        catch (SQLException ex) 
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        } 
-        finally 
-        {
+        } finally {
             return c;
-        }        
-    }        
-        
-    public boolean addCategory (String category)
-    {
+        }
+    }
+
+    public boolean addCategory(String category) {
         try {
             connect();
             sqlCommand = "SELECT addCategory (?)";
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setString(1, category);
             result = preparedStatment.executeQuery();
-            
-            while (result.next()) 
-            {
+
+            while (result.next()) {
                 operation = result.getBoolean(1);
             }
-        }
-        catch (SQLException ex) 
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        } 
-        finally 
-        {
+        } finally {
             return operation;
-        }        
+        }
     }
 
-    public boolean removeCategory (String category)
-    {
+    public boolean removeCategory(String category) {
         try {
             connect();
             sqlCommand = "SELECT removeCategory (?)";
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setString(1, category);
             result = preparedStatment.executeQuery();
-            
-            while (result.next()) 
-            {
+
+            while (result.next()) {
                 operation = result.getBoolean(1);
             }
-        }
-        catch (SQLException ex) 
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        } 
-        finally 
-        {
+        } finally {
             return operation;
-        }        
-    }    
+        }
+    }
+    
+    
+        public Vector<Product> retrieveSpecificProducts() {
+        try {
+            connect();
+            Vector<Product> products = new Vector();
+            sqlCommand = "select * from products where productkey=2";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                products.add(new Product(result.getInt(1),
+                        result.getInt(2),
+                        result.getString(3),
+                        result.getFloat(4),
+                        result.getInt(5),
+                        result.getString(6),
+                        result.getString(7),
+                        result.getBoolean(8)));
+            }
+            return products;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+
 
     private void stop() {
         try {
