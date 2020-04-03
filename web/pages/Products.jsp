@@ -34,9 +34,9 @@
                 <%
                     Database database = new Database();
                     Vector<Product> listOfProducts = database.retrieveAllProducts();
-                    Category mob = database.getCategoryByName(new Category("mobiles"));
+                    Category mob = database.getCategoryByName(new Category("mobiles"));                    
                     for (Product p : listOfProducts) {
-                        if (p.getCategoryId() == mob.getCategoryid()) {
+                        if (p.getCategoryId() ==  mob.getCategoryid()) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -47,7 +47,10 @@
                             <h5 class="card-title"><%=p.getProductName()%></h5>
                             <p class="card-text"><%=p.getDesc()%></p>
                             <p class="card-text"><%=p.getPrice()%> EGP</p>
-                            <a href="#" class="btn btn-primary">View</a>
+                            <form action="pages/viewProduct.jsp" method="GET">
+                                <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
+                                <button type='submit' class="btn btn-primary">View</button>
+                            </form>
                             <a href="#" class="btn btn-primary">Add To Cart</a>
                         </div>
                     </div>
@@ -63,9 +66,10 @@
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
-                    Category lap = database.getCategoryByName(new Category("laptops"));                    
+                    Category lap = database.getCategoryByName(new Category("laptops"));                                        
                     for (Product p : listOfProducts) {
-                        if (p.getCategoryId() == lap.getCategoryid()) {
+
+                        if (p.getCategoryId() ==  lap.getCategoryid()) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -76,7 +80,10 @@
                             <h5 class="card-title"><%=p.getProductName()%></h5>
                             <p class="card-text"><%=p.getDesc()%></p>
                             <p class="card-text"><%=p.getPrice()%> EGP</p>
-                            <a href="#" class="btn btn-primary">View</a>
+                            <form action="pages/viewProduct.jsp" method="GET">
+                                <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
+                                <button type='submit' class="btn btn-primary">View</button>
+                            </form>
                             <a href="#" class="btn btn-primary">Add To Cart</a>
                         </div>
                     </div>
