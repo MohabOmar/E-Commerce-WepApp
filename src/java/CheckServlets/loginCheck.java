@@ -25,6 +25,7 @@ public class loginCheck extends HttpServlet
     Users user = new Users();
     Cookie registrationCookie;
     Cookie isAdmin;
+    Cookie uID;
     String redirectedUrl;
 
     @Override
@@ -49,16 +50,21 @@ public class loginCheck extends HttpServlet
                     redirectedUrl = "/MAM/main.jsp";
                 }
                 registrationCookie = new Cookie("login", "true");
-                //registrationCookie = new Cookie("numberOfuser", );
+                uID = new Cookie("userID", db.getUserID(user));
                 resp.addCookie(registrationCookie);
                 resp.addCookie(isAdmin);
+                resp.addCookie(uID);
                 resp.sendRedirect(redirectedUrl);
             }
             else
             {
+                isAdmin = new Cookie("isAdmin", "false");
                 registrationCookie = new Cookie("login", "false");
+                uID = new Cookie("userID", "0");
                 resp.addCookie(registrationCookie);
-                resp.sendRedirect("/MAM/main.jsp");            
+                resp.addCookie(isAdmin);  
+                resp.addCookie(uID);  
+                resp.sendRedirect("/MAM/main.jsp");       
             }
         }
         else

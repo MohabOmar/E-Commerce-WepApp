@@ -21,14 +21,17 @@ public class getCookies extends HttpServlet
 {
     Cookie registrationCookie;
     Cookie isAdmin;
+    Cookie uID;
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
     {
         isAdmin = new Cookie("isAdmin", "false");
         registrationCookie = new Cookie("login", "false");
+        uID = new Cookie("userID", "0");
         resp.addCookie(registrationCookie);
         resp.addCookie(isAdmin);  
+        resp.addCookie(uID);  
         resp.sendRedirect("/MAM/main.jsp");
     }
     

@@ -14,7 +14,7 @@
     <div class="row">
         <%
             Database database = new Database();
-            Vector<Product> listOfProducts = database;
+            Vector<Product> listOfProducts = database.retrieveAllProducts();
             for (Product p : listOfProducts) {
         %>
         <div class="col-md-5">

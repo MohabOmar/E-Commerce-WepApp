@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
-    private final String user = "ehfhempc";
-    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
+    private final String url = "jdbc:postgresql://localhost:5432/oshop";
+    private final String user = "postgres";
+    private final String password = "amrwsk13";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -82,6 +82,30 @@ public class Database {
         } finally {
             stop();
             return operation;
+        }
+    }
+    
+    public String getUserID (Users user)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "SELECT uid FROM users WHERE ? in (uname, email)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, user.getUNameOrEmail());
+            result = preparedStatment.executeQuery();
+            while (result.next())
+            {
+                user.setuId(result.getInt(1));
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return String.valueOf(user.getuId());
         }
     }
 
@@ -170,9 +194,13 @@ public class Database {
             while (result.next()) {
                 number = result.getInt(1);
             }
-        } catch (SQLException ex) {
+        } 
+        catch (SQLException ex) 
+        {
             ex.printStackTrace();
-        } finally {
+        } finally 
+        
+        {
             return number;
         }
     }
@@ -216,6 +244,30 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }
+    }
+    
+    public Category getCategoryByName (Category category)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "SELECT categoryid FROM category WHERE categoryname = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, category.getCategoryName());
+            result = preparedStatment.executeQuery();
+            while (result.next())
+            {
+                category.setCategoryid(result.getInt(1));
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return category;
         }
     }
 

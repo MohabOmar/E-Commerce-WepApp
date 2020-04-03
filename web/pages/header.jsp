@@ -1,25 +1,55 @@
-<%!  String login = null;%>
-
-<%
-    if (request.getCookies() != null && request.getCookies().length >= 3)
+<%!
+    boolean isAdmin = false;
+    boolean isLogin = false;
+    boolean isID = false;
+    boolean authorization = false;
+    String login = null;
+    Cookie[] c;
+    private boolean checkCookie(Cookie[] cookies)
+    {
+        c = cookies;
+        if (cookies != null)
         {
-            for (int i = 0; i < request.getCookies().length; i++)
+            for (int i = 0; i < cookies.length; i++)
             {
-                if (request.getCookies()[i].getName().equals("login"))
+                if (cookies[i].getName().equals("isAdmin"))
                 {
-                    login = request.getCookies()[i].getValue();
+                    isAdmin = true; 
+                }
+                else if (cookies[i].getName().equals("login"))
+                {
+                    isLogin = true;
+                }
+                else if (cookies[i].getName().equals("userID"))
+                {
+                    isID = true;
                 }
             }
-            if (login == null)
+            if (isAdmin == true && isLogin == true && isID == true)
             {
-                response.sendRedirect("getCookies");
+                authorization = true;
             }
         }
+        return authorization;
+    }
+%>
+
+<%
+    if (checkCookie(request.getCookies()) == false)
+    {
+        response.sendRedirect("/MAM/getCookies");
+    }
     else
     {
-        response.sendRedirect("getCookies");
-    }%>
-          
+        for (int i = 0; i < c.length; i++)
+        {
+            if (c[i].getName().equals("login"))
+            {
+                login = c[i].getValue();
+            }
+        }
+    }
+%>
 
 <header>
             <div class="container">

@@ -3,6 +3,7 @@
     Created on : 01-Apr-2020, 22:03:40
     Author     : MohabOmar
 --%>
+<%@page import="Database_Tables.Category"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="Database_Tables.Product"%>
 <%@page import="java.util.Vector"%>
@@ -33,8 +34,9 @@
                 <%
                     Database database = new Database();
                     Vector<Product> listOfProducts = database.retrieveAllProducts();
+                    Category mob = database.getCategoryByName(new Category("mobiles"));
                     for (Product p : listOfProducts) {
-                        if (p.getCategoryId() == 1) {
+                        if (p.getCategoryId() == mob.getCategoryid()) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -61,9 +63,9 @@
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
+                    Category lap = database.getCategoryByName(new Category("laptops"));                    
                     for (Product p : listOfProducts) {
-
-                        if (p.getCategoryId() == 2) {
+                        if (p.getCategoryId() == lap.getCategoryid()) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">

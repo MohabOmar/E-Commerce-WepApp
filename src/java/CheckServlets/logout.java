@@ -55,11 +55,18 @@ boolean isAdmin = false;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
     {
+        Cookie registrationCookie;
+        Cookie isAdmin;
+        Cookie uID;
         if (checkCookie(req.getCookies()))
         {
-                resp.addCookie(new Cookie("login", "false"));
-                resp.addCookie(new Cookie("isAdmin", "null"));
-                resp.sendRedirect("/MAM/main.jsp");
+                isAdmin = new Cookie("isAdmin", "false");
+                registrationCookie = new Cookie("login", "false");
+                uID = new Cookie("userID", "0");
+                resp.addCookie(registrationCookie);
+                resp.addCookie(isAdmin);  
+                resp.addCookie(uID);  
+                resp.sendRedirect("/MAM/main.jsp");       
         }
     }
     
