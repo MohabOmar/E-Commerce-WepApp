@@ -84,7 +84,7 @@ public class Database {
             return operation;
         }
     }
-    
+
     public String getUserID (Users user)
     {
         try
@@ -194,12 +194,12 @@ public class Database {
             while (result.next()) {
                 number = result.getInt(1);
             }
-        } 
-        catch (SQLException ex) 
+        }
+        catch (SQLException ex)
         {
             ex.printStackTrace();
-        } finally 
-        
+        } finally
+
         {
             return number;
         }
@@ -246,7 +246,7 @@ public class Database {
             return null;
         }
     }
-    
+
     public Category getCategoryByName (Category category)
     {
         try
@@ -349,37 +349,33 @@ public class Database {
             return operation;
         }
     }
-    
-    
-    public Vector<Product> retrieveSpecificProducts()
-    {
-        Vector<Product> products = new Vector();
+
+
+    public Product retrieveSpecificProducts(String pId) {
+        Product product = null;
         try {
             connect();
-            sqlCommand = "select * from products where productkey=2";
+            sqlCommand = "select * from products where productkey=" + pId + "";
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
             while (result.next()) {
-                products.add(new Product(result.getInt(1),
+                product = new Product(result.getInt(1),
                         result.getInt(2),
                         result.getString(3),
                         result.getFloat(4),
                         result.getInt(5),
                         result.getString(6),
                         result.getString(7),
-                        result.getBoolean(8)));
+                        result.getBoolean(8));
             }
-        }
-        catch (SQLException ex)
-        {
-            ex.printStackTrace();
-        }
-        finally
-        {
-            return products;
+            return product;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
     }
-    
+
     public Product getProductById (Product product)
     {
         try
@@ -389,7 +385,7 @@ public class Database {
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setInt(1, product.getProductKey());
             result = preparedStatment.executeQuery();
-            
+
             while (result.next())
             {
                 product.setProductName(result.getString(3));
