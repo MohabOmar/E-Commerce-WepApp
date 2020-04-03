@@ -351,10 +351,11 @@ public class Database {
     }
     
     
-        public Vector<Product> retrieveSpecificProducts() {
+    public Vector<Product> retrieveSpecificProducts()
+    {
+        Vector<Product> products = new Vector();
         try {
             connect();
-            Vector<Product> products = new Vector();
             sqlCommand = "select * from products where productkey=2";
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
@@ -368,14 +369,46 @@ public class Database {
                         result.getString(7),
                         result.getBoolean(8)));
             }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
             return products;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }
     }
-
+    
+    public Product getProductById (Product product)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "SELECT * FROM products WHERE productkey = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, product.getProductKey());
+            result = preparedStatment.executeQuery();
+            
+            while (result.next())
+            {
+                product.setProductName(result.getString(3));
+                product.setPrice(result.getFloat(4));
+                product.setQuantity(result.getInt(5));
+                product.setDesc(result.getString(6));
+                product.setImg(result.getString(7));
+                product.setIsAvail(result.getBoolean(8));
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return product;
+        }
+    }
 
     private void stop() {
         try {

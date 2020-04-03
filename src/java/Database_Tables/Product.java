@@ -19,6 +19,16 @@ public class Product {
     private String desc;
     private String img;
     private boolean isAvail;
+    
+    public Product()
+    {
+        
+    }
+    
+    public Product(int productKey)
+    {
+        this.productKey = productKey;
+    }
 
     public Product(int productKey, int categoryId, String productName, float price, int quantity, String desc, String img, boolean isAvail) {
         this.productKey = productKey;
