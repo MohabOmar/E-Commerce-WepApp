@@ -19,25 +19,47 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class logout extends HttpServlet 
 {
+boolean isAdmin = false;
+    boolean isLogin = false;
+    boolean authorization = false;    
+    
+    private boolean checkCookie(Cookie[] cookies)
+    {
+        if (cookies != null)
+        {
+            for (int i = 0; i < cookies.length; i++)
+            {
+                if (cookies[i].getName().equals("isAdmin"))
+                {
+                    if (cookies[i].getValue().equals("true") || cookies[i].getValue().equals("false") || cookies[i].getValue().equals("null"))
+                    {
+                       isAdmin = true; 
+                    }
+                }
+                else if (cookies[i].getName().equals("login"))
+                {
+                    if (cookies[i].getValue().equals("true") || cookies[i].getValue().equals("false") || cookies[i].getValue().equals("null"))
+                    {
+                       isLogin = true; 
+                    }
+                }
+            }
+            if (isAdmin == true && isLogin == true)
+            {
+                authorization = true;
+            }
+        }
+        return authorization;
+    }
+    
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
     {
-        if (req.getParameter("logout").toString().equals("true"))
+        if (checkCookie(req.getCookies()))
         {
-            if (req.getCookies()[2].getValue().equals("true"))
-            {
                 resp.addCookie(new Cookie("login", "false"));
                 resp.addCookie(new Cookie("isAdmin", "null"));
                 resp.sendRedirect("/MAM/main.jsp");
-            }
-            else
-            {
-                resp.sendError(404);
-            }
-        }
-        else
-        {
-            resp.sendError(500);
         }
     }
     
