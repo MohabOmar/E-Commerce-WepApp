@@ -37,8 +37,7 @@
 <%
     if (checkCookie(request.getCookies()) == false)
     {
-        System.out.println(checkCookie(request.getCookies()));
-        response.sendRedirect("noadmin");
+        response.sendRedirect("/MAM/main.jsp");
     }
 %>
 
@@ -78,7 +77,7 @@
                         <div class="col-sm-10 top_Menu">
                             <div class="center">
                                 <div class="cards">
-                                    <a href="#">Categories</a>
+                                    <a href="categories.jsp">Categories</a>
                                 </div>
                                 <div class="cards">
                                     <a href="#">Products</a>

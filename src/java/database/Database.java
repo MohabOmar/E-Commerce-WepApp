@@ -10,7 +10,7 @@ public class Database {
 
     private final String url = "jdbc:postgresql://localhost:5432/oshop";
     private final String user = "postgres";
-    private final String password = "";
+    private final String password = "amrwsk13";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -243,6 +243,30 @@ public class Database {
             return null;
         }
     } 
+        
+    public Category showAllCategories ()
+    {
+        Category c = new Category();
+        try {
+            connect();
+            sqlCommand = "SELECT * FROM category";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            
+            while (result.next()) 
+            {
+                c.getAllCategories().add(new Category(result.getInt(1), result.getString(2)));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        } 
+        finally 
+        {
+            return c;
+        }        
+    }        
         
     public boolean addCategory (String category)
     {

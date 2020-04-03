@@ -1,8 +1,13 @@
+<%@page import="Database_Tables.Category"%>
 <%@page import="database.Database"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%!
     boolean isAdmin = false;
     boolean isLogin = false;
     boolean authorization = false;    
+    Database dh = new Database();
+    Category c = dh.showAllCategories();
     
     private boolean checkCookie(Cookie[] cookies)
     {
@@ -35,14 +40,12 @@
 %>
 
 <%
-    System.out.println(authorization);
     if (checkCookie(request.getCookies()) == false)
     {
+        System.out.println(checkCookie(request.getCookies()));
         response.sendRedirect("/MAM/main.jsp");
     }
 %>
-<%!Database d = new Database();%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -103,47 +106,35 @@
                     <!--End Of The Top Menu-->
                         <!--////////////////////////////////////////////////////////////////////////-->                    
                         <div class="row" style="height: 10%;">
-                            <h3 class="align_text">Admin Portal</h3>
+                            <h3 class="align_text">Categories Panel</h3>
                         </div>
-                        <!--////////////////////////////////////////////////////////////////////////-->                    
-                    <div class="row bottom_Body">
+                        <!--////////////////////////////////////////////////////////////////////////--> 
                         <!--////////////////////////////////////////////////////////////////////////-->
-
+                        <div class="container col-sm-6">
+                            <table class="table table-hover" style="background-color: white">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">Category ID</th>
+                                  <th scope="col">Category Name</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <%for(int i = 0; i < c.getAllCategories().size(); i++){%>                                  
+                                <tr>
+                                  <th scope="row"><%=i+1%></th>
+                                  <td><%=c.getAllCategories().elementAt(i).getCategoryid()%></td>
+                                  <td><%=c.getAllCategories().elementAt(i).getCategoryName()%></td>
+                                </tr>
+                                <%}%>                              
+                              </tbody>
+                            </table>
+                        </div>
                         <!--////////////////////////////////////////////////////////////////////////-->
-                        <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Categories</h4>
-                                    <p class="card-text">The Number Of Categories is : <%=d.numberOfCategories()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="showCategories.jsp">More Info</a></button>
-                                </div>
-                            </div>
-                            <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Users</h4>
-                                    <p class="card-text">The Number Of Users is : <%=d.numberOfUsers()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>
-                                    
-                                </div>
-                            </div>         
-                            <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Buy Operations</h4>
-                                    <p class="card-text">The Number Of Buy Operations is : <%=d.numberOfSuccessCart()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>                                    
-                                </div>
-                            </div>       
-                            <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Products</h4>
-                                    <p class="card-text">The Number Of Products is : <%=d.numberOfProducts()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>
-                                </div>  
-                            </div>                                 
-                        <!--////////////////////////////////////////////////////////////////////////-->
-                    </div>
                 </div>
                 <!--End the internal Body-->
             </div>
+        <!--End the Body-->
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
