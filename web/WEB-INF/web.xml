@@ -16,6 +16,10 @@
         <servlet-name>getCookies</servlet-name>
         <servlet-class>CheckServlets.getCookies</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Category</servlet-name>
+        <servlet-class>AddServlets.Category</servlet-class>
+    </servlet>    
     <servlet-mapping>
         <servlet-name>loginCheck</servlet-name>
         <url-pattern>/loginCheck</url-pattern>
@@ -32,6 +36,10 @@
         <servlet-name>getCookies</servlet-name>
         <url-pattern>/getCookies</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Category</servlet-name>
+        <url-pattern>/Category</url-pattern>
+    </servlet-mapping>    
     <session-config>
         <session-timeout>
             30
