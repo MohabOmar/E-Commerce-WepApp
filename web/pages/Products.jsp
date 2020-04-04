@@ -34,9 +34,9 @@
                 <%
                     Database database = new Database();
                     Vector<Product> listOfProducts = database.retrieveAllProducts();
-                    Category mob = database.getCategoryByName(new Category("mobiles"));                    
+                    Category mob = database.getCategoryByName(new Category("mobiles"));
                     for (Product p : listOfProducts) {
-                        if (p.getCategoryId() ==  mob.getCategoryid()) {
+                        if (p.getCategoryId() == mob.getCategoryid()) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -51,7 +51,14 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <a href="#" class="btn btn-primary">Add To Cart</a>
+                            <form action="./pages/mycart.jsp" method="GET">
+                                <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                            </form>
+
+
+
+
                         </div>
                     </div>
                 </div>
@@ -66,10 +73,10 @@
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
-                    Category lap = database.getCategoryByName(new Category("laptops"));                                        
+                    Category lap = database.getCategoryByName(new Category("laptops"));
                     for (Product p : listOfProducts) {
 
-                        if (p.getCategoryId() ==  lap.getCategoryid()) {
+                        if (p.getCategoryId() == lap.getCategoryid()) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -84,7 +91,10 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <a href="#" class="btn btn-primary">Add To Cart</a>
+                            <form action="./pages/mycart.jsp" method="GET">
+                                <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>

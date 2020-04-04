@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://localhost:5432/oshop";
-    private final String user = "postgres";
-    private final String password = "amrwsk13";
+    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
+    private final String user = "ehfhempc";
+    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -84,54 +84,42 @@ public class Database {
             return operation;
         }
     }
-    
-    public Users getAllClientUsers ()
-    {
+
+    public Users getAllClientUsers() {
         Users user = new Users();
-        try
-        {
+        try {
             connect();
             sqlCommand = "SELECT * FROM users WHERE isadmin = false";
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
-            while (result.next())
-            {
+            while (result.next()) {
                 user.getUsers().add(new Users(result.getInt(1), result.getString(2), result.getString(3),
-                        result.getString(4),result.getString(5), result.getString(6),
-                        result.getString(7),result.getString(8), result.getFloat(9),
-                        result.getFloat(10), result.getString(11),result.getString(12), result.getBoolean(13)));
+                        result.getString(4), result.getString(5), result.getString(6),
+                        result.getString(7), result.getString(8), result.getFloat(9),
+                        result.getFloat(10), result.getString(11), result.getString(12), result.getBoolean(13)));
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally
-        {
+        } finally {
+            stop();
             return user;
-        }        
+        }
     }
 
-    public String getUserID (Users user)
-    {
-        try
-        {
+    public String getUserID(Users user) {
+        try {
             connect();
             sqlCommand = "SELECT uid FROM users WHERE ? in (uname, email)";
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setString(1, user.getUNameOrEmail());
             result = preparedStatment.executeQuery();
-            while (result.next())
-            {
+            while (result.next()) {
                 user.setuId(result.getInt(1));
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally
-        {
+        } finally {
+            stop();
             return String.valueOf(user.getuId());
         }
     }
@@ -190,6 +178,7 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
+            stop();
             return number;
         }
     }
@@ -207,6 +196,7 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
+            stop();
             return number;
         }
     }
@@ -221,13 +211,10 @@ public class Database {
             while (result.next()) {
                 number = result.getInt(1);
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        } finally
-
-        {
+        } finally {
+            stop();
             return number;
         }
     }
@@ -245,6 +232,7 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
+            stop();
             return number;
         }
     }
@@ -271,57 +259,47 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }finally {
+            stop();
         }
     }
 
-    public Category getCategoryByName (Category category)
-    {
-        try
-        {
+    public Category getCategoryByName(Category category) {
+        try {
             connect();
             sqlCommand = "SELECT categoryid FROM category WHERE categoryname = ?";
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setString(1, category.getCategoryName());
             result = preparedStatment.executeQuery();
-            while (result.next())
-            {
+            while (result.next()) {
                 category.setCategoryid(result.getInt(1));
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally
-        {
+        } finally {
+            stop();
             return category;
         }
     }
 
-    public Category getCategoryByID (Category category)
-    {
-        try
-        {
+    public Category getCategoryByID(Category category) {
+        try {
             connect();
             sqlCommand = "SELECT categoryname FROM category WHERE categoryid = ?";
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setInt(1, category.getCategoryid());
             result = preparedStatment.executeQuery();
-            while (result.next())
-            {
+            while (result.next()) {
                 category.setCategoryname(result.getString(1));
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally
-        {
+        } finally {
+            stop();
             return category;
         }
-    }    
-    
+    }
+
     public Vector<Product> search(String keyword) {
         try {
             connect();
@@ -344,6 +322,8 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        }finally {
+            stop();
         }
     }
 
@@ -361,6 +341,7 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
+            stop();
             return c;
         }
     }
@@ -379,6 +360,7 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
+            stop();
             return operation;
         }
     }
@@ -397,10 +379,10 @@ public class Database {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
+            stop();
             return operation;
         }
     }
-
 
     public Product retrieveSpecificProducts(String pId) {
         Product product = null;
@@ -424,21 +406,20 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
+        } finally {
+            stop();
         }
     }
 
-    public Product getProductById (Product product)
-    {
-        try
-        {
+    public Product getProductById(Product product) {
+        try {
             connect();
             sqlCommand = "SELECT * FROM products WHERE productkey = ?";
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setInt(1, product.getProductKey());
             result = preparedStatment.executeQuery();
 
-            while (result.next())
-            {
+            while (result.next()) {
                 product.setProductName(result.getString(3));
                 product.setPrice(result.getFloat(4));
                 product.setQuantity(result.getInt(5));
@@ -446,13 +427,10 @@ public class Database {
                 product.setImg(result.getString(7));
                 product.setIsAvail(result.getBoolean(8));
             }
-        }
-        catch (SQLException ex)
-        {
+        } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally
-        {
+        } finally {
+            stop();
             return product;
         }
     }

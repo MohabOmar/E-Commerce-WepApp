@@ -71,7 +71,7 @@
             <img src="https://w0.pngwave.com/png/541/572/the-fault-in-our-stars-film-hallowed-review-star-png-clip-art.png" alt="" class="stars">
             <p class="price"> <%=p.getPrice()%> EGP</p>
             <%
-                if(p.isIsAvail()==true){
+                if(p.getIsAvail()==true){
             %>
             <p><b>Availability:</b> In Stock</p>
             <%}%>
