@@ -84,6 +84,33 @@ public class Database {
             return operation;
         }
     }
+    
+    public Users getAllClientUsers ()
+    {
+        Users user = new Users();
+        try
+        {
+            connect();
+            sqlCommand = "SELECT * FROM users WHERE isadmin = false";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next())
+            {
+                user.getUsers().add(new Users(result.getInt(1), result.getString(2), result.getString(3),
+                        result.getString(4),result.getString(5), result.getString(6),
+                        result.getString(7),result.getString(8), result.getFloat(9),
+                        result.getFloat(10), result.getString(11),result.getString(12), result.getBoolean(13)));
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return user;
+        }        
+    }
 
     public String getUserID (Users user)
     {
@@ -271,6 +298,30 @@ public class Database {
         }
     }
 
+    public Category getCategoryByID (Category category)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "SELECT categoryname FROM category WHERE categoryid = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, category.getCategoryid());
+            result = preparedStatment.executeQuery();
+            while (result.next())
+            {
+                category.setCategoryname(result.getString(1));
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            return category;
+        }
+    }    
+    
     public Vector<Product> search(String keyword) {
         try {
             connect();

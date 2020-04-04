@@ -65,7 +65,7 @@
                 <div class="col-sm-1 vertical_bar">
                     <img src="../img/ecommerce.JPG" />
                     <div class="row tabs">
-                        <a href="#"><i class="fas fa-home"></i></a>
+                        <a href="adminHome.jsp"><i class="fas fa-home"></i></a>
                         <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         <a href="#"><i class="fas fa-users" aria-hidden="true"></i></a>
                         <a href="#"><i class="fas fa-search" aria-hidden="true"></i></a>

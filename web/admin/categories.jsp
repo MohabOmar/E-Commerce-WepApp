@@ -59,7 +59,7 @@
                 <div class="col-sm-1 vertical_bar">
                     <img src="../img/ecommerce.JPG" />
                     <div class="row tabs">
-                        <a href="#"><i class="fas fa-home"></i></a>
+                        <a href="adminHome.jsp"><i class="fas fa-home"></i></a>
                         <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
                         <a href="#"><i class="fas fa-users" aria-hidden="true"></i></a>
                         <a href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
@@ -110,9 +110,6 @@
                         <li class="nav-item">
                           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Remove Category</a>
                         </li>
-                        <li class="nav-item">
-                          <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Modify Category</a>
-                        </li>
                       </ul>
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -141,21 +138,7 @@
                                     </div>
                                     <input type="hidden" value="RemoveCategory" name="typeOfcategoryOperation"/>
                                     <button type="submit" class="btnCat">Remove Category</button>
-                                </form>
-                                <!--////////////////////////////////////////////////////////////////////////-->
-                            </div>                                         
-                          </div>
-                          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                            <div class="row bottom_Body">
-                                <!--////////////////////////////////////////////////////////////////////////-->
-                                <form action="/MAM/Category" class="form_Add container col-sm-4" method="POST">
-                                    <img src="../img/Category.jpg" class="caImg" alt=""/>
-                                    <div class="input-container">
-                                        <i class="fas fa-tags icon"></i>
-                                        <input class="input-field" type="text" placeholder="Category Name" name="category">
-                                    </div>
-                                    <input type="hidden" value="AddCategory" name="typeOfcategoryOperation"/>
-                                    <button type="submit" class="btnCat">Modify Category</button>
+                                    <div class="bg-danger text-white dan">** If You Delete A category You will also Delete All Products that Related to deleted Category</div>                                                                    
                                 </form>
                                 <!--////////////////////////////////////////////////////////////////////////-->
                             </div>                                         

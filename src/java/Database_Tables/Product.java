@@ -70,7 +70,7 @@ public class Product {
         return img;
     }
 
-    public boolean isIsAvail() {
+    public boolean getIsAvail() {
         return isAvail;
     }
 
@@ -104,9 +104,5 @@ public class Product {
 
     public void setIsAvail(boolean isAvail) {
         this.isAvail = isAvail;
-    }
-    
-    
-
-    
+    }   
 }

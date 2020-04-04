@@ -50,7 +50,7 @@ public class Users
         this.interests = interests;
     }
     
-    public Users(int uId, String uName, String fName, String lName, String bDate, String password, String job, String email, float creditLimit, float balance, String address, String interests, boolean isAdmin, Vector<Users> users) 
+    public Users(int uId, String uName, String fName, String lName, String bDate, String password, String job, String email, float creditLimit, float balance, String address, String interests, boolean isAdmin) 
     {
         this.uId = uId;
         this.uName = uName;
@@ -65,7 +65,6 @@ public class Users
         this.address = address;
         this.interests = interests;
         this.isAdmin = isAdmin;
-        this.users = users;
     }    
 
     public int getuId() 

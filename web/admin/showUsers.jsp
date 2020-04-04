@@ -1,8 +1,13 @@
+<%@page import="Database_Tables.Users"%>
 <%@page import="database.Database"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%!
     boolean isAdmin = false;
     boolean isLogin = false;
     boolean authorization = false;    
+    Database db = new Database();
+    Users u = db.getAllClientUsers();
     
     private boolean checkCookie(Cookie[] cookies)
     {
@@ -35,14 +40,12 @@
 %>
 
 <%
-    System.out.println(authorization);
     if (checkCookie(request.getCookies()) == false)
     {
+        System.out.println(checkCookie(request.getCookies()));
         response.sendRedirect("/MAM/main.jsp");
     }
 %>
-<%!Database d = new Database();%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -103,47 +106,55 @@
                     <!--End Of The Top Menu-->
                         <!--////////////////////////////////////////////////////////////////////////-->                    
                         <div class="row" style="height: 10%;">
-                            <h3 class="align_text">Admin Portal</h3>
+                            <h3 class="align_text">Clients Panel</h3>
                         </div>
-                        <!--////////////////////////////////////////////////////////////////////////-->                    
-                    <div class="row bottom_Body">
+                        <!--////////////////////////////////////////////////////////////////////////--> 
                         <!--////////////////////////////////////////////////////////////////////////-->
-
+                        <div class="container col-sm-12">
+                            <table class="table table-hover" style="background-color: white">
+                              <thead>
+                                <tr>
+                                  <th scope="col">#</th>
+                                  <th scope="col">User ID</th>
+                                  <th scope="col">User Name</th>
+                                  <th scope="col">First Name</th>
+                                  <th scope="col">Last Name</th>
+                                  <th scope="col">Birth-date</th>
+                                  <th scope="col">Password</th>
+                                  <th scope="col">Job</th>
+                                  <th scope="col">Email</th>                                  
+                                  <th scope="col">Credit Limit</th>
+                                  <th scope="col">Balance</th>
+                                  <th scope="col">Address</th>
+                                  <th scope="col">Interests</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <%for(int i = 0; i < u.getUsers().size(); i++){%>                                  
+                                <tr>
+                                  <th scope="row"><%=i+1%></th>
+                                  <td><%=u.getUsers().elementAt(i).getuId()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getuName()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getfName()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getlName()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getbDate()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getPassword()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getJob()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getEmail()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getCreditLimit()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getBalance()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getAddress()%></td>
+                                  <td><%=u.getUsers().elementAt(i).getInterests()%></td>
+                                </tr>
+                                <%}%>                              
+                              </tbody>
+                            </table>
+                        </div>
                         <!--////////////////////////////////////////////////////////////////////////-->
-                        <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Categories</h4>
-                                    <p class="card-text">The Number Of Categories is : <%=d.numberOfCategories()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="showCategories.jsp">More Info</a></button>
-                                </div>
-                            </div>
-                            <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Users</h4>
-                                    <p class="card-text">The Number Of Users is : <%=d.numberOfUsers()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="showUsers.jsp">More Info</a></button>
-                                    
-                                </div>
-                            </div>         
-                            <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Buy Operations</h4>
-                                    <p class="card-text">The Number Of Buy Operations is : <%=d.numberOfSuccessCart()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="#">More Info</a></button>                                    
-                                </div>
-                            </div>       
-                            <div class="card card_marign">
-                                 <div class="card-body">
-                                    <h4 class="card-title">Products</h4>
-                                    <p class="card-text">The Number Of Products is : <%=d.numberOfProducts()%></p>
-                                    <button type="button" class="btn btn-info"><a class="info" href="showProducts.jsp">More Info</a></button>
-                                </div>  
-                            </div>                                 
-                        <!--////////////////////////////////////////////////////////////////////////-->
-                    </div>
                 </div>
                 <!--End the internal Body-->
             </div>
+        <!--End the Body-->
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
