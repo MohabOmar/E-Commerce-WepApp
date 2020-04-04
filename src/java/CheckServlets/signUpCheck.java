@@ -34,11 +34,11 @@ public class signUpCheck extends HttpServlet
 
             if (db.addAdmin(user))
             {
-                resp.sendRedirect("/MAM/asdadasd.jsp");
+                resp.sendRedirect(req.getParameter("URL"));
             }
             else
             {
-                req.getRequestDispatcher("adminRegistration.jsp?invalid=true").forward(req, resp);
+                resp.sendRedirect(req.getParameter("URL")+"?invalid=true");
             }
         }
 
