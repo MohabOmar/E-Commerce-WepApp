@@ -89,7 +89,7 @@
                                     <a href="#">Products</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="#">Users</a>
+                                    <a href="addAdminUser.jsp">Admin Users</a>
                                 </div>
                                 <div class="cards">
                                     <a href="#">Profile</a>                                
