@@ -5,6 +5,8 @@
  */
 package Database_Tables;
 
+import java.util.Vector;
+
 /**
  *
  * @author MohabOmar
@@ -19,10 +21,11 @@ public class Product {
     private String desc;
     private String img;
     private boolean isAvail;
+    Vector<Product> allProducts;
     
     public Product()
     {
-        
+        allProducts = new Vector();
     }
     
     public Product(int productKey)
@@ -73,6 +76,11 @@ public class Product {
     public boolean getIsAvail() {
         return isAvail;
     }
+    
+    public Vector<Product> getAllProducts()
+    {
+        return allProducts;
+    }
 
     public void setProductKey(int productKey) {
         this.productKey = productKey;
@@ -104,5 +112,10 @@ public class Product {
 
     public void setIsAvail(boolean isAvail) {
         this.isAvail = isAvail;
-    }   
+    }  
+    
+    public void setAllProducts(Vector<Product> allProducts)
+    {
+        this.allProducts = allProducts;
+    }    
 }
