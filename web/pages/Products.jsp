@@ -51,7 +51,7 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <form action="./pages/mycart.jsp" method="GET">
+                            <form action="/MAM/main.jsp" method="GET">
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
                                 <button type="submit" class="btn btn-primary">Add To Cart</button>
                             </form>
@@ -87,7 +87,7 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <form action="./pages/mycart.jsp" method="GET">
+                            <form action="/MAM/main.jsp" method="GET">
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
                                 <button type="submit" class="btn btn-primary">Add To Cart</button>
                             </form>

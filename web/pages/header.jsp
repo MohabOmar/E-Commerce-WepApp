@@ -91,6 +91,7 @@
                 
             <%@include file="loginForm.html" %>
             <%@include file="Signup.jsp" %>
+            <%@include file="cart.jsp" %>
 
 
             <div class="container-fluid p-0">
@@ -113,7 +114,7 @@
 
                         <div class="navbar-nav">
                             <li class="nav-item border rounded-circle mx-2 basket-icon">
-                                <i class="fas fa-shopping-cart p-2"></i>
+                                <a href="javascript:void(0)" data-toggle="modal" data-target="#cartModal"><i class="fas fa-shopping-cart p-2"></i></a>
                             </li>
                         </div>
 
