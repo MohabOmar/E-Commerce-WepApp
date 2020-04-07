@@ -1,23 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CheckServlets;
 
 import Database_Tables.Users;
 import database.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author User1
- */
+
 public class signUpCheck extends HttpServlet 
 {
     Users user;
@@ -26,13 +17,16 @@ public class signUpCheck extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
     {
-        if (req.getParameter("isAdmin").equals("true"))
-        {
-            user = new Users(req.getParameter("aFName"), req.getParameter("aLName"), req.getParameter("aUName")
+        if (req.getParameter("isAdminForm").equals("true"))
+        {   
+            
+            user = new Users(req.getParameter("aUName"),req.getParameter("aFName"), req.getParameter("aLName")
                     , req.getParameter("aBDName"), req.getParameter("aPassword"), req.getParameter("aJName")
-                    , req.getParameter("aEAName"), req.getParameter("aAName"), req.getParameter("aANTName"));
-
-            if (db.addAdmin(user))
+                    , req.getParameter("aEAName"), Float.parseFloat(req.getParameter("creditLimit"))
+                    , Float.parseFloat(req.getParameter("balance"))
+                    , req.getParameter("aAName"), req.getParameter("aANTName")
+                    , Boolean.getBoolean(req.getParameter("isAdmin")));
+            if (db.addAdminOrClient(user))
             {
                 resp.sendRedirect(req.getParameter("URL"));
             }
@@ -40,22 +34,24 @@ public class signUpCheck extends HttpServlet
             {
                 resp.sendRedirect(req.getParameter("URL")+"?invalid=true");
             }
+            
         }
-
-        else if (req.getParameter("isAdmin").equals("false"))
+        
+        else if (req.getParameter("isAdmin").equals("false") && req.getParameter("isAdminForm").equals("false"))
         {
             user = new Users(req.getParameter("aFName"), req.getParameter("aLName"), req.getParameter("aUName")
                     , req.getParameter("aBDName"), req.getParameter("aPassword"), req.getParameter("aJName")
                     , req.getParameter("aEAName"), req.getParameter("aAName"), req.getParameter("aANTName"));
             if (db.addClient(user))
             {
-                resp.sendRedirect("/MAM/main.jsp");
+                resp.sendRedirect(req.getParameter("URL"));
             }
             else
             {
-                req.getRequestDispatcher("adminRegistration.jsp?invalid=true").forward(req, resp);
+                resp.sendRedirect(req.getParameter("URL")+"?invalid=true");
             }
-        }
+        }        
+        
         else
         {
             resp.sendRedirect("/MAM/main.jsp?invalid=true");

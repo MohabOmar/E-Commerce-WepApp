@@ -50,6 +50,22 @@ public class Users
         this.interests = interests;
     }
     
+    public Users(String uName, String fName, String lName, String bDate, String password, String job, String email, float creditLimit, float balance, String address, String interests, boolean isAdmin) 
+    {
+        this.uName = uName;
+        this.fName = fName;
+        this.lName = lName;
+        this.bDate = bDate;
+        this.password = password;
+        this.job = job;
+        this.email = email;
+        this.creditLimit = creditLimit;
+        this.balance = balance;
+        this.address = address;
+        this.interests = interests;
+        this.isAdmin = isAdmin;
+    }       
+    
     public Users(int uId, String uName, String fName, String lName, String bDate, String password, String job, String email, float creditLimit, float balance, String address, String interests, boolean isAdmin) 
     {
         this.uId = uId;

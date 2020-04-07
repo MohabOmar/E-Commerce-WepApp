@@ -35,6 +35,8 @@
                                 <label>Interests</label>
                                 <input type="text" placeholder="Please Enter your Interests" required name="aANTName"/>
                                 <input type="hidden" value="false" name="isAdmin"/>
+                                <input type="hidden" value="false" name="isAdminForm"/>
+                                <input type="hidden" value="/MAM/main.jsp" name="URL"/>
                                 <input type="submit" value="Signup" name="submit"/>
                                 <label>
                                         <%

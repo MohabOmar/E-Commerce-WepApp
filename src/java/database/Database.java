@@ -29,10 +29,10 @@ public class Database {
         }
     }
 
-    public boolean addAdmin(Users user) {
+    public boolean addAdminOrClient(Users user) {
         try {
             connect();
-            sqlCommand = "SELECT createadmin (?,?,?,?,?,?,?,?,?)";
+            sqlCommand = "SELECT createadminOrClient (?,?,?,?,?,?,?,?,?,?,?)";
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.setString(1, user.getuName());
             preparedStatment.setString(2, user.getfName());
@@ -41,8 +41,10 @@ public class Database {
             preparedStatment.setString(5, user.getPassword());
             preparedStatment.setString(6, user.getJob());
             preparedStatment.setString(7, user.getEmail());
-            preparedStatment.setString(8, user.getAddress());
-            preparedStatment.setString(9, user.getInterests());
+            preparedStatment.setFloat(8, user.getCreditLimit());
+            preparedStatment.setFloat(9, user.getBalance());
+            preparedStatment.setString(10, user.getAddress());
+            preparedStatment.setString(11, user.getInterests());
 
             result = preparedStatment.executeQuery();
 
