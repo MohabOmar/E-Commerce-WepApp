@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CheckServlets;
 
 import database.Database;
@@ -15,10 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author User1
- */
+
 public class loginCheck extends HttpServlet 
 {
     Database db = new Database();
@@ -47,7 +39,8 @@ public class loginCheck extends HttpServlet
                 {
                     System.out.println("Client");
                     isAdmin = new Cookie("isAdmin", "false");
-                    redirectedUrl = "/MAM/main.jsp";
+                    redirectedUrl = req.getParameter("URL")+"?invalid=true";
+
                 }
                 registrationCookie = new Cookie("login", "true");
                 uID = new Cookie("userID", db.getUserID(user));
@@ -64,7 +57,7 @@ public class loginCheck extends HttpServlet
                 resp.addCookie(registrationCookie);
                 resp.addCookie(isAdmin);  
                 resp.addCookie(uID);  
-                resp.sendRedirect("/MAM/main.jsp");       
+                resp.sendRedirect(req.getParameter("URL")+"?invalid=true");
             }
         }
         else

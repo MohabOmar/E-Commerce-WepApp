@@ -54,7 +54,7 @@ public class signUpCheck extends HttpServlet
         
         else
         {
-            resp.sendRedirect("/MAM/main.jsp?invalid=true");
+            resp.sendRedirect(req.getParameter("URL")+"?invalid=true");
         }        
     }
 }

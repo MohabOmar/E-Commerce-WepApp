@@ -38,18 +38,6 @@
                                 <input type="hidden" value="false" name="isAdminForm"/>
                                 <input type="hidden" value="/MAM/main.jsp" name="URL"/>
                                 <input type="submit" value="Signup" name="submit"/>
-                                <label>
-                                        <%
-                                        if (request.getParameter("invalid") != null && request.getParameter("invalid").equals("true"))
-                                        {
-                                        %>
-
-                                        <h1 style="color: red">Invalid user Name Or Password</h1>
-
-                                        <%
-                                            }
-                                        %>
-                                </label>
                             </form>
                         </div>
 

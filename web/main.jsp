@@ -17,6 +17,16 @@
         <link rel="stylesheet" href="./css/style2.css">
     </head>
     <body>
+        <%
+        if (request.getParameter("invalid") != null && request.getParameter("invalid").equals("true"))
+        {
+        %>
+        <script type="text/javascript">
+            alert("Invalid user Name Or Password");
+        </script>        
+        <%
+            }
+        %>       
 
         <%@include file="./pages/header.jsp" %>
 
