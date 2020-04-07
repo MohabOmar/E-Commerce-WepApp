@@ -8,9 +8,10 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://localhost:5432/oshop";
-    private final String user = "postgres";
-    private final String password = "amrwsk13";
+    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
+    private final String user = "ehfhempc";
+    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
+
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -434,6 +435,36 @@ public class Database {
         } finally {
             stop();
             return product;
+        }
+    }
+
+    
+    public Users getUserInfo(Users user) {
+        try {
+            connect();
+            sqlCommand = "SELECT * FROM users WHERE uid = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, user.getuId());
+            result = preparedStatment.executeQuery();
+
+            while (result.next()) {
+                user.setuName(result.getString(2));
+                user.setfName(result.getString(3));
+                user.setlName(result.getString(4));
+                user.setbDate(result.getString(5));
+                user.setPassword(result.getString(6));
+                user.setJob(result.getString(7));
+                user.setEmail(result.getString(8));
+                user.setCreditLimit(result.getInt(9));
+                user.setBalance(result.getInt(10));
+                user.setAddress(result.getString(11));
+                user.setInterests(result.getString(12));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            stop();
+            return user;
         }
     }
 

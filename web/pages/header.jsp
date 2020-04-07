@@ -1,4 +1,5 @@
 <%!
+    int userID;
     boolean isAdmin = false;
     boolean isLogin = false;
     boolean isID = false;
@@ -50,6 +51,8 @@
             if (c[i].getName().equals("login"))
             {
                 login = c[i].getValue();
+            }else if(c[i].getName().equals("userID")){
+                userID=Integer.parseInt(c[i].getValue());
             }
         }
     }
@@ -77,6 +80,7 @@
                             <%
                             if (login != null && login.equals("true")){%>
                             <a href="logout?logout=true" id="signOut">Sign Out</a>
+                            <a href="./pages/profile.jsp" id="signOut">Profile</a>
                             <%}
                             else if (login != null)
                             {%>
