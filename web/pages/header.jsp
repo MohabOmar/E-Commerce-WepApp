@@ -30,6 +30,10 @@
                 authorization = true;
             }
         }
+        else
+        {
+            authorization = false;
+        }
         return authorization;
     }
 %>
