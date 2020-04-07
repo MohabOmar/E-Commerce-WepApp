@@ -3,9 +3,6 @@
     Created on : 01-Apr-2020, 22:03:40
     Author     : MohabOmar
 --%>
-
-
-
 <%@page import="Database_Tables.Category"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="Database_Tables.Product"%>
@@ -54,8 +51,10 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <form action="/MAM/main.jsp" method="GET">
+                            <form action="/MAM/OfflineCart" method="GET">
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
+                                <input type="hidden" value="1" name="quantity"/>
+                                <input type="hidden" value="/MAM/main.jsp" name="URL"/>
                                 <button type="submit" class="btn btn-primary">Add To Cart</button>
                             </form>
                         </div>
@@ -90,8 +89,10 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <form action="/MAM/main.jsp" method="GET">
+                            <form action="/MAM/OfflineCart" method="GET">
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
+                                <input type="hidden" value="1" name="quantity"/>
+                                <input type="hidden" value="/MAM/main.jsp" name="URL"/>
                                 <button type="submit" class="btn btn-primary">Add To Cart</button>
                             </form>
                         </div>
