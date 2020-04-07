@@ -31,6 +31,10 @@
                 authorization = true;
             }
         }
+        else
+            {
+                authorization = false;
+            }
         return authorization;
     }
 %>
@@ -85,7 +89,7 @@
                                     <a href="">Products</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="addAdminUser.jsp">Admin Users</a>
+                                    <a href="addAdminUser.jsp">New User</a>
                                 </div>
                                 <div class="cards">
                                     <a href="#">Profile</a>                                
@@ -102,10 +106,24 @@
                     <!--End Of The Top Menu-->
                         <!--////////////////////////////////////////////////////////////////////////-->                    
                         <div class="row" style="height: 10%;">
-                            <h3 class="align_text">Add Admin Account</h3>
+                            <h3 class="align_text">Add New Account</h3>
                         </div>
                         <!--////////////////////////////////////////////////////////////////////////--> 
                         <!--////////////////////////////////////////////////////////////////////////-->
+
+                        
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Add Admin User</a>
+                            </li>
+                            <li class="nav-item">
+                              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Add Client User</a>
+                            </li>
+                        </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row bottom_Body">
+                                <!--////////////////////////////////////////////////////////////////////////-->
                         <div class="container col-sm-8">
                             <form action="/MAM/signUpCheck" method="POST">
                                 <div class="form-row">
@@ -137,8 +155,6 @@
                                         <input type="text"class="form-control" required placeholder="Job Title" required name="aJName"/>                             
                                     </div>                                              
                                 </div>                                
-
-
                                 <div class="form-row">
                                     <div class="col-md-6 mb-3">
                                         <label>Email Address</label>
@@ -154,9 +170,18 @@
                                     <div class="col-md-5 mb-3">
                                         <label>Interests</label>
                                         <input type="text" class="form-control" placeholder="Please Enter your Interests" required name="aANTName"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label>Balance</label>
+                                        <input type="text" class="form-control" placeholder="Please Enter Client Balance" required name="balance"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label>Credit Limit</label>
+                                        <input type="text" class="form-control" placeholder="Please Enter Client Credit" required name="creditLimit"/>                                                                                
                                     </div>                                                                                      
                                 </div>                                     
                                 <input type="hidden" value="/MAM/admin/addAdminUser.jsp" name="URL"/>
+                                <input type="hidden" value="true" name="isAdminForm"/>
                                 <input type="hidden" value="true" name="isAdmin"/>
                                 <button class="btn btn-primary" type="submit">Add Admin</button>
                             </form>
@@ -171,6 +196,88 @@
                                             }
                                         %>                            
                         </div>
+                                <!--////////////////////////////////////////////////////////////////////////-->
+                            </div>                            
+                        </div>
+                          <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <div class="row bottom_Body">
+                                <!--////////////////////////////////////////////////////////////////////////-->
+                        <div class="container col-sm-8">
+                            <form action="/MAM/signUpCheck" method="POST">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control" id="validationDefault01" placeholder="First Name" required name="aFName"/>                                        
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control" id="validationDefault02" placeholder="Last Name" required name="aLName"/>                                     
+                                    </div>          
+                                    <div class="col-md-4 mb-3">
+                                        <label>User Name</label>
+                                        <input type="text" class="form-control" id="validationDefaultUsername" placeholder="User Name" required name="aUName"/>                                        
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required name="aPassword"/>                                    
+                                    </div>                                              
+                                    <div class="col-md-4 mb-3">
+                                        <label>Birth-date</label>
+                                        <input class="form-control" required type="date" name="aBDName"/>                                                                    
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <label>Job Title</label>
+                                        <input type="text"class="form-control" required placeholder="Job Title" required name="aJName"/>                             
+                                    </div>                                              
+                                </div>                                
+                                <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label>Email Address</label>
+                                        <input type="email" class="form-control" placeholder="Email Address" required name="aEAName"/>                                
+                                    </div>                                              
+                                    <div class="col-md-3 mb-3">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control" placeholder="Address" required name="aAName"/>                                                                  
+                                    </div>                                         
+                                </div>           
+                                
+                                <div class="form-row">
+                                    <div class="col-md-5 mb-3">
+                                        <label>Interests</label>
+                                        <input type="text" class="form-control" placeholder="Please Enter your Interests" required name="aANTName"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label>Balance</label>
+                                        <input type="text" class="form-control" placeholder="Please Enter Client Balance" required name="balance"/>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label>Credit Limit</label>
+                                        <input type="text" class="form-control" placeholder="Please Enter Client Credit" required name="creditLimit"/>                                                                                
+                                    </div>    
+                                </div>                                     
+                                <input type="hidden" value="/MAM/admin/addAdminUser.jsp" name="URL"/>
+                                <input type="hidden" value="true" name="isAdminForm"/>
+                                <input type="hidden" value="false" name="isAdmin"/>
+                                <button class="btn btn-primary" type="submit">Add Client</button>
+                            </form>
+                                        <%
+                                        if (request.getParameter("invalid") != null && request.getParameter("invalid").equals("true"))
+                                        {
+                                        %>
+                                        <div class="alert alert-danger" style="margin-top: 20px;font-weight: bold" role="alert">
+                                            User Name is taken By Someone Else
+                                        </div>                                        
+                                        <%
+                                            }
+                                        %>                            
+                        </div>
+                                
+                                <!--////////////////////////////////////////////////////////////////////////-->
+                            </div>                                         
+                          </div>
+                      </div>
                         <!--////////////////////////////////////////////////////////////////////////-->
                 </div>
                 <!--End the internal Body-->

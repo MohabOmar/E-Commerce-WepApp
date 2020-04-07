@@ -30,6 +30,10 @@
                 authorization = true;
             }
         }
+        else
+            {
+                authorization = false;
+            }
         return authorization;
     }
 %>
@@ -83,7 +87,7 @@
                                     <a href="#">Products</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="addAdminUser.jsp">Admin Users</a>
+                                    <a href="addAdminUser.jsp">New User</a>
                                 </div>
                                 <div class="cards">
                                     <a href="#">Profile</a>                                
@@ -110,7 +114,7 @@
                         <li class="nav-item">
                           <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Remove Category</a>
                         </li>
-                      </ul>
+                        </ul>
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                             <div class="row bottom_Body">

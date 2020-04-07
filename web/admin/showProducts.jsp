@@ -37,6 +37,10 @@
                 authorization = true;
             }
         }
+        else
+            {
+                authorization = false;
+            }
         return authorization;
     }
 
@@ -107,7 +111,7 @@
                                     <a href="#">Products</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="addAdminUser.jsp">Admin Users</a>
+                                    <a href="addAdminUser.jsp">New User</a>
                                 </div>
                                 <div class="cards">
                                     <a href="#">Profile</a>                                
