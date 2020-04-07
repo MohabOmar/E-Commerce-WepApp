@@ -39,7 +39,7 @@ public class loginCheck extends HttpServlet
                 {
                     System.out.println("Client");
                     isAdmin = new Cookie("isAdmin", "false");
-                    redirectedUrl = req.getParameter("URL")+"?invalid=true";
+                    redirectedUrl = req.getParameter("URL");
 
                 }
                 registrationCookie = new Cookie("login", "true");

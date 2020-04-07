@@ -30,20 +30,20 @@
 
         <%@include file="./pages/header.jsp" %>
 
-<!--        <%@include file="./pages/main.html" %> -->
+        <!--        <%@include file="./pages/main.html" %> -->
 
 
 
 
 
-    
+
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
                     Database db = new Database();
                     Vector<Product> listOfProducts = db.search(request.getParameter("keyword"));
                     for (Product p : listOfProducts) {
-     
+
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
                     <div class="card shadow" style="width: 20rem;">
@@ -54,20 +54,23 @@
                             <h5 class="card-title"><%=p.getProductName()%></h5>
                             <p class="card-text"><%=p.getDesc()%></p>
                             <p class="card-text"><%=p.getPrice()%> EGP</p>
-                            <a href="#" class="btn btn-primary">View</a>
+                            <form action="pages/viewProduct.jsp" method="GET">
+                                <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
+                                <button type='submit' class="btn btn-primary">View</button>
+                            </form>
                             <a href="#" class="btn btn-primary">Add To Cart</a>
                         </div>
                     </div>
                 </div>
-               
+
                 <%}%> 
             </div>    
         </div>
- 
-            
-               <%@include file="./pages/footer.html" %>
 
-        
+
+        <%@include file="./pages/footer.html" %>
+
+
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
