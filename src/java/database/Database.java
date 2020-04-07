@@ -8,10 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
-    private final String user = "ehfhempc";
-    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
-
+    private final String url = "jdbc:postgresql://localhost:5432/oshop";
+    private final String user = "postgres";
+    private final String password = "amrwsk13";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -437,34 +436,35 @@ public class Database {
             return product;
         }
     }
-
     
-    public Users getUserInfo(Users user) {
-        try {
+    public Product getAllProductsInCart (Product product)
+    {
+        Product allProducts = new Product();
+        try
+        {
             connect();
-            sqlCommand = "SELECT * FROM users WHERE uid = ?";
-            preparedStatment = connection.prepareStatement(sqlCommand);
-            preparedStatment.setInt(1, user.getuId());
-            result = preparedStatment.executeQuery();
-
-            while (result.next()) {
-                user.setuName(result.getString(2));
-                user.setfName(result.getString(3));
-                user.setlName(result.getString(4));
-                user.setbDate(result.getString(5));
-                user.setPassword(result.getString(6));
-                user.setJob(result.getString(7));
-                user.setEmail(result.getString(8));
-                user.setCreditLimit(result.getInt(9));
-                user.setBalance(result.getInt(10));
-                user.setAddress(result.getString(11));
-                user.setInterests(result.getString(12));
+            for (int i = 0; i < product.getAllProducts().size(); i++)
+            {
+                sqlCommand = "SELECT * FROM products WHERE productkey = ?";
+                preparedStatment = connection.prepareStatement(sqlCommand);
+                preparedStatment.setInt(1, product.getAllProducts().elementAt(i).getProductKey());
+                result = preparedStatment.executeQuery();
+                while (result.next())
+                {
+                    allProducts.getAllProducts().add(new Product(result.getInt(1), result.getInt(2), result.getString(3),
+                            result.getFloat(4), result.getInt(5), result.getString(6), 
+                            result.getString(7), result.getBoolean(8)));
+                }                
             }
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             ex.printStackTrace();
-        } finally {
+        }
+        finally
+        {
             stop();
-            return user;
+            return allProducts;
         }
     }
 
