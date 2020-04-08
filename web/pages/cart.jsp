@@ -3,6 +3,7 @@
     Created on : Apr 7, 2020, 6:53:38 PM
     Author     : Mohamed Ibrahim
 --%>
+<%@page import="com.google.gson.Gson"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.DriverManager"%>
@@ -33,15 +34,6 @@
                 </button>
             </div>
             <div class="modal-body">
-             <%
-                 if (request.getSession().getAttribute("cart-1") != null)
-                 {
-                     out.println(request.getSession().getAttribute("cart-1"));
-                 }
-            Database s = new Database();
-            if(request.getParameter("pkey") != null){
-            Product pr = s.getProductById(new Product(Integer.parseInt(request.getParameter("pkey"))));
-        %>
                 <table class="table table-image">
                     <thead>
                         <tr>
@@ -52,17 +44,29 @@
                             <th scope="col">Total</th>
                             <th scope="col">Actions</th>
                         </tr>
-                    </thead>
+                    </thead>                
+             <%
+            int total = 0;
+            Database s = new Database();
+            Gson m = new Gson();
+            if(request.getSession().getAttribute("cart-1") != null){
+            Product pr = m.fromJson(request.getSession().getAttribute("cart-1").toString(), Product.class);
+            for (int u =0; u < pr.getAllProducts().size(); u++)
+            {
+            int q = pr.getAllProducts().elementAt(u).getQuantity();
+            Product ps = s.getProductById(pr.getAllProducts().elementAt(u));
+            total += ps.getPrice()*q;
+            %>
                     <tbody>
                         <tr>
                             <td class="w-25">
-                                <img src="<%=pr.getImg()%>"
+                                <img src="<%=ps.getImg()%>"
                                      class="img-fluid img-thumbnail" alt="Sheep">
                             </td>
-                            <td><%=pr.getProductName()%></td>
-                            <td><%=pr.getPrice()%></td>
-                            <td class="qty"><input type="text" class="form-control" id="input1" value="2"></td>
-                            <td><%=pr.getPrice()%></td>
+                            <td><%=ps.getProductName()%></td>
+                            <td><%=ps.getPrice()%></td>
+                            <td class="qty"><input type="number" class="form-control" id="input1" max="<%=q%>" min="<%=q%>" value="<%=q%>"></td>
+                            <td><%=ps.getPrice()*q%></td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>
@@ -70,12 +74,11 @@
                             </td>
                         </tr>
                     </tbody>
-                </table>
-                            
+                <%}}%>
+                </table>      
                 <div class="d-flex justify-content-end">
-                    <h5>Total: <span class="price text-success"><%=pr.getPrice()%></span></h5>
+                    <h5>Total: <span class="price text-success"><%=total%></span></h5>
                 </div>
-                <%} %>
             </div>
             <div class="modal-footer border-top-0 d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
