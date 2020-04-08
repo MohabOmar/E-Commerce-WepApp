@@ -2,11 +2,9 @@ package AddServlets;
 
 import Database_Tables.Product;
 import com.google.gson.Gson;
-import database.Database;
 import java.io.IOException;
-import java.util.StringTokenizer;
+import java.util.Vector;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,60 +14,92 @@ import javax.servlet.http.HttpSession;
 public class OfflineCart extends HttpServlet 
 {
     HttpSession session;
-    String[] allProducts;
-    int userId;
-    Cookie[] cookies;
-    String url;
-    String productID;
-    String quantity;
+    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
     {
-        Product product = new Product();
-        Database db = new Database();
-        cookies = req.getCookies();
-        session = req.getSession();
-        url = req.getParameter("URL");
-        if (cookies != null)
+        session = req.getSession(false);
+        
+        if (session.getAttribute(getCartID(req)) != null)
         {
-            productID = req.getParameter("pkey");
-            quantity = req.getParameter("quantity");
-            allProducts = session.getValueNames();
-            
-            for (int i =0; i < allProducts.length; i++)
-            {
-                if (allProducts[i].equals("product-"+productID))
-                {
-                    int q = Integer.parseInt(session.getAttribute(allProducts[i]).toString()) + 1;
-                    session.setAttribute(allProducts[i], String.valueOf(q));
-                }
-                else
-                {
-                    session.setAttribute("product-"+productID, quantity);
-                }
-                product.getAllProducts().add(new Product(Integer.parseInt(allProducts[i].replace("product-", ""))));
-            }
-            
-            
-            Product p = db.getAllProductsInCart(product);
-                 
-            
-            for (int i =0; i < p.getAllProducts().size(); i++)
-            {
-                int q =  Integer.parseInt(session.getAttribute("product-"+p.getAllProducts().elementAt(i).getProductKey()).toString());
-                p.getAllProducts().elementAt(i).setQuantity(q);
-            }            
-            
-            Gson g = new Gson();
-            
-            req.setAttribute("caty", g.toJson(p));
-            
-            resp.sendRedirect(url);
+            addProductToVirtualCart(req);
+            showCartInternally();
         }
         else
         {
-            ////////////////////////////////////////////
+            System.out.println("No Cart Yet");
+            makeNewCartWithProduct(req);
+            showCartInternally();
         }
+        resp.sendRedirect("/MAM/main.jsp");
+    }    
+    
+    
+    private String getCartID (HttpServletRequest req)
+    {
+        String cartID = null;
+        for (int i =0; i < req.getCookies().length; i++)
+        {
+            if (req.getCookies()[i].getName().equals("cartID"))
+            {
+                cartID = req.getCookies()[i].getValue();
+            }
+        }
+        return cartID;
     }
     
+    private void makeNewCartWithProduct (HttpServletRequest req)
+    {
+        String productID = req.getParameter("pkey");
+        String quantity = req.getParameter("quantity");
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        Product p = new Product();
+        p.getAllProducts().add(new Product(Integer.parseInt(productID), Integer.parseInt(quantity)));
+        Gson g = new Gson();
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        session.setAttribute(getCartID(req), g.toJson(p));
+    }
+    
+    private void addProductToVirtualCart (HttpServletRequest req)
+    {
+        String productID = req.getParameter("pkey");
+        String quantity = req.getParameter("quantity");        
+        String cartID = getCartID(req);
+        int prodcutofID = Integer.parseInt(productID);
+        int quantityOfProduct = Integer.parseInt(quantity);
+        boolean newProduct = false;
+        int index = 0;
+        
+        Gson g = new Gson();
+        Product p = g.fromJson(session.getAttribute(cartID).toString(), Product.class);
+        
+        for (int i = 0; i < p.getAllProducts().size(); i++)
+        {
+            if (p.getAllProducts().elementAt(i).getProductKey() == prodcutofID)
+            {
+                newProduct = true;
+                index = i;
+            }
+        }
+        
+        if (newProduct)
+        {
+            p.getAllProducts().elementAt(index).setQuantity(p.getAllProducts().elementAt(index).getQuantity()+quantityOfProduct);
+        }
+        else
+        {
+            p.getAllProducts().add(new Product(prodcutofID, quantityOfProduct));
+        }
+        session.setAttribute(cartID, g.toJson(p));
+    }
+    
+    private void showCartInternally ()
+    {
+        for (int i = 0; i < session.getValueNames().length;i++)
+        {
+            System.out.println("Cart Number: "+session.getValueNames()[i]+
+                    " and "+"Product Object Number"+session.getAttribute(session.getValueNames()[i]));
+        }
+    }
 }

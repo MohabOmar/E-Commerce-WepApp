@@ -34,6 +34,10 @@
             </div>
             <div class="modal-body">
              <%
+                 if (request.getSession().getAttribute("cart-1") != null)
+                 {
+                     out.println(request.getSession().getAttribute("cart-1"));
+                 }
             Database s = new Database();
             if(request.getParameter("pkey") != null){
             Product pr = s.getProductById(new Product(Integer.parseInt(request.getParameter("pkey"))));

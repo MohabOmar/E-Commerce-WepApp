@@ -32,6 +32,12 @@ public class Product {
     {
         this.productKey = productKey;
     }
+    
+    public Product(int productKey,int quantity)
+    {
+        this.productKey = productKey;
+        this.quantity = quantity;
+    }    
 
     public Product(int productKey, int categoryId, String productName, float price, int quantity, String desc, String img, boolean isAvail) {
         this.productKey = productKey;
