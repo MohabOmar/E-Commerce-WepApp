@@ -578,6 +578,40 @@ public class Database {
             stop();
         }
     }
+    
+    public Users getUserInfo(Users user) 
+    {
+        try {
+            connect();
+            sqlCommand = "SELECT * FROM users WHERE uid = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, user.getuId());
+            result = preparedStatment.executeQuery();
+
+            while (result.next()) 
+            {
+                user.setuName(result.getString(2));
+                user.setfName(result.getString(3));
+                user.setlName(result.getString(4));
+                user.setbDate(result.getString(5));
+                user.setPassword(result.getString(6));
+                user.setJob(result.getString(7));
+                user.setEmail(result.getString(8));
+                user.setCreditLimit(result.getInt(9));
+                user.setBalance(result.getInt(10));
+                user.setAddress(result.getString(11));
+                user.setInterests(result.getString(12));
+            }
+        }
+        catch (SQLException ex) 
+        {
+            ex.printStackTrace();
+        } finally 
+        {
+            stop();
+            return user;
+        }
+    }    
 
     private void stop() {
         try {
