@@ -7,17 +7,19 @@
 
 
 <%
+
     String isLogin = "false";
     String cartID = "0";
-    for (int e = 0; e < request.getCookies().length; e++)
-    {
-        if (request.getCookies()[e].getName().equals("login"))
-        {
-            isLogin = request.getCookies()[e].getValue();
-        }
-        else if(request.getCookies()[e].getName().equals("cartID"))
-        {
-            cartID = request.getCookies()[e].getValue();
+    String uId = "";
+    if (request.getCookies() != null) {
+        for (int e = 0; e < request.getCookies().length; e++) {
+            if (request.getCookies()[e].getName().equals("login")) {
+                isLogin = request.getCookies()[e].getValue();
+            } else if (request.getCookies()[e].getName().equals("cartID")) {
+                cartID = request.getCookies()[e].getValue();
+            } else if (request.getCookies()[e].getName().equals("userID")) {
+                uId = request.getCookies()[e].getValue();
+            }
         }
     }
 %>
@@ -27,7 +29,7 @@
      aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
-           
+
             <div class="modal-header border-bottom-0">
                 <h5 class="modal-title" id="exampleModalLabel">
                     Your Shopping Cart
@@ -48,19 +50,17 @@
                             <th scope="col">Actions</th>
                         </tr>
                     </thead>                
-             <%
-            int total = 0;
-            Database s = new Database();
-            Gson m = new Gson();
-            if(isLogin.equals("false") && request.getSession().getAttribute("cart-1") != null)
-            {
-            Product pr = m.fromJson(request.getSession().getAttribute(cartID).toString(), Product.class);
-            for (int u =0; u < pr.getAllProducts().size(); u++)
-            {
-            int q = pr.getAllProducts().elementAt(u).getQuantity();
-            Product ps = s.getProductById(pr.getAllProducts().elementAt(u));
-            total += ps.getPrice()*q;
-            %>
+                    <%
+                        int total = 0;
+                        Database s = new Database();
+                        Gson m = new Gson();
+                        if (isLogin.equals("false") && request.getSession().getAttribute("cart-1") != null) {
+                            Product pr = m.fromJson(request.getSession().getAttribute(cartID).toString(), Product.class);
+                            for (int u = 0; u < pr.getAllProducts().size(); u++) {
+                                int q = pr.getAllProducts().elementAt(u).getQuantity();
+                                Product ps = s.getProductById(pr.getAllProducts().elementAt(u));
+                                total += ps.getPrice() * q;
+                    %>
                     <tbody>
                         <tr>
                             <td class="w-25">
@@ -70,7 +70,7 @@
                             <td><%=ps.getProductName()%></td>
                             <td><%=ps.getPrice()%></td>
                             <td class="qty"><input type="number" class="form-control" id="input1" max="<%=q%>" min="<%=q%>" value="<%=q%>"></td>
-                            <td><%=ps.getPrice()*q%></td>
+                            <td><%=ps.getPrice() * q%></td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>
@@ -78,15 +78,16 @@
                             </td>
                         </tr>
                     </tbody>
-                <%}}else{
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                    <%}
+                    } else if (!uId.equalsIgnoreCase("") && !uId.equalsIgnoreCase("0")) {
 
-                    Vector<Product> pv = s.asdasfasf;
-                    for (int v =0; v < pv.size(); v++)
-                    {
-                    int qv = pv.elementAt(v).getQuantity();
-                    total += pv.elementAt(v).getPrice()*qv;
-%>
+                        UserCart userCart = s.getUserCart(uId);
+                        String cartId = userCart.getCartId() + "";
+                        Vector<Product> pv = s.retrieveCartProducts(cartId);
+                        for (int v = 0; v < pv.size(); v++) {
+                            int qv = pv.elementAt(v).getQuantity();
+                            total += pv.elementAt(v).getPrice() * qv;
+                    %>
                     <tbody>
                         <tr>
                             <td class="w-25">
@@ -96,7 +97,7 @@
                             <td><%=pv.elementAt(v).getProductName()%></td>
                             <td><%=pv.elementAt(v).getPrice()%></td>
                             <td class="qty"><input type="number" class="form-control" id="input1" max="<%=qv%>" min="<%=qv%>" value="<%=qv%>"></td>
-                            <td><%=pv.elementAt(v).getPrice()*qv%></td>
+                            <td><%=pv.elementAt(v).getPrice() * qv%></td>
                             <td>
                                 <a href="#" class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>
@@ -104,7 +105,8 @@
                             </td>
                         </tr>
                     </tbody>                
-                <%}}%>
+                    <%}
+                        }%>
                 </table>      
                 <div class="d-flex justify-content-end">
                     <h5>Total: <span class="price text-success"><%=total%></span></h5>
@@ -114,7 +116,7 @@
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-success">Checkout</button>
             </div>
-                    
+
         </div>
     </div>
 </div>
