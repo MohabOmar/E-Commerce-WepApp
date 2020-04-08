@@ -5,6 +5,14 @@
         <servlet-class>CheckServlets.loginCheck</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>AddServlets.AddToCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OfflineCart</servlet-name>
+        <servlet-class>AddServlets.OfflineCart</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>signUpCheck</servlet-name>
         <servlet-class>CheckServlets.signUpCheck</servlet-class>
     </servlet>
@@ -40,6 +48,14 @@
         <servlet-name>Category</servlet-name>
         <url-pattern>/Category</url-pattern>
     </servlet-mapping>    
+    <servlet-mapping>
+        <servlet-name>OfflineCart</servlet-name>
+        <url-pattern>/OfflineCart</url-pattern>
+    </servlet-mapping> 
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/AddToCart</url-pattern>
+    </servlet-mapping> 
     <session-config>
         <session-timeout>
             30
