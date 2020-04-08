@@ -10,7 +10,7 @@ public class Database {
 
     private final String url = "jdbc:postgresql://localhost:5432/oshop";
     private final String user = "postgres";
-    private final String password = "amrwsk13";
+    private final String password = "postgres";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -261,7 +261,7 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }finally {
+        } finally {
             stop();
         }
     }
@@ -324,7 +324,7 @@ public class Database {
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }finally {
+        } finally {
             stop();
         }
     }
@@ -436,7 +436,43 @@ public class Database {
             return product;
         }
     }
-    
+
+    public void addUserCart(String uId) {
+        try {
+            connect();
+            sqlCommand = "insert into usercart (user_id, issubmitted, submitteddate) values(" + uId + ",False,'now')";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            stop();
+        }
+    }
+
+    public UserCart getUserCart(String uId) {
+        UserCart userCart = null;
+        try {
+            connect();
+            sqlCommand = "SELECT * FROM usercart WHERE user_id =" + uId;
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                userCart = new UserCart(result.getInt(1),
+                        result.getInt(2),
+                        result.getBoolean(3),
+                        result.getDate(4));
+            }
+            return userCart;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return null;
+        } finally {
+            stop();
+
+        }
+    }
+
     public Product getAllProductsInCart (Product product)
     {
         Product allProducts = new Product();
@@ -468,6 +504,81 @@ public class Database {
         }
     }
 
+    public void updateCart(String pId, String cId, String qty) {
+        try {
+            connect();
+            sqlCommand = "select * from cartsaved where product_id=" + pId + "and cart_id=" + cId;
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            Statement stmt = connection.createStatement();
+            result = preparedStatment.executeQuery();
+            if (result.next()) {
+                stmt.executeUpdate("update cartsaved set quantity=quantity+1 where cart_id=" + cId + " and product_id=" + pId);
+            } else {
+                stmt.executeUpdate("Insert into cartsaved(cart_id, product_id, quantity) values(" + cId + "," + pId + "," + qty + ")");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            stop();
+        }
+
+    }
+        public Vector<Product> retrieveCartProducts(String cId) {
+        try {
+            connect();
+            Vector<Product> products = new Vector();
+            sqlCommand = "select * from cartsaved where cart_id = " + cId;
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            Statement stmt = connection.createStatement();
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                ResultSet rs = stmt.executeQuery("select * from products where productkey =" + result.getInt(2));
+                while (rs.next()) {
+                    products.add(new Product(rs.getInt(1),
+                            rs.getInt(2),
+                            rs.getString(3),
+                            rs.getFloat(4),
+                            rs.getInt(5),
+                            rs.getString(6),
+                            rs.getString(7),
+                            rs.getBoolean(8)));
+                }
+
+            }
+            return products;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            stop();
+        }
+    }
+
+    public Vector<CartSaved> retrieveCartSaved(String cId) {
+        try {
+            connect();
+            Vector<CartSaved> cartSaved = new Vector();
+            sqlCommand = "select * from cartsaved where cart_id = " + cId;
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                    cartSaved.add(new CartSaved(result.getInt(1),
+                            result.getInt(2),
+                            result.getInt(3),
+                            result.getFloat(4)));
+                }
+  
+            return cartSaved ;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            stop();
+        }
+    }
+
     private void stop() {
         try {
             connection.close();
@@ -476,4 +587,13 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+//    public static void main(String[] args) {
+//        Database dB = new Database();
+//        UserCart userCart = dB.getUserCart("13");
+//        String cartId = userCart.getCartId() + "";
+//        Vector<CartSaved> cart = dB.retrieveCartSaved(cartId);
+//        System.out.println(cart.elementAt(0).getQuantity());
+//    }
+
 }
