@@ -15,6 +15,19 @@
 <%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+<%
+    
+    String login0 = "false";
+    if (request.getCookies() != null) {
+        for (int i = 0; i < request.getCookies().length; i++) {
+            if (request.getCookies()[i].getName().equals("login")) {
+                login0 = request.getCookies()[i].getValue();
+            }
+        }
+    }
+%>
+
+
 <html>
     <head>
         <meta charset="UTF-8">
@@ -58,7 +71,19 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <a href="#" class="btn btn-primary">Add To Cart</a>
+                          <%
+                                if (login0 != null && login0.equalsIgnoreCase("true"))
+                                {
+                            %>
+                            <form action="/MAM/AddToCart" method="GET">
+                                <%}else if (login0 != null){%>
+                                <form action="/MAM/OfflineCart" method="GET">
+                                    <%}%>
+                                <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
+                                <input type="hidden" value="1" name="quantity"/>
+                                <input type="hidden" value="<%=request.getRequestURI().toString()%>" name="URL"/>
+                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                            </form>
                         </div>
                     </div>
                 </div>

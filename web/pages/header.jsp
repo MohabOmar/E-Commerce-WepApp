@@ -80,7 +80,7 @@
                             <%
                             if (login != null && login.equals("true")){%>
                             <a href="logout?logout=true" id="signOut">Sign Out</a>
-                            <a href="./pages/profile.jsp" id="signOut">Profile</a>
+                            <a href="/MAM/pages/profile.jsp" id="profile">Profile</a>
                             <%}
                             else if (login != null)
                             {%>
@@ -109,7 +109,7 @@
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                             <li class="nav-item active">
-                                <a class="nav-link" href="../MAM/main.jsp">Home <span class="sr-only">(current)</span></a>
+                                <a class="nav-link" href="/MAM/main.jsp">Home <span class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Link</a>

@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,14 +24,27 @@ public class AddToCart extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String uId = req.getCookies()[3].getValue();
+        String url = req.getParameter("URL");
         String pId = req.getParameter("pkey");
         String qty = req.getParameter("quantity");
         Database dB = new Database();
-        UserCart userCart = dB.getUserCart(uId);
+        UserCart userCart = dB.getUserCart(getUserId(req));
         String cartId = userCart.getCartId() + "";
         dB.updateCart(pId, cartId, qty);
         resp.sendRedirect("/MAM/main.jsp");
+    }
+    
+    private String getUserId (HttpServletRequest req)
+    {
+        String userId = null;
+        Cookie[] c = req.getCookies();
+        for (int i = 0; i < c.length; i++)
+        {
+            if (c[i].getName().equalsIgnoreCase("userid"));
+            {
+                userId = c[i].getValue();
+            }
+        }
+        return userId;
     }
 }

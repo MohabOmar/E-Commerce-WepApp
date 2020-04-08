@@ -15,7 +15,16 @@
 <%@page import="java.sql.SQLException"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
+<%
+    String login0 = "false";
+    if (request.getCookies() != null) {
+        for (int i = 0; i < request.getCookies().length; i++) {
+            if (request.getCookies()[i].getName().equals("login")) {
+                login0 = request.getCookies()[i].getValue();
+            }
+        }
+    }
+%>
 
 
 <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -51,7 +60,14 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <form action="/MAM/OfflineCart" method="GET">
+                            <%
+                                if (login0 != null && login0.equalsIgnoreCase("true"))
+                                {
+                            %>
+                            <form action="/MAM/AddToCart" method="GET">
+                                <%}else if (login0 != null){%>
+                                <form action="/MAM/OfflineCart" method="GET">
+                                    <%}%>
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
                                 <input type="hidden" value="1" name="quantity"/>
                                 <input type="hidden" value="/MAM/main.jsp" name="URL"/>
@@ -89,7 +105,14 @@
                                 <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
                                 <button type='submit' class="btn btn-primary">View</button>
                             </form>
-                            <form action="/MAM/OfflineCart" method="GET">
+                            <%
+                                if (login0 != null && login0.equalsIgnoreCase("true"))
+                                {
+                            %>
+                            <form action="/MAM/AddToCart" method="GET">
+                                <%}else if (login0 != null){%>
+                                <form action="/MAM/OfflineCart" method="GET">
+                                    <%}%>
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
                                 <input type="hidden" value="1" name="quantity"/>
                                 <input type="hidden" value="/MAM/main.jsp" name="URL"/>
