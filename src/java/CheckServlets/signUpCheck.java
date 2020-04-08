@@ -44,6 +44,7 @@ public class signUpCheck extends HttpServlet
                     , req.getParameter("aEAName"), req.getParameter("aAName"), req.getParameter("aANTName"));
             if (db.addClient(user))
             {
+                db.addUserCart(db.getUserID(new Users(req.getParameter("aUName"))));
                 resp.sendRedirect(req.getParameter("URL"));
             }
             else
