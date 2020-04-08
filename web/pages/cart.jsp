@@ -1,24 +1,27 @@
-<%-- 
-    Document   : cart
-    Created on : Apr 7, 2020, 6:53:38 PM
-    Author     : Mohamed Ibrahim
---%>
 <%@page import="com.google.gson.Gson"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.SQLException"%>
-
 <%@page import="java.io.PrintWriter"%>
 <%@page import="Database_Tables.*"%>
 <%@page import="java.util.Vector"%>
 <%@page import="database.Database"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.*"%>
+
+
+<%
+    String isLogin = "false";
+    String cartID = "0";
+    for (int e = 0; e < request.getCookies().length; e++)
+    {
+        if (request.getCookies()[e].getName().equals("login"))
+        {
+            isLogin = request.getCookies()[e].getValue();
+        }
+        else if(request.getCookies()[e].getName().equals("cartID"))
+        {
+            cartID = request.getCookies()[e].getValue();
+        }
+    }
+%>
+
 
 <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
@@ -49,8 +52,9 @@
             int total = 0;
             Database s = new Database();
             Gson m = new Gson();
-            if(request.getSession().getAttribute("cart-1") != null){
-            Product pr = m.fromJson(request.getSession().getAttribute("cart-1").toString(), Product.class);
+            if(isLogin.equals("false") && request.getSession().getAttribute("cart-1") != null)
+            {
+            Product pr = m.fromJson(request.getSession().getAttribute(cartID).toString(), Product.class);
             for (int u =0; u < pr.getAllProducts().size(); u++)
             {
             int q = pr.getAllProducts().elementAt(u).getQuantity();
@@ -74,6 +78,32 @@
                             </td>
                         </tr>
                     </tbody>
+                <%}}else{
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                    Vector<Product> pv = s.asdasfasf;
+                    for (int v =0; v < pv.size(); v++)
+                    {
+                    int qv = pv.elementAt(v).getQuantity();
+                    total += pv.elementAt(v).getPrice()*qv;
+%>
+                    <tbody>
+                        <tr>
+                            <td class="w-25">
+                                <img src="<%=pv.elementAt(v).getImg()%>"
+                                     class="img-fluid img-thumbnail" alt="Sheep">
+                            </td>
+                            <td><%=pv.elementAt(v).getProductName()%></td>
+                            <td><%=pv.elementAt(v).getPrice()%></td>
+                            <td class="qty"><input type="number" class="form-control" id="input1" max="<%=qv%>" min="<%=qv%>" value="<%=qv%>"></td>
+                            <td><%=pv.elementAt(v).getPrice()*qv%></td>
+                            <td>
+                                <a href="#" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-times"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>                
                 <%}}%>
                 </table>      
                 <div class="d-flex justify-content-end">
