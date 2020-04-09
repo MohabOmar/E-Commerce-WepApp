@@ -65,7 +65,7 @@
                                 {
                             %>
                             <form action="/MAM/AddToCart" method="GET">
-                                <%}else if (login0 != null){%>
+                                <%}else if (login0 != null && login0.equalsIgnoreCase("false")){%>
                                 <form action="/MAM/OfflineCart" method="GET">
                                     <%}%>
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
@@ -89,7 +89,6 @@
                 <%
                     Category lap = database.getCategoryByName(new Category("laptops"));
                     for (Product p : listOfProducts) {
-
                         if (p.getCategoryId() == lap.getCategoryid()) {
                 %>
                 <div class="col-md-4" style="margin-bottom: 8%;">
@@ -110,7 +109,7 @@
                                 {
                             %>
                             <form action="/MAM/AddToCart" method="GET">
-                                <%}else if (login0 != null){%>
+                                <%}else if (login0 != null && login0.equalsIgnoreCase("false")){%>
                                 <form action="/MAM/OfflineCart" method="GET">
                                     <%}%>
                                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>

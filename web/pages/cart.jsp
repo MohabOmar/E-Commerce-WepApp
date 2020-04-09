@@ -84,9 +84,11 @@
                         UserCart userCart = s.getUserCart(uId);
                         String cartId = userCart.getCartId() + "";
                         Vector<Product> pv = s.retrieveCartProducts(cartId);
+
                         for (int v = 0; v < pv.size(); v++) {
-                            int qv = pv.elementAt(v).getQuantity();
-                            total += pv.elementAt(v).getPrice() * qv;
+                            CartSaved cS = s.retrieveCartSaved(pv.elementAt(v).getProductKey() + "");
+                            int qty = cS.getQuantity();
+                            total += pv.elementAt(v).getPrice() * qty;
                     %>
                     <tbody>
                         <tr>
@@ -96,12 +98,13 @@
                             </td>
                             <td><%=pv.elementAt(v).getProductName()%></td>
                             <td><%=pv.elementAt(v).getPrice()%></td>
-                            <td class="qty"><input type="number" class="form-control" id="input1" max="<%=qv%>" min="<%=qv%>" value="<%=qv%>"></td>
-                            <td><%=pv.elementAt(v).getPrice() * qv%></td>
+                            <td class="qty"><input type="number" class="form-control" id="input1" max="<%=qty%>" min="<%=qty%>" value="<%=qty%>"></td>
+                            <td><%=pv.elementAt(v).getPrice() * qty%></td>
                             <td>
-                                <a href="#" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-times"></i>
-                                </a>
+                                <form action="/MAM/DeleteFromCart" method="GET">
+                                    <input type="hidden" value="<%=pv.elementAt(v).getProductKey()%>" name="pkey"/>
+                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+                                </form>
                             </td>
                         </tr>
                     </tbody>                
