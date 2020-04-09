@@ -4,15 +4,10 @@
     Author     : MohabOmar
 --%>
 
-<%@page import="java.io.PrintWriter"%>
 <%@page import="Database_Tables.Product"%>
 <%@page import="java.util.Vector"%>
-<%@page import="database.Database"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.SQLException"%>
+<%@page import="database.*"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
@@ -44,11 +39,6 @@
         <%@include file="./pages/header.jsp" %>
 
         <!--        <%@include file="./pages/main.html" %> -->
-
-
-
-
-
 
         <div class="container Cart">
             <div class="row justify-content-center">

@@ -80,11 +80,9 @@
                     </tbody>
                     <%}
                     } else if (!uId.equalsIgnoreCase("") && !uId.equalsIgnoreCase("0")) {
-
                         UserCart userCart = s.getUserCart(uId);
                         String cartId = userCart.getCartId() + "";
                         Vector<Product> pv = s.retrieveCartProducts(cartId);
-
                         for (int v = 0; v < pv.size(); v++) {
                             CartSaved cS = s.retrieveCartSaved(pv.elementAt(v).getProductKey() + "");
                             int qty = cS.getQuantity();
@@ -107,7 +105,7 @@
                                 </form>
                             </td>
                         </tr>
-                    </tbody>                
+                    </tbody>              
                     <%}
                         }%>
                 </table>      
