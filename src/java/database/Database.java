@@ -10,7 +10,7 @@ public class Database {
 
     private final String url = "jdbc:postgresql://localhost:5432/oshop";
     private final String user = "postgres";
-    private final String password = "postgres";
+    private final String password = "amrwsk13";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -240,9 +240,9 @@ public class Database {
     }
 
     public Vector<Product> retrieveAllProducts() {
+    Vector<Product> products = new Vector();        
         try {
             connect();
-            Vector<Product> products = new Vector();
             sqlCommand = "select * from products";
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
@@ -256,13 +256,12 @@ public class Database {
                         result.getString(7),
                         result.getBoolean(8)));
             }
-            return products;
-
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             stop();
+            return products;
         }
     }
 
@@ -303,9 +302,9 @@ public class Database {
     }
 
     public Vector<Product> search(String keyword) {
+        Vector<Product> products = new Vector();        
         try {
             connect();
-            Vector<Product> products = new Vector();
             sqlCommand = "select * from products where productname LIKE'%" + keyword + "%'";
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
@@ -319,13 +318,13 @@ public class Database {
                         result.getString(7),
                         result.getBoolean(8)));
             }
-            return products;
 
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             stop();
+            return products;
         }
     }
 
@@ -403,13 +402,13 @@ public class Database {
                         result.getString(7),
                         result.getBoolean(8));
             }
-            return product;
 
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             stop();
+            return product;
         }
     }
 
@@ -463,13 +462,13 @@ public class Database {
                         result.getBoolean(3),
                         result.getDate(4));
             }
-            return userCart;
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
         } finally {
             stop();
-
+            return userCart;
         }
     }
 
@@ -524,9 +523,9 @@ public class Database {
 
     }
         public Vector<Product> retrieveCartProducts(String cId) {
+        Vector<Product> products = new Vector();
         try {
             connect();
-            Vector<Product> products = new Vector();
             sqlCommand = "select * from cartsaved where cart_id = " + cId;
             preparedStatment = connection.prepareStatement(sqlCommand);
             Statement stmt = connection.createStatement();
@@ -545,20 +544,20 @@ public class Database {
                 }
 
             }
-            return products;
-
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             stop();
+            return products;
         }
     }
 
-    public Vector<CartSaved> retrieveCartSaved(String cId) {
+    public Vector<CartSaved> retrieveCartSaved(String cId) 
+    {
+        Vector<CartSaved> cartSaved = new Vector();        
         try {
             connect();
-            Vector<CartSaved> cartSaved = new Vector();
             sqlCommand = "select * from cartsaved where cart_id = " + cId;
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
@@ -569,13 +568,12 @@ public class Database {
                             result.getFloat(4)));
                 }
   
-            return cartSaved ;
-
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         } finally {
             stop();
+            return cartSaved ;
         }
     }
     
