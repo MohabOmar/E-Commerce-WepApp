@@ -625,6 +625,89 @@ public class Database {
             return user;
         }
     }    
+    
+    public boolean deleteProduct(Product product)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "DELETE from products where productkey  = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, product.getProductKey());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            operation = false;
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }
+    
+    public boolean updateProduct (Product product)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "UPDATE products SET category_id = ?,productname = ?,price = ?,quantityofproduct = ?,description = ?,image = ?,isavailable =? WHERE productkey = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, product.getCategoryId());
+            preparedStatment.setString(2, product.getProductName());
+            preparedStatment.setFloat(3, product.getPrice());
+            preparedStatment.setInt(4, product.getQuantity());
+            preparedStatment.setString(5, product.getDesc());
+            preparedStatment.setString(6, product.getImg());
+            preparedStatment.setBoolean(7, product.getIsAvail());
+            preparedStatment.setInt(8, product.getProductKey());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            operation = false;
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }
+    
+    public boolean addProduct (Product product)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "INSERT INTO products (category_id,productname,price,quantityofproduct,description,image,isavailable)"
+                    + " VALUES (?,?,?,?,?,?,?)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, product.getCategoryId());
+            preparedStatment.setString(2, product.getProductName());
+            preparedStatment.setFloat(3, product.getPrice());
+            preparedStatment.setInt(4, product.getQuantity());
+            preparedStatment.setString(5, product.getDesc());
+            preparedStatment.setString(6, product.getImg());
+            preparedStatment.setBoolean(7, product.getIsAvail());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            operation = false;
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }    
 
     private void stop() {
         try {
@@ -642,5 +725,4 @@ public class Database {
 //        Vector<CartSaved> cart = dB.retrieveCartSaved(cartId);
 //        System.out.println(cart.elementAt(0).getQuantity());
 //    }
-
 }

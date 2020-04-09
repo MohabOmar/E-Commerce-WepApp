@@ -30,10 +30,7 @@
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src=".<%=p.getImg()%>" class="d-block w-100" alt="...">
-                    </div>
-                    <div class="carousel-item">
-                        <img src=".<%=p.getImg()%>" class="d-block w-100" alt="...">
+                        <img src="<%=p.getImg()%>" class="d-block w-100" alt="...">
                     </div>
                 </div>
                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -62,7 +59,19 @@
             <p><b>Description:</b> <%=p.getDesc()%></p>
             <label>Quantity</label>
             <input type="number" value="1" max="<%=p.getQuantity()%>">
-            <button type="button" class="vpbtn btn-default cart">Add to cart</button>
+            <%
+                if (login != null && login.equalsIgnoreCase("true"))
+                {
+            %>
+            <form class="vpbtn btn-default" action="/MAM/AddToCart" method="GET">
+                <%}else if (login != null){%>
+                <form action="/MAM/OfflineCart" method="GET">
+                    <%}%>
+                <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
+                <input type="hidden" value="1" name="quantity"/>
+                <input type="hidden" value="/MAM/main.jsp" name="URL"/>
+                <button type="submit" class="btn btn-primary">Add To Cart</button>
+            </form>            
         </div>
 
     </div>

@@ -32,6 +32,18 @@
         <servlet-name>DeleteFromCart</servlet-name>
         <servlet-class>AddServlets.DeleteFromCart</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteProduct</servlet-name>
+        <servlet-class>AddServlets.DeleteProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProduct</servlet-name>
+        <servlet-class>AddServlets.EditProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProduct</servlet-name>
+        <servlet-class>AddServlets.AddProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginCheck</servlet-name>
         <url-pattern>/loginCheck</url-pattern>
@@ -63,6 +75,18 @@
     <servlet-mapping>
         <servlet-name>DeleteFromCart</servlet-name>
         <url-pattern>/DeleteFromCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProduct</servlet-name>
+        <url-pattern>/DeleteProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProduct</servlet-name>
+        <url-pattern>/EditProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProduct</servlet-name>
+        <url-pattern>/AddProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

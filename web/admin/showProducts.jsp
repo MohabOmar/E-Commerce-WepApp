@@ -9,7 +9,7 @@
     boolean isLogin = false;
     boolean authorization = false;    
     Database db = new Database();
-    Vector<Product> p = db.retrieveAllProducts();
+    Vector<Product> p;
     
     private boolean checkCookie(Cookie[] cookies)
     {
@@ -67,6 +67,10 @@
     {
         response.sendRedirect("/MAM/main.jsp");
     }
+    else
+    {
+        p = db.retrieveAllProducts();
+    }
 %>
 
 <!DOCTYPE html>
@@ -92,7 +96,7 @@
                         <a href="#"><i class="fas fa-users" aria-hidden="true"></i></a>
                         <a href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
                     </div>
-                    <a href="#" class="bottom">
+                    <a href="/MAM/logout" class="bottom">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </div>
@@ -108,7 +112,7 @@
                                     <a href="categories.jsp">Categories</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="#">Products</a>
+                                    <a href="AddProduct.jsp">Add Product</a>
                                 </div>
                                 <div class="cards">
                                     <a href="addAdminUser.jsp">New User</a>
@@ -137,14 +141,15 @@
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
-                                  <th scope="col">Product ID</th>
-                                  <th scope="col">Category Name</th>
-                                  <th scope="col">Product Name</th>
+                                  <th scope="col">PID</th>
+                                  <th scope="col">Category</th>
+                                  <th scope="col">Name</th>
                                   <th scope="col">Price</th>
                                   <th scope="col">Quantity</th>
                                   <th scope="col">Description</th>
                                   <th scope="col">Image</th>
-                                  <th scope="col">Product Availability</th>                                  
+                                  <th scope="col">Availability</th>
+                                  <th scope="col">Action</th>
                                 </tr>
                               </thead>
                               <tbody>
@@ -157,8 +162,12 @@
                                   <td><%=p.elementAt(i).getPrice()%></td>
                                   <td><%=p.elementAt(i).getQuantity()%></td>
                                   <td><%=p.elementAt(i).getDesc()%></td>
-                                  <td><a href="<%=p.elementAt(i).getImg()%>" target="_blank">Press To Show Image</a></td>
+                                  <td><a href="<%=p.elementAt(i).getImg()%>" target="_blank">Show Image</a></td>
                                   <td><%=getAvailabilty(p.elementAt(i).getIsAvail())%></td>
+                                  <td>
+                                      <a href="/MAM/admin/EditProduct.jsp?pid=<%=p.elementAt(i).getProductKey()%>" style="color: #00cc66;font-size: 25px"><i class="far fa-edit"></i></a>
+                                      <a href="/MAM/DeleteProduct?pid=<%=p.elementAt(i).getProductKey()%>" style="color: red;font-size: 25px"><i class="far fa-minus-square"></i></a>
+                                  </td>
                                 </tr>
                                 <%}%>                              
                               </tbody>

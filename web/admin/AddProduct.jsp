@@ -1,13 +1,14 @@
-<%@page import="Database_Tables.Category"%>
 <%@page import="database.Database"%>
+<%@page import="Database_Tables.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%!
     boolean isAdmin = false;
     boolean isLogin = false;
-    boolean authorization = false;    
-    Database dh = new Database();
+    boolean authorization = false; 
     Category c;
+    Product p;
+    Database db = new Database();
     
     private boolean checkCookie(Cookie[] cookies)
     {
@@ -50,7 +51,7 @@
     }
     else
     {
-        c = dh.showAllCategories();
+        c = db.showAllCategories();
     }
 %>
 
@@ -113,30 +114,59 @@
                     <!--End Of The Top Menu-->
                         <!--////////////////////////////////////////////////////////////////////////-->                    
                         <div class="row" style="height: 10%;">
-                            <h3 class="align_text">Categories Panel</h3>
+                            <h3 class="align_text">Add Product</h3>
                         </div>
                         <!--////////////////////////////////////////////////////////////////////////--> 
                         <!--////////////////////////////////////////////////////////////////////////-->
-                        <div class="container col-sm-6">
-                            <table class="table table-hover" style="background-color: white">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Category ID</th>
-                                  <th scope="col">Category Name</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <%for(int i = 0; i < c.getAllCategories().size(); i++){%>                                  
-                                <tr>
-                                  <th scope="row"><%=i+1%></th>
-                                  <td><%=c.getAllCategories().elementAt(i).getCategoryid()%></td>
-                                  <td><%=c.getAllCategories().elementAt(i).getCategoryName()%></td>
-                                </tr>
-                                <%}%>                              
-                              </tbody>
-                            </table>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row bottom_Body">
+                                <!--////////////////////////////////////////////////////////////////////////-->
+                                <div class="container col-sm-8">
+                                    <form action="/MAM/AddProduct" method="POST">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <label>Image URL</label>
+                                        <input type="text"class="form-control" required placeholder="Add Image URL" required name="pImg"/>
+                                    </div>                                        
+                                </div>                                         
+                                <div class="form-row">
+                                    <div class="col-md-2 mb-3">
+                                        <label>Category</label>
+                                        <select class="form-control btn btn-primary" name="cId">
+                                            <%for(int i =0; i < c.getAllCategories().size(); i++){%>
+                                            <option style="color: black;background-color: white" value="<%=c.getAllCategories().elementAt(i).getCategoryid()%>"><%=c.getAllCategories().elementAt(i).getCategoryName()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label>Product Name</label>
+                                        <input type="text" class="form-control" id="validationDefault02" placeholder="Product Name" required name="pName"/>                                     
+                                    </div>          
+                                    <div class="col-md-2 mb-3">
+                                        <label>Product Price</label>
+                                        <input type="number" class="form-control" id="validationDefaultUsername" placeholder="User Name" required name="pPrice"/>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <label>Quantity</label>
+                                        <input type="number" class="form-control" id="exampleInputPassword1" required name="pQuantity"/>
+                                    </div>
+                                </div>                               
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Description</label>
+                                        <input class="form-control" placeholder="Enter The Description" required type="text" name="pDesc"/>                                                                    
+                                    </div>                                                                                    
+                                </div>                                     
+                                <input type="hidden" value="/MAM/admin/AddProduct.jsp" name="URL"/>
+                                <input type="hidden" name="pAva" value="true"/>                                
+                                <button class="btn btn-primary" type="submit">Add Product</button>
+                            </form>                          
                         </div>
+                            </div>                            
+                        </div>
+                    </div>
                         <!--////////////////////////////////////////////////////////////////////////-->
                 </div>
                 <!--End the internal Body-->

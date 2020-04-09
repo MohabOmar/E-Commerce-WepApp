@@ -1,13 +1,14 @@
-<%@page import="Database_Tables.Category"%>
 <%@page import="database.Database"%>
+<%@page import="Database_Tables.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%!
     boolean isAdmin = false;
     boolean isLogin = false;
-    boolean authorization = false;    
-    Database dh = new Database();
+    boolean authorization = false; 
     Category c;
+    Product p;
+    Database db = new Database();
     
     private boolean checkCookie(Cookie[] cookies)
     {
@@ -50,7 +51,8 @@
     }
     else
     {
-        c = dh.showAllCategories();
+        c = db.showAllCategories();
+        p = db.getProductById(new Product(Integer.parseInt(request.getParameter("pid"))));
     }
 %>
 
@@ -113,30 +115,70 @@
                     <!--End Of The Top Menu-->
                         <!--////////////////////////////////////////////////////////////////////////-->                    
                         <div class="row" style="height: 10%;">
-                            <h3 class="align_text">Categories Panel</h3>
+                            <h3 class="align_text">Edit Product</h3>
                         </div>
                         <!--////////////////////////////////////////////////////////////////////////--> 
                         <!--////////////////////////////////////////////////////////////////////////-->
-                        <div class="container col-sm-6">
-                            <table class="table table-hover" style="background-color: white">
-                              <thead>
-                                <tr>
-                                  <th scope="col">#</th>
-                                  <th scope="col">Category ID</th>
-                                  <th scope="col">Category Name</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <%for(int i = 0; i < c.getAllCategories().size(); i++){%>                                  
-                                <tr>
-                                  <th scope="row"><%=i+1%></th>
-                                  <td><%=c.getAllCategories().elementAt(i).getCategoryid()%></td>
-                                  <td><%=c.getAllCategories().elementAt(i).getCategoryName()%></td>
-                                </tr>
-                                <%}%>                              
-                              </tbody>
-                            </table>
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row bottom_Body">
+                                <!--////////////////////////////////////////////////////////////////////////-->
+                                <div class="container col-sm-8">
+                                    <form action="/MAM/EditProduct" method="POST">
+                                <div class="form-row">
+                                    <div class="col-md-4 mb-3">
+                                        <img src="<%=p.getImg()%>" style="height: 200px;width: 200px;margin: 10px"/>
+                                        <input type="text"class="form-control" required placeholder="Add Image URL" required name="pImg"/>
+                                    </div>                                        
+                                </div>                                         
+                                <div class="form-row">
+                                    <div class="col-md-2 mb-3">
+                                        <label>Category</label>
+                                        <select class="form-control btn btn-primary" name="cId">
+                                            <%for(int i =0; i < c.getAllCategories().size(); i++){%>
+                                            <option style="color: black;background-color: white" value="<%=c.getAllCategories().elementAt(i).getCategoryid()%>"><%=c.getAllCategories().elementAt(i).getCategoryName()%></option>
+                                            <%}%>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 mb-3">
+                                        <label>Product Name</label>
+                                        <input type="text" class="form-control" id="validationDefault02" placeholder="Product Name" required name="pName" value="<%=p.getProductName()%>"/>                                     
+                                    </div>          
+                                    <div class="col-md-2 mb-3">
+                                        <label>Product Price</label>
+                                        <input type="number" class="form-control" id="validationDefaultUsername" placeholder="User Name" required name="pPrice" value="<%=p.getPrice()%>"/>
+                                    </div>
+                                    <div class="col-md-2 mb-3">
+                                        <label>Quantity</label>
+                                        <input type="number" class="form-control" id="exampleInputPassword1" required name="pQuantity" value="<%=p.getQuantity()%>"/>
+                                    </div>
+                                </div>                               
+                                <div class="form-row">
+                                    <div class="col-md-12 mb-3">
+                                        <label>Description</label>
+                                        <input class="form-control" required type="text" name="pDesc" value="<%=p.getDesc()%>"/>                                                                    
+                                    </div>                                                                                    
+                                </div>                                     
+                                <input type="hidden" value="/MAM/admin/EditProduct.jsp?pid=<%=p.getProductKey()%>" name="URL"/>
+                                <input type="hidden" name="pAva" value="true"/>                                
+                                <input type="hidden" value="<%=p.getProductKey()%>" name="pID"/>
+                                <button class="btn btn-primary" type="submit">Edit Product</button>
+                            </form>
+                                    <%
+                                    if (request.getParameter("valid") != null && request.getParameter("valid").equals("true"))
+                                    {
+                                    %>
+                                    <div class="bg-success text-white" style="margin-top: 20px;font-weight: bold" role="alert">
+                                        Product Updated Successfully
+                                    </div>                                        
+                                    <%
+                                        }
+                                    %>                            
                         </div>
+                            </div>                            
+                        </div>
+                    </div>
                         <!--////////////////////////////////////////////////////////////////////////-->
                 </div>
                 <!--End the internal Body-->

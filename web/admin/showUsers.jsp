@@ -74,7 +74,7 @@
                         <a href="#"><i class="fas fa-users" aria-hidden="true"></i></a>
                         <a href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
                     </div>
-                    <a href="#" class="bottom">
+                    <a href="/MAM/logout" class="bottom">
                         <i class="fas fa-sign-out-alt"></i>
                     </a>
                 </div>
@@ -90,7 +90,7 @@
                                     <a href="categories.jsp">Categories</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="#">Products</a>
+                                    <a href="AddProduct.jsp">Add Product</a>
                                 </div>
                                 <div class="cards">
                                     <a href="addAdminUser.jsp">New User</a>

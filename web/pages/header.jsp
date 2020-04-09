@@ -79,7 +79,7 @@
                         <p class="my-md-4 header-links">
                             <%
                             if (login != null && login.equals("true")){%>
-                            <a href="logout?logout=true" id="signOut">Sign Out</a>
+                            <a href="/MAM/logout?logout=true" id="signOut">Sign Out</a>
                             <a href="/MAM/pages/profile.jsp" id="profile">Profile</a>
                             <%}
                             else if (login != null)
