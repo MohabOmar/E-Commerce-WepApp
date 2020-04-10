@@ -114,8 +114,8 @@
                         </div>
                         <!--////////////////////////////////////////////////////////////////////////--> 
                         <!--////////////////////////////////////////////////////////////////////////-->
-                        <div class="container col-sm-12">
-                            <table class="table table-hover" style="background-color: white">
+                        <div style="overflow-y: scroll; height: 550px" class="container col-sm-12">
+                            <table class="table table-hover overflow-auto" style="background-color: white">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>
@@ -124,13 +124,13 @@
                                   <th scope="col">First Name</th>
                                   <th scope="col">Last Name</th>
                                   <th scope="col">Birth-date</th>
-                                  <th scope="col">Password</th>
                                   <th scope="col">Job</th>
                                   <th scope="col">Email</th>                                  
                                   <th scope="col">Credit Limit</th>
                                   <th scope="col">Balance</th>
                                   <th scope="col">Address</th>
                                   <th scope="col">Interests</th>
+                                  <th scope="col">Action</th>                                  
                                 </tr>
                               </thead>
                               <tbody>
@@ -143,13 +143,16 @@
                                   <td><%=u.getUsers().elementAt(i).getfName()%></td>
                                   <td><%=u.getUsers().elementAt(i).getlName()%></td>
                                   <td><%=u.getUsers().elementAt(i).getbDate()%></td>
-                                  <td><%=u.getUsers().elementAt(i).getPassword()%></td>
                                   <td><%=u.getUsers().elementAt(i).getJob()%></td>
                                   <td><%=u.getUsers().elementAt(i).getEmail()%></td>
                                   <td><%=u.getUsers().elementAt(i).getCreditLimit()%></td>
                                   <td><%=u.getUsers().elementAt(i).getBalance()%></td>
                                   <td><%=u.getUsers().elementAt(i).getAddress()%></td>
                                   <td><%=u.getUsers().elementAt(i).getInterests()%></td>
+                                  <td>
+                                      <a href="/MAM/admin/EditClient.jsp?uid=<%=u.getUsers().elementAt(i).getuId()%>" style="color: #00cc66;font-size: 25px"><i class="far fa-edit"></i></a>
+                                      <a href="/MAM/DeleteUser?uname=<%=u.getUsers().elementAt(i).getuName()%>" style="color: red;font-size: 25px"><i class="far fa-minus-square"></i></a>
+                                  </td>                                  
                                 </tr>
                                 <%}}%>                              
                               </tbody>

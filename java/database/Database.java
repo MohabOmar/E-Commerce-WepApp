@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
-    private final String user = "ehfhempc";
-    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
+    private final String url = "jdbc:postgresql://localhost:5432/oshop";
+    private final String user = "postgres";
+    private final String password = "amrwsk13";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -125,6 +125,24 @@ public class Database {
             return String.valueOf(user.getuId());
         }
     }
+    
+    public int getUserIDInInteger(Users user) {
+        try {
+            connect();
+            sqlCommand = "SELECT uid FROM users WHERE ? in (uname, email)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, user.getUNameOrEmail());
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                user.setuId(result.getInt(1));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            stop();
+            return user.getuId();
+        }
+    }    
 
     public boolean checkLogin(Users user) {
         try {
@@ -240,7 +258,7 @@ public class Database {
     }
 
     public Vector<Product> retrieveAllProducts() {
-        Vector<Product> products = new Vector();
+    Vector<Product> products = new Vector();        
         try {
             connect();
             sqlCommand = "select * from products";
@@ -268,17 +286,17 @@ public class Database {
     public void deleteFromCart(String pId) {
         try {
             connect();
-            sqlCommand = "delete from cartsaved where product_id = " + pId;
+            sqlCommand = "delete from cartsaved where product_id = "+ pId;
             preparedStatment = connection.prepareStatement(sqlCommand);
             preparedStatment.executeQuery();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
-
+            
         } finally {
             stop();
         }
-    }
-
+    }       
+    
     public Category getCategoryByName(Category category) {
         try {
             connect();
@@ -316,7 +334,7 @@ public class Database {
     }
 
     public Vector<Product> search(String keyword) {
-        Vector<Product> products = new Vector();
+        Vector<Product> products = new Vector();        
         try {
             connect();
             sqlCommand = "select * from products where productname LIKE'%" + keyword + "%'";
@@ -476,7 +494,7 @@ public class Database {
                         result.getBoolean(3),
                         result.getDate(4));
             }
-
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
             return null;
@@ -486,24 +504,32 @@ public class Database {
         }
     }
 
-    public Product getAllProductsInCart(Product product) {
+    public Product getAllProductsInCart (Product product)
+    {
         Product allProducts = new Product();
-        try {
+        try
+        {
             connect();
-            for (int i = 0; i < product.getAllProducts().size(); i++) {
+            for (int i = 0; i < product.getAllProducts().size(); i++)
+            {
                 sqlCommand = "SELECT * FROM products WHERE productkey = ?";
                 preparedStatment = connection.prepareStatement(sqlCommand);
                 preparedStatment.setInt(1, product.getAllProducts().elementAt(i).getProductKey());
                 result = preparedStatment.executeQuery();
-                while (result.next()) {
+                while (result.next())
+                {
                     allProducts.getAllProducts().add(new Product(result.getInt(1), result.getInt(2), result.getString(3),
-                            result.getFloat(4), result.getInt(5), result.getString(6),
+                            result.getFloat(4), result.getInt(5), result.getString(6), 
                             result.getString(7), result.getBoolean(8)));
-                }
+                }                
             }
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex)
+        {
             ex.printStackTrace();
-        } finally {
+        }
+        finally
+        {
             stop();
             return allProducts;
         }
@@ -528,8 +554,7 @@ public class Database {
         }
 
     }
-
-    public Vector<Product> retrieveCartProducts(String cId) {
+        public Vector<Product> retrieveCartProducts(String cId) {
         Vector<Product> products = new Vector();
         try {
             connect();
@@ -568,11 +593,12 @@ public class Database {
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
             while (result.next()) {
-                cartSaved = new CartSaved(result.getInt(1),
-                        result.getInt(2),
-                        result.getInt(3),
-                        result.getFloat(4));
-            }
+                    cartSaved = new CartSaved(result.getInt(1),
+                            result.getInt(2),
+                            result.getInt(3),
+                            result.getFloat(4));
+                }
+ 
 
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
@@ -582,9 +608,10 @@ public class Database {
             return cartSaved;
         }
     }
-
-   
-    public Users getUserInfo(Users user) {
+    
+    
+    public Users getUserInfo(Users user) 
+    {
         try {
             connect();
             sqlCommand = "SELECT * FROM users WHERE uid = ?";
@@ -592,7 +619,8 @@ public class Database {
             preparedStatment.setInt(1, user.getuId());
             result = preparedStatment.executeQuery();
 
-            while (result.next()) {
+            while (result.next()) 
+            {
                 user.setuName(result.getString(2));
                 user.setfName(result.getString(3));
                 user.setlName(result.getString(4));
@@ -605,14 +633,158 @@ public class Database {
                 user.setAddress(result.getString(11));
                 user.setInterests(result.getString(12));
             }
-        } catch (SQLException ex) {
+        }
+        catch (SQLException ex) 
+        {
             ex.printStackTrace();
-        } finally {
+        } finally 
+        {
             stop();
             return user;
         }
+    }    
+    
+    public boolean deleteProduct(Product product)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "DELETE from products where productkey  = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, product.getProductKey());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            operation = false;
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
     }
-
+    
+    public boolean updateProduct (Product product)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "UPDATE products SET category_id = ?,productname = ?,price = ?,quantityofproduct = ?,description = ?,image = ?,isavailable =? WHERE productkey = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, product.getCategoryId());
+            preparedStatment.setString(2, product.getProductName());
+            preparedStatment.setFloat(3, product.getPrice());
+            preparedStatment.setInt(4, product.getQuantity());
+            preparedStatment.setString(5, product.getDesc());
+            preparedStatment.setString(6, product.getImg());
+            preparedStatment.setBoolean(7, product.getIsAvail());
+            preparedStatment.setInt(8, product.getProductKey());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            operation = false;
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }
+    
+    public boolean addProduct (Product product)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "INSERT INTO products (category_id,productname,price,quantityofproduct,description,image,isavailable)"
+                    + " VALUES (?,?,?,?,?,?,?)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, product.getCategoryId());
+            preparedStatment.setString(2, product.getProductName());
+            preparedStatment.setFloat(3, product.getPrice());
+            preparedStatment.setInt(4, product.getQuantity());
+            preparedStatment.setString(5, product.getDesc());
+            preparedStatment.setString(6, product.getImg());
+            preparedStatment.setBoolean(7, product.getIsAvail());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+            operation = false;
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }
+    
+    public boolean editClient (Users user)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "UPDATE users SET uname = ?,fname = ?,lname = ?,bd = ?,password = ?,job = ?,"
+                    + "email = ?,creditlimit = ?,balance = ?,address = ?,interests = ?,isadmin = ? WHERE uid = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, user.getuName());
+            preparedStatment.setString(2, user.getfName());
+            preparedStatment.setString(3, user.getlName());
+            preparedStatment.setString(4, user.getbDate());
+            preparedStatment.setString(5, user.getPassword());
+            preparedStatment.setString(6, user.getJob());
+            preparedStatment.setString(7, user.getEmail());
+            preparedStatment.setFloat(8, user.getCreditLimit());
+            preparedStatment.setFloat(9, user.getBalance());
+            preparedStatment.setString(10, user.getAddress());
+            preparedStatment.setString(11, user.getInterests());
+            preparedStatment.setBoolean(12, user.isIsAdmin());
+            preparedStatment.setInt(13, user.getuId());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            operation = false;
+            ex.printStackTrace();
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }
+    
+    public boolean deleteClient(Users user)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "select deleteUser(?)";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, user.getuId());
+            preparedStatment.execute();
+            operation = true;
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            stop();
+            return operation;
+        }
+    }
+    
     public boolean updateProfile(Users user) {
         try {
             connect();
@@ -638,72 +810,7 @@ public class Database {
             stop();
             return operation;
         }
-    }
-
-    public boolean deleteProduct(Product product) {
-        try {
-            connect();
-            sqlCommand = "DELETE from products where productkey  = ?";
-            preparedStatment = connection.prepareStatement(sqlCommand);
-            preparedStatment.setInt(1, product.getProductKey());
-            preparedStatment.execute();
-            operation = true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            operation = false;
-        } finally {
-            stop();
-            return operation;
-        }
-    }
-
-    public boolean updateProduct(Product product) {
-        try {
-            connect();
-            sqlCommand = "UPDATE products SET category_id = ?,productname = ?,price = ?,quantityofproduct = ?,description = ?,image = ?,isavailable =? WHERE productkey = ?";
-            preparedStatment = connection.prepareStatement(sqlCommand);
-            preparedStatment.setInt(1, product.getCategoryId());
-            preparedStatment.setString(2, product.getProductName());
-            preparedStatment.setFloat(3, product.getPrice());
-            preparedStatment.setInt(4, product.getQuantity());
-            preparedStatment.setString(5, product.getDesc());
-            preparedStatment.setString(6, product.getImg());
-            preparedStatment.setBoolean(7, product.getIsAvail());
-            preparedStatment.setInt(8, product.getProductKey());
-            preparedStatment.execute();
-            operation = true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            operation = false;
-        } finally {
-            stop();
-            return operation;
-        }
-    }
-
-    public boolean addProduct(Product product) {
-        try {
-            connect();
-            sqlCommand = "INSERT INTO products (category_id,productname,price,quantityofproduct,description,image,isavailable)"
-                    + " VALUES (?,?,?,?,?,?,?)";
-            preparedStatment = connection.prepareStatement(sqlCommand);
-            preparedStatment.setInt(1, product.getCategoryId());
-            preparedStatment.setString(2, product.getProductName());
-            preparedStatment.setFloat(3, product.getPrice());
-            preparedStatment.setInt(4, product.getQuantity());
-            preparedStatment.setString(5, product.getDesc());
-            preparedStatment.setString(6, product.getImg());
-            preparedStatment.setBoolean(7, product.getIsAvail());
-            preparedStatment.execute();
-            operation = true;
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-            operation = false;
-        } finally {
-            stop();
-            return operation;
-        }
-    }
+    }    
 
     private void stop() {
         try {

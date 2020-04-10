@@ -13,8 +13,6 @@
         }
     }
 %>
-
-
 <ul class="nav nav-tabs">
     <li class="nav-item">
         <a class="nav-link active" data-toggle="tab" href="#Mobiles">Mobiles</a>

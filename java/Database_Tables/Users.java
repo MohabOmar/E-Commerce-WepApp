@@ -27,6 +27,11 @@ public class Users
         users = new Vector();
     }
     
+    public Users(int uId)
+    {
+        this.uId = uId;
+    }    
+    
     public Users(String uNameOrEmail)
     {
         this.uNameOrEmail = uNameOrEmail;
@@ -35,7 +40,21 @@ public class Users
     public Users(Vector<Users> users) 
     {
         this.users = users;
-    }    
+    }
+
+    public Users(String uName, String fName, String lName, String bDate, String password, String job, String address, String interests) 
+    {
+    
+        this.uName = uName;
+        this.fName = fName;
+        this.lName = lName;
+        this.bDate = bDate;
+        this.password = password;
+        this.job = job;
+        this.address = address;
+        this.interests = interests;
+     
+    }     
     
     public Users(String fName,String lName,String uName,String bDate,String password,String job,String email,String address,String interests)
     {
@@ -83,19 +102,6 @@ public class Users
         this.isAdmin = isAdmin;
     }    
 
-    public Users(String uName, String fName, String lName, String bDate, String password, String job, String address, String interests) 
-    {
-    
-        this.uName = uName;
-        this.fName = fName;
-        this.lName = lName;
-        this.bDate = bDate;
-        this.password = password;
-        this.job = job;
-        this.address = address;
-        this.interests = interests;
-     
-    } 
     public int getuId() 
     {
         return uId;

@@ -137,7 +137,7 @@
                         <!--////////////////////////////////////////////////////////////////////////--> 
                         <!--////////////////////////////////////////////////////////////////////////-->
                         <div class="container col-sm-12">
-                            <table class="table table-hover" style="background-color: white">
+                            <table class="table table-hover" style="background-color: white; overflow-y: scroll; height: 550px"">
                               <thead>
                                 <tr>
                                   <th scope="col">#</th>

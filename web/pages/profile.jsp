@@ -5,71 +5,14 @@
 --%>
 
 <%!
-    int userI = 0;
-    boolean isAdmi = false;
-    boolean isLogi = false;
-    boolean isI = false;
-    boolean authorizatio = false;
-    String logi = null;
-    Cookie[] c1;
-
-    private boolean checkCooki(Cookie[] cookies) {
-        c1 = cookies;
-        if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals("isAdmin")) {
-                    isAdmin = true;
-                } else if (cookies[i].getName().equals("login")) {
-                    isLogin = true;
-                } else if (cookies[i].getName().equals("userID")) {
-                    isID = true;
-                }
-            }
-            if (isAdmin == true && isLogin == true && isID == true) {
-                authorization = true;
-            }
-        } else {
-            authorization = false;
-        }
-        return authorization;
-    }
-%>
-
-<%
-    if (checkCookie(request.getCookies()) == false) {
-        response.sendRedirect("/MAM/getCookies");
-    } else {
-        for (int i = 0; i < c.length; i++) {
-            if (c[i].getName().equals("login")) {
-                login = c[i].getValue();
-            } else if (c[i].getName().equals("userID")) {
-                userID = Integer.parseInt(c[i].getValue());
-            }
-        }
-    }
-    Database db = new Database();
-    Users u0 = new Users();
-    u0.setuId(userID);
-
-    Users user = db.getUserInfo(u0);
+    Users user ;
+    Users u0;
 %>
 
 
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.SQLException"%>
 
-<%@page import="java.io.PrintWriter"%>
 <%@page import="Database_Tables.*"%>
-<%@page import="java.util.Vector"%>
-<%@page import="database.Database"%>
-<%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.PreparedStatement"%>
-<%@page import="java.sql.DriverManager"%>
-<%@page import="java.sql.Connection"%>
-<%@page import="java.sql.SQLException"%>
+<%@page import="java.sql.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 
@@ -86,27 +29,28 @@
         <link rel="stylesheet" href="../css/style2.css">
     </head>
     <body>
-
         <%@include file="./header.jsp" %>
-
-
-
-
-
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
+        
+<%
+    if (authorization){
+    Database db = new Database();        
+    u0 = new Users();
+    u0.setuId(userID);
+    user = db.getUserInfo(u0);        
+%>        
+        <ul class="nav nav-tabs">
             <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                <a class="nav-link active" data-toggle="tab"  href="#about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Edit Profile</a>
+                <a class="nav-link" data-toggle="tab" href="#edit">Edit Profile</a>
             </li>
         </ul>
-        <div class="tab-content" id="myTabContent">
+        <div class="tab-content">
 
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="container Cart">
+            <div class="tab-pane fade show active" id="about">
+                <div class="container">
                     <div class="row justify-content-center">
-/*****************************************************************************/
                         <div class="container">
                             <div class="row flex-lg-nowrap">
                                 <div class="col">
@@ -128,10 +72,6 @@
                                                                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><%=user.getfName()%> <%=user.getlName()%></h4>
                                                                     <p class="mb-0"><%=user.getJob()%></p>
                                                                     <div class="mt-2">
-                                                                        <button class="btn btn-primary" type="button">
-                                                                            <i class="fa fa-fw fa-camera"></i>
-                                                                            <span><input type="file" id="img" name="img" accept="image/*"></span>
-                                                                        </button>
                                                                     </div>
                                                                 </div>
 
@@ -232,16 +172,6 @@
                                         </div>
 
                                         <div class="col-12 col-md-3 mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="px-xl-3">
-                                                        <button class="btn btn-block btn-secondary">
-                                                            <i class="fa fa-sign-out"></i>
-                                                            <span>Logout</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h6 class="card-title font-weight-bold">Support</h6>
@@ -255,16 +185,14 @@
                                 </div>
                             </div>
                         </div>
-/*****************************************************************************/
                     </div>    
                 </div>
             </div>
 
 
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container Cart">
+            <div class="tab-pane fade" id="edit">
+                <div class="container">
                     <div class="row justify-content-center">
-/*****************************************************************************/
                         <div class="container">
                             <div class="row flex-lg-nowrap">
                                 <div class="col">
@@ -286,10 +214,10 @@
                                                                     <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap"><%=user.getfName()%> <%=user.getlName()%></h4>
                                                                     <p class="mb-0"><%=user.getJob()%></p>
                                                                     <div class="mt-2">
-                                                                        <button class="btn btn-primary" type="button">
+                                                                        <!--<button class="btn btn-primary" type="button">
                                                                             <i class="fa fa-fw fa-camera"></i>
                                                                             <span><input type="file" id="img" name="img" accept="image/*"></span>
-                                                                        </button>
+                                                                        </button>-->
                                                                     </div>
                                                                 </div>
 
@@ -354,7 +282,6 @@
                                                                                     <div class="form-group">
                                                                                         <label>Birthday:</label>
                                                                                         <input class="form-control" type="date" name="date"  value="<%=user.getbDate()%>">
-
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="col">
@@ -423,16 +350,6 @@
                                         </div>
 
                                         <div class="col-12 col-md-3 mb-3">
-                                            <div class="card mb-3">
-                                                <div class="card-body">
-                                                    <div class="px-xl-3">
-                                                        <button class="btn btn-block btn-secondary">
-                                                            <i class="fa fa-sign-out"></i>
-                                                            <span>Logout</span>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h6 class="card-title font-weight-bold">Support</h6>
@@ -446,29 +363,26 @@
                                 </div>
                             </div>
                         </div>
-/*****************************************************************************/
                     </div>    
                 </div>
             </div>
-
-
         </div>
-
-
-
-
-
-
-
-
-
-        <%@include file="./footer.html" %>
-
-
+<%}%>    
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 col-12">
+                    </div>
+                    <div class="col-md-4 col-12 text-center">
+                        <h2 class="my-md-3 site-title text-white">Footer</h2>
+                    </div>
+                </div>
+            </div>
+        </footer>
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-        <script src="./js/main.js"></script>  
+        <script src="./js/main.js"></script>          
     </body>
 </html>
