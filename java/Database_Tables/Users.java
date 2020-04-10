@@ -83,6 +83,19 @@ public class Users
         this.isAdmin = isAdmin;
     }    
 
+    public Users(String uName, String fName, String lName, String bDate, String password, String job, String address, String interests) 
+    {
+    
+        this.uName = uName;
+        this.fName = fName;
+        this.lName = lName;
+        this.bDate = bDate;
+        this.password = password;
+        this.job = job;
+        this.address = address;
+        this.interests = interests;
+     
+    } 
     public int getuId() 
     {
         return uId;

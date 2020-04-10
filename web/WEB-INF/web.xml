@@ -17,6 +17,10 @@
         <servlet-class>CheckServlets.signUpCheck</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>updateProfile</servlet-name>
+        <servlet-class>CheckServlets.updateProfile</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>logout</servlet-name>
         <servlet-class>CheckServlets.logout</servlet-class>
     </servlet>
@@ -87,6 +91,11 @@
     <servlet-mapping>
         <servlet-name>AddProduct</servlet-name>
         <url-pattern>/AddProduct</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>updateProfile</servlet-name>
+        <url-pattern>/updateProfile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
