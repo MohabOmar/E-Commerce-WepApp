@@ -8,9 +8,10 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://localhost:5432/oshop";
-    private final String user = "postgres";
-    private final String password = "amrwsk13";
+     private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
+    private final String user = "ehfhempc";
+    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
+
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -799,11 +800,11 @@ public class Database {
             preparedStatment.setString(7, user.getInterests());
             preparedStatment.setString(8, user.getuName());
 
-            result = preparedStatment.executeQuery();
+            preparedStatment.execute();
 
-            while (result.next()) {
-                operation = result.getBoolean(1);
-            }
+            
+                operation = true;
+            
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
