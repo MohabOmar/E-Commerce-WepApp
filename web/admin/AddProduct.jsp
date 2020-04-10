@@ -135,9 +135,10 @@
                                     <div class="col-md-2 mb-3">
                                         <label>Category</label>
                                         <select class="form-control btn btn-primary" name="cId">
+                                            <%if (authorization){%>
                                             <%for(int i =0; i < c.getAllCategories().size(); i++){%>
                                             <option style="color: black;background-color: white" value="<%=c.getAllCategories().elementAt(i).getCategoryid()%>"><%=c.getAllCategories().elementAt(i).getCategoryName()%></option>
-                                            <%}%>
+                                            <%}}%>
                                         </select>
                                     </div>
                                     <div class="col-md-3 mb-3">

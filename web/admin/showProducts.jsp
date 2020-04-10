@@ -153,6 +153,7 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                <%if (authorization){%>
                                 <%for(int i = 0; i < p.size(); i++){%>                                  
                                 <tr>
                                   <th scope="row"><%=i+1%></th>
@@ -169,7 +170,7 @@
                                       <a href="/MAM/DeleteProduct?pid=<%=p.elementAt(i).getProductKey()%>" style="color: red;font-size: 25px"><i class="far fa-minus-square"></i></a>
                                   </td>
                                 </tr>
-                                <%}%>                              
+                                <%}}%>                              
                               </tbody>
                             </table>
                         </div>

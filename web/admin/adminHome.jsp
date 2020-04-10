@@ -2,7 +2,8 @@
 <%!
     boolean isAdmin = false;
     boolean isLogin = false;
-    boolean authorization = false;    
+    boolean authorization = false;
+    Database d = new Database();
     
     private boolean checkCookie(Cookie[] cookies)
     {
@@ -45,7 +46,8 @@
         response.sendRedirect("/MAM/main.jsp");
     }
 %>
-<%!Database d = new Database();%>
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -114,7 +116,8 @@
                         <!--////////////////////////////////////////////////////////////////////////-->
 
                         <!--////////////////////////////////////////////////////////////////////////-->
-                        <div class="card card_marign">
+<%if (authorization){%>
+                            <div class="card card_marign">
                                  <div class="card-body">
                                     <h4 class="card-title">Categories</h4>
                                     <p class="card-text">The Number Of Categories is : <%=d.numberOfCategories()%></p>
@@ -144,6 +147,7 @@
                                 </div>  
                             </div>                                 
                         <!--////////////////////////////////////////////////////////////////////////-->
+<%}%>                        
                     </div>
                 </div>
                 <!--End the internal Body-->

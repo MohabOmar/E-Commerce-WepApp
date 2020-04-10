@@ -134,6 +134,7 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                <%if (authorization){%>
                                 <%for(int i = 0; i < u.getUsers().size(); i++){%>                                  
                                 <tr>
                                   <th scope="row"><%=i+1%></th>
@@ -150,7 +151,7 @@
                                   <td><%=u.getUsers().elementAt(i).getAddress()%></td>
                                   <td><%=u.getUsers().elementAt(i).getInterests()%></td>
                                 </tr>
-                                <%}%>                              
+                                <%}}%>                              
                               </tbody>
                             </table>
                         </div>

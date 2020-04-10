@@ -127,13 +127,14 @@
                                 </tr>
                               </thead>
                               <tbody>
+                                <%if (authorization){%>  
                                 <%for(int i = 0; i < c.getAllCategories().size(); i++){%>                                  
                                 <tr>
                                   <th scope="row"><%=i+1%></th>
                                   <td><%=c.getAllCategories().elementAt(i).getCategoryid()%></td>
                                   <td><%=c.getAllCategories().elementAt(i).getCategoryName()%></td>
                                 </tr>
-                                <%}%>                              
+                                <%}}%>         
                               </tbody>
                             </table>
                         </div>
