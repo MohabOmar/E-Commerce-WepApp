@@ -1,8 +1,9 @@
 <%-- 
-    Document   : search
-    Created on : 02-Apr-2020, 03:26:46
-    Author     : MohabOmar
+    Document   : searchByPrice
+    Created on : Apr 11, 2020, 9:51:13 AM
+    Author     : Mohamed Ibrahim
 --%>
+
 
 <%@page import="Database_Tables.Product"%>
 <%@page import="java.util.Vector"%>
@@ -44,30 +45,20 @@
         <!--        <%@include file="./pages/main.html" %> -->
       
 
-        <div class="container">
-            <div class="slider">
-                <form method="post" action="searchByPrice.jsp">
-                    <output>0</output>
-                    <input type = "range" min="0" max="5000" onchange="rangevalue.value = value" name="val1"/>
-                    <output id="rangevalue">0</output>
-                    <br>
-                    <output>0</output>
-                    <input type = "range" min="0" max="50000" onchange="rangevalue2.value = value" name="val2"/>
-                    <output id="rangevalue2">50</output>
-                    <br>
-                    <input type="hidden" name="key" value=<%=request.getParameter("keyword")%>>
-                    <input type="submit" value="Submit">
-                </form>
-
-            </div>
-        </div>
-
-
+        <% 
+//            out.println(request.getParameter("val1"));
+//            out.println(request.getParameter("val2"));
+//            out.println(request.getParameter("key"));
+//            
+//            System.out.println("className.methodName()");
+        %>
+        
+        
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
                     Database db = new Database();
-                    Vector<Product> listOfProducts = db.search(request.getParameter("keyword"));
+                    Vector<Product> listOfProducts = db.searchByPrice(request.getParameter("key"),request.getParameter("val1"),request.getParameter("val2"));
                     for (Product p : listOfProducts) {
 
                 %>

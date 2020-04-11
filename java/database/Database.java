@@ -812,7 +812,37 @@ public class Database {
             return operation;
         }
     }    
+    
+    
+    public Vector<Product> searchByPrice(String keyword,String val1, String val2) {
+        Vector<Product> products = new Vector();        
+        try {
+            connect();
+            sqlCommand = "select * from products where productname LIKE'%" + keyword + "%' AND price BETWEEN "+ val1 +" AND "+ val2 +"";
+//            select * from products where productname LIKE '%Apple%' AND price BETWEEN 0 AND 20000;
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            result = preparedStatment.executeQuery();
+            while (result.next()) {
+                products.add(new Product(result.getInt(1),
+                        result.getInt(2),
+                        result.getString(3),
+                        result.getFloat(4),
+                        result.getInt(5),
+                        result.getString(6),
+                        result.getString(7),
+                        result.getBoolean(8)));
+            }
 
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } finally {
+            stop();
+            return products;
+        }
+    }
+    
+    
     private void stop() {
         try {
             connection.close();
