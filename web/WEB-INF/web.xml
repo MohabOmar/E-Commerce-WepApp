@@ -55,7 +55,11 @@
     <servlet>
         <servlet-name>updateProfile</servlet-name>
         <servlet-class>CheckServlets.updateProfile</servlet-class>
-    </servlet>    
+    </servlet>
+    <servlet>
+        <servlet-name>Checkout</servlet-name>
+        <servlet-class>CheckServlets.Checkout</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>loginCheck</servlet-name>
         <url-pattern>/loginCheck</url-pattern>
@@ -111,7 +115,11 @@
     <servlet-mapping>
         <servlet-name>updateProfile</servlet-name>
         <url-pattern>/updateProfile</url-pattern>
-    </servlet-mapping>    
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Checkout</servlet-name>
+        <url-pattern>/Checkout</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

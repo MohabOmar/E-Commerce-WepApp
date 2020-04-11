@@ -7,7 +7,7 @@
 
 
 <%
-
+    String realCart="";
     String isLogin = "false";
     String cartID = "0";
     String uId = "";
@@ -54,7 +54,7 @@
                         int total = 0;
                         Database s = new Database();
                         Gson m = new Gson();
-                        if (isLogin.equals("false") && request.getSession().getAttribute("cart-1") != null) {
+                        if (isLogin.equals("false") && request.getSession().getAttribute(cartID) != null) {
                             Product pr = m.fromJson(request.getSession().getAttribute(cartID).toString(), Product.class);
                             for (int u = 0; u < pr.getAllProducts().size(); u++) {
                                 int q = pr.getAllProducts().elementAt(u).getQuantity();
@@ -82,6 +82,7 @@
                     } else if (!uId.equalsIgnoreCase("") && !uId.equalsIgnoreCase("0")) {
                         UserCart userCart = s.getUserCart(uId);
                         String cartId = userCart.getCartId() + "";
+                        realCart = cartId;
                         Vector<Product> pv = s.retrieveCartProducts(cartId);
                         for (int v = 0; v < pv.size(); v++) {
                             CartSaved cS = s.retrieveCartSaved(pv.elementAt(v).getProductKey() + "");
@@ -115,7 +116,11 @@
             </div>
             <div class="modal-footer border-top-0 d-flex justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success">Checkout</button>
+                <form action="/MAM/Checkout" method="GET">                              
+                    <input type="hidden" value="<%=total%>" name="total"/>
+                    <input type="hidden" value="<%=realCart%>" name="cartid"/>
+                    <button type="submit" class="btn btn-success">Checkout</button>
+                </form>
             </div>
 
         </div>
