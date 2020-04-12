@@ -7,7 +7,7 @@
 
 
 <%
-    String realCart="";
+    String realCart = "";
     String isLogin = "false";
     String cartID = "0";
     String uId = "";
@@ -119,7 +119,13 @@
                 <form action="/MAM/Checkout" method="GET">                              
                     <input type="hidden" value="<%=total%>" name="total"/>
                     <input type="hidden" value="<%=realCart%>" name="cartid"/>
+                    <%
+                        if (total != 0) {
+                    %>
                     <button type="submit" class="btn btn-success">Checkout</button>
+                    <%
+                        }
+                    %>
                 </form>
             </div>
 
