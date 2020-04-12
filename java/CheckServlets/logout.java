@@ -1,12 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package CheckServlets;
 
+import Database_Tables.Product;
+import com.google.gson.Gson;
+import database.Database;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -23,7 +20,7 @@ boolean isAdmin = false;
     boolean isLogin = false;
     boolean authorization = false;    
     
-    private boolean checkCookie(Cookie[] cookies)
+    private boolean checkCookie(Cookie[] cookies,HttpServletRequest req)
     {
         if (cookies != null)
         {
@@ -31,9 +28,14 @@ boolean isAdmin = false;
             {
                 if (cookies[i].getName().equals("isAdmin"))
                 {
-                    if (cookies[i].getValue().equals("true") || cookies[i].getValue().equals("false") || cookies[i].getValue().equals("null"))
+                    if (cookies[i].getValue().equals("true") || cookies[i].getValue().equals("null"))
                     {
                        isAdmin = true; 
+                    }
+                    else if (cookies[i].getValue().equals("false"))
+                    {
+                        removeElementFromCart(req);
+                        isAdmin = true; 
                     }
                 }
                 else if (cookies[i].getName().equals("login"))
@@ -58,15 +60,36 @@ boolean isAdmin = false;
         Cookie registrationCookie;
         Cookie isAdmin;
         Cookie uID;
-        if (checkCookie(req.getCookies()))
+        if (checkCookie(req.getCookies(),req))
         {
-                isAdmin = new Cookie("isAdmin", "false");
-                registrationCookie = new Cookie("login", "false");
-                uID = new Cookie("userID", "0");
-                resp.addCookie(registrationCookie);
-                resp.addCookie(isAdmin);  
-                resp.addCookie(uID);  
-                resp.sendRedirect("/MAM/main.jsp");       
+            isAdmin = new Cookie("isAdmin", "false");
+            registrationCookie = new Cookie("login", "false");
+            uID = new Cookie("userID", "0");
+            resp.addCookie(registrationCookie);
+            resp.addCookie(isAdmin);  
+            resp.addCookie(uID);  
+            resp.sendRedirect("/MAM/main.jsp");       
+        }
+    }
+    
+    private void removeElementFromCart (HttpServletRequest req)
+    {
+        String cartID = null;        
+        Cookie[] cookies = req.getCookies();
+        Gson m = new Gson();        
+        Database db = new Database();
+        
+        for (int i =0; i < cookies.length; i++)
+        {
+            if (cookies[i].getName().equals("cartID"))
+            {
+                cartID = req.getCookies()[i].getValue();
+            }
+        }        
+        
+        if (req.getSession().getAttribute(cartID) != null)
+        {    
+            req.getSession().setAttribute(cartID, m.toJson(new Product()));            
         }
     }
     

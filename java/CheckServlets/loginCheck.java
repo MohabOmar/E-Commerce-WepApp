@@ -1,9 +1,12 @@
 package CheckServlets;
 
+import Database_Tables.Product;
+import Database_Tables.UserCart;
 import database.Database;
 import Database_Tables.Users;
+import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.Vector;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +40,7 @@ public class loginCheck extends HttpServlet
                 }
                 else
                 {
+                    checkForVirtualCart(req, user);
                     System.out.println("Client");
                     isAdmin = new Cookie("isAdmin", "false");
                     redirectedUrl = req.getParameter("URL");
@@ -64,5 +68,110 @@ public class loginCheck extends HttpServlet
         {
             resp.sendError(404,"You Must First Go To Main PageThen Sign In Tape");
         }        
+    }
+    
+    
+    private void checkForVirtualCart(HttpServletRequest req, Users user)
+    {
+        String cartID = null;
+        boolean haveACart = false;
+        Cookie[] cookies = req.getCookies();
+        Gson m = new Gson();
+        String userId;
+        Product virtualCart;
+        if (cookies != null)
+        {
+            for (int i =0; i < cookies.length; i++)
+            {
+                if (cookies[i].getName().equals("cartID"))
+                {
+                    cartID = req.getCookies()[i].getValue();
+                }
+            }
+            
+            if (req.getSession().getAttribute(cartID) != null)
+            {
+                virtualCart = m.fromJson(req.getSession().getAttribute(cartID).toString(), Product.class);
+                System.out.println(virtualCart.getAllProducts().elementAt(0).getCategoryId());
+                userId = db.getUserID(user).toString();
+                System.out.println("*********************************************************************************");
+                System.out.println(userId);
+                System.out.println(cartID);
+                System.out.println(userId);
+                System.out.println("*********************************************************************************");
+                
+                increaseQuantity(req, userId, db.getUserCart(userId).getCartId()+"", virtualCart);
+            }   
+            else
+            {
+            System.out.println("=================================================================================");
+            System.out.println("Client has No Product");
+            System.out.println("=================================================================================");
+            }
+        }
+    }
+    
+    private void increaseQuantity(HttpServletRequest req,String userID,String cartID,Product virtualCart)
+    {
+        if (virtualCart.getAllProducts().size() > 0)
+        {
+            System.out.println("*********************************************************************************");
+            System.out.println("Client has Product");
+            System.out.println("*********************************************************************************");
+            
+            Vector<Product> productsInDB = db.retrieveCartProducts(cartID);
+            
+            System.out.println("*********************************************************************************");
+            System.out.println(productsInDB.size());
+            System.out.println("*********************************************************************************");
+            
+            if (productsInDB.size() > 0 && productsInDB.size() > virtualCart.getAllProducts().size())
+            {
+                for (int i = 0; i < productsInDB.size(); i++)
+                {
+                    for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
+                    {
+                        if (productsInDB.elementAt(i).getProductKey() == virtualCart.getAllProducts().elementAt(j).getProductKey())
+                        {
+                            int totalQuantity = 0;
+                            totalQuantity = productsInDB.elementAt(i).getQuantity() + virtualCart.getAllProducts().elementAt(i).getQuantity();
+                            db.increaseQuantityOnCart(Integer.parseInt(cartID), Integer.parseInt(userID), totalQuantity);
+                            virtualCart.getAllProducts().remove(j);
+                        }
+                    }
+                }
+                if (virtualCart.getAllProducts().size() > 0)
+                {
+                    for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
+                    {
+                        db.updateCart(virtualCart.getAllProducts().elementAt(j).getProductKey()+"", cartID, virtualCart.getAllProducts().elementAt(j).getQuantity()+"");
+                        virtualCart.getAllProducts().remove(j);
+                    }
+                }
+            }
+            else if (productsInDB.size() > 0 && productsInDB.size() < virtualCart.getAllProducts().size())
+            {
+                for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
+                {
+                    for (int i = 0; i < productsInDB.size(); i++)
+                    {
+                        if (productsInDB.elementAt(i).getProductKey() == virtualCart.getAllProducts().elementAt(i).getProductKey())
+                        {
+                            int totalQuantity = 0;
+                            totalQuantity = productsInDB.elementAt(i).getQuantity() + virtualCart.getAllProducts().elementAt(i).getQuantity();
+                            db.increaseQuantityOnCart(Integer.parseInt(cartID), Integer.parseInt(userID), totalQuantity);
+                            virtualCart.getAllProducts().remove(j);
+                        }                        
+                    }
+                }
+            }
+            else
+            {
+                   for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
+                    {
+                        db.updateCart(virtualCart.getAllProducts().elementAt(j).getProductKey()+"", cartID, virtualCart.getAllProducts().elementAt(j).getQuantity()+"");
+                    }                
+            }
+        }
     }
 }
