@@ -18,10 +18,10 @@ public class loginCheck extends HttpServlet
 {
     Database db = new Database();
     Users user = new Users();
-    Cookie registrationCookie;
-    Cookie isAdmin;
-    Cookie uID;
-    String redirectedUrl;
+    Cookie registrationCookie = null;
+    Cookie isAdmin = null;
+    Cookie uID = null;
+    String redirectedUrl = null;
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
@@ -77,8 +77,8 @@ public class loginCheck extends HttpServlet
         boolean haveACart = false;
         Cookie[] cookies = req.getCookies();
         Gson m = new Gson();
-        String userId;
-        Product virtualCart;
+        String userId = null;
+        Product virtualCart = null;
         if (cookies != null)
         {
             for (int i =0; i < cookies.length; i++)
@@ -113,6 +113,7 @@ public class loginCheck extends HttpServlet
     
     private void increaseQuantity(HttpServletRequest req,String userID,String cartID,Product virtualCart)
     {
+        Gson m = new Gson();
         if (virtualCart.getAllProducts().size() > 0)
         {
             System.out.println("*********************************************************************************");
@@ -134,9 +135,10 @@ public class loginCheck extends HttpServlet
                         if (productsInDB.elementAt(i).getProductKey() == virtualCart.getAllProducts().elementAt(j).getProductKey())
                         {
                             int totalQuantity = 0;
-                            totalQuantity = productsInDB.elementAt(i).getQuantity() + virtualCart.getAllProducts().elementAt(i).getQuantity();
-                            db.increaseQuantityOnCart(Integer.parseInt(cartID), Integer.parseInt(userID), totalQuantity);
-                            virtualCart.getAllProducts().remove(j);
+                            totalQuantity = db.getQuantityOfCertainCart(productsInDB.elementAt(i).getProductKey(), Integer.parseInt(cartID))
+                                    + virtualCart.getAllProducts().elementAt(j).getQuantity();
+                            db.increaseQuantityOnCart(Integer.parseInt(cartID),virtualCart.getAllProducts().elementAt(j).getProductKey() , totalQuantity);
+                            virtualCart.getAllProducts().removeElementAt(j);
                         }
                     }
                 }
@@ -145,7 +147,7 @@ public class loginCheck extends HttpServlet
                     for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
                     {
                         db.updateCart(virtualCart.getAllProducts().elementAt(j).getProductKey()+"", cartID, virtualCart.getAllProducts().elementAt(j).getQuantity()+"");
-                        virtualCart.getAllProducts().remove(j);
+                        virtualCart.getAllProducts().removeElementAt(j);
                     }
                 }
             }
@@ -158,20 +160,32 @@ public class loginCheck extends HttpServlet
                         if (productsInDB.elementAt(i).getProductKey() == virtualCart.getAllProducts().elementAt(i).getProductKey())
                         {
                             int totalQuantity = 0;
-                            totalQuantity = productsInDB.elementAt(i).getQuantity() + virtualCart.getAllProducts().elementAt(i).getQuantity();
-                            db.increaseQuantityOnCart(Integer.parseInt(cartID), Integer.parseInt(userID), totalQuantity);
-                            virtualCart.getAllProducts().remove(j);
+                            totalQuantity = db.getQuantityOfCertainCart(productsInDB.elementAt(i).getProductKey(), Integer.parseInt(cartID))
+                                    + virtualCart.getAllProducts().elementAt(i).getQuantity();
+                            db.increaseQuantityOnCart(Integer.parseInt(cartID), virtualCart.getAllProducts().elementAt(j).getProductKey(), totalQuantity);
+                            virtualCart.getAllProducts().removeElementAt(j);
                         }                        
+                    }
+                }
+                if (virtualCart.getAllProducts().size() > 0)
+                {
+                    for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
+                    {
+                        db.updateCart(virtualCart.getAllProducts().elementAt(j).getProductKey()+"",
+                                cartID, virtualCart.getAllProducts().elementAt(j).getQuantity()+"");
+                        virtualCart.getAllProducts().removeElementAt(j);
                     }
                 }
             }
             else
             {
-                   for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
-                    {
-                        db.updateCart(virtualCart.getAllProducts().elementAt(j).getProductKey()+"", cartID, virtualCart.getAllProducts().elementAt(j).getQuantity()+"");
-                    }                
+                for (int j = 0; j < virtualCart.getAllProducts().size(); j++)
+                {
+                    db.updateCart(virtualCart.getAllProducts().elementAt(j).getProductKey()+"",
+                            cartID, virtualCart.getAllProducts().elementAt(j).getQuantity()+"");
+                }                
             }
+            req.getSession().setAttribute(cartID, m.toJson(new Product()));
         }
     }
 }

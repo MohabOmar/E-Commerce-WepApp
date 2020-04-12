@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
-    private final String user = "ehfhempc";
-    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
+    private final String url = "jdbc:postgresql://localhost:5432/oshop";
+    private final String user = "postgres";
+    private final String password = "amrwsk13";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -286,9 +286,10 @@ public class Database {
     public void deleteFromCart(String pId) {
         try {
             connect();
-            sqlCommand = "delete from cartsaved where product_id = " + pId;
+            sqlCommand = "DELETE FROM cartsaved WHERE product_id = ?";
             preparedStatment = connection.prepareStatement(sqlCommand);
-            preparedStatment.executeQuery();
+            preparedStatment.setInt(1, Integer.parseInt(pId));
+            preparedStatment.execute();
         } catch (SQLException ex) {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
 
@@ -873,6 +874,53 @@ public class Database {
             return operation;
         }
     }
+    
+    public void increaseQuantityOnCart(int cartID,int productKey, int productQuantity)
+    {
+        try
+        {
+            connect();
+            sqlCommand = "UPDATE cartsaved SET quantity = ? WHERE cart_id = ? AND product_id = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, productQuantity);
+            preparedStatment.setInt(2, cartID);
+            preparedStatment.setInt(3, productKey);
+            preparedStatment.execute();
+            stop();
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+    }
+    
+    public int getQuantityOfCertainCart (int productID, int cartID)
+    {
+        int quantity = 0;
+        try
+        {
+            connect();
+            sqlCommand = "select quantity FROM cartsaved WHERE product_id = ?  AND cart_id = ?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setInt(1, productID);
+            preparedStatment.setInt(2, cartID);
+            result = preparedStatment.executeQuery();
+            
+            while (result.next())
+            {
+                quantity = result.getInt(1);
+            }
+        }
+        catch (SQLException ex)
+        {
+            ex.printStackTrace();
+        }
+        finally
+        {
+            stop();
+            return quantity;
+        }
+    }
 
     private void stop() {
         try {
@@ -882,12 +930,4 @@ public class Database {
             Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-//    public static void main(String[] args) {
-//        Database dB = new Database();
-//        UserCart userCart = dB.getUserCart("13");
-//        String cartId = userCart.getCartId() + "";
-//        Vector<CartSaved> cart = dB.retrieveCartSaved(cartId);
-//        System.out.println(cart.elementAt(0).getQuantity());
-//    }
 }
