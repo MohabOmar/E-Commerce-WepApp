@@ -54,7 +54,11 @@
     </servlet>
     <servlet>
         <servlet-name>updateProfile</servlet-name>
-        <servlet-class>CheckServlets.updateProfile</servlet-class>
+        <servlet-class>AddServlets.updateProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>updateBalance</servlet-name>
+        <servlet-class>AddServlets.updateBalance</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Checkout</servlet-name>
@@ -115,6 +119,10 @@
     <servlet-mapping>
         <servlet-name>updateProfile</servlet-name>
         <url-pattern>/updateProfile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateBalance</servlet-name>
+        <url-pattern>/updateBalance</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Checkout</servlet-name>

@@ -1,4 +1,4 @@
-package CheckServlets;
+package AddServlets;
 
 import Database_Tables.Users;
 import database.*;
@@ -21,8 +21,8 @@ public class updateProfile extends HttpServlet{
                     , req.getParameter("date"), req.getParameter("npass"), req.getParameter("job")
                     , req.getParameter("addr"),req.getParameter("interests")
                     );
-             System.out.println("new password "+req.getParameter("npass"));
              db.updateProfile(user);
+              resp.sendRedirect("/MAM/pages/profile.jsp");
          }
          
          if(req.getParameter("npass").equals("")){
@@ -30,8 +30,8 @@ public class updateProfile extends HttpServlet{
                     , req.getParameter("date"), req.getParameter("opass"), req.getParameter("job")
                     , req.getParameter("addr"),req.getParameter("interests")
                     );
-             System.out.println("old password "+req.getParameter("opass"));
              db.updateProfile(user);
+              resp.sendRedirect("/MAM/pages/profile.jsp");
          }  
             
             

@@ -100,6 +100,12 @@ public class Users
         this.address = address;
         this.interests = interests;
         this.isAdmin = isAdmin;
+    } 
+    
+    public Users(String uName,float balance) 
+    {
+        this.uName = uName;
+        this.balance = balance;
     }    
 
     public int getuId() 

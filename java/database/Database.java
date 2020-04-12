@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-    private final String url = "jdbc:postgresql://localhost:5432/oshop";
-    private final String user = "postgres";
-    private final String password = "postgres";
+    private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
+    private final String user = "ehfhempc";
+    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
 
     private Connection connection = null;
     private PreparedStatement preparedStatment = null;
@@ -853,6 +853,24 @@ public class Database {
         } finally {
             stop();
             return user;
+        }
+    }
+
+    public boolean updateBalance(Users user) {
+        try {
+            connect();
+            sqlCommand = " update users set balance=? where uname=?";
+            preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setFloat(1, user.getBalance());
+            preparedStatment.setString(2, user.getuName());
+            preparedStatment.execute();
+            operation = true;
+
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        } finally {
+            stop();
+            return operation;
         }
     }
 

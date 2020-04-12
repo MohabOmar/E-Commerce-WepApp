@@ -5,7 +5,7 @@
 --%>
 
 <%!
-    Users user ;
+    Users user;
     Users u0;
 %>
 
@@ -30,14 +30,14 @@
     </head>
     <body>
         <%@include file="./header.jsp" %>
-        
-<%
-    if (authorization){
-    Database db = new Database();        
-    u0 = new Users();
-    u0.setuId(userID);
-    user = db.getUserInfo(u0);        
-%>        
+
+        <%
+            if (authorization) {
+                Database db = new Database();
+                u0 = new Users();
+                u0.setuId(userID);
+                user = db.getUserInfo(u0);
+        %>        
         <ul class="nav nav-tabs">
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab"  href="#about">About</a>
@@ -352,9 +352,14 @@
                                         <div class="col-12 col-md-3 mb-3">
                                             <div class="card">
                                                 <div class="card-body">
-                                                    <h6 class="card-title font-weight-bold">Support</h6>
-                                                    <p class="card-text">Text</p>
-                                                    <button type="button" class="btn btn-primary">Contact Us</button>
+                                                    <h6 class="card-title font-weight-bold">Recharge Your Balance</h6>
+                                                    <form class="form" novalidate="" action="/MAM/updateBalance" method="POST">
+                                                        <p class="card-text">Enter recharge code</p>
+                                                        <input class="form-control" type="text" name="newBalance"  value="">
+                                                        <input class="form-control" type="hidden" name="uname" value="<%=user.getuName()%>">
+                                                        <input class="form-control" type="hidden"  name="oldBalance" value="<%=user.getBalance()%>">
+                                                        <button type="submit" class="btn btn-primary">submit</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
@@ -367,7 +372,7 @@
                 </div>
             </div>
         </div>
-<%}%>    
+        <%}%>    
         <footer>
             <div class="container">
                 <div class="row">
