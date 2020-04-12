@@ -53,7 +53,7 @@
                             %>
                             <form action="/MAM/AddToCart" method="GET">
                                 <%}else if (lo != null){%>
-                                <form action="/MAM/OfflineCart" method="GET">
+                                <form action="/MAM/OfflineCart" method="POST">
                                     <%}%>
                                 <input type="hidden" value="<%=po.getProductKey()%>" name="pkey"/>
                                 <input type="hidden" value="1" name="quantity"/>

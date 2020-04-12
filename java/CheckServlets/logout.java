@@ -51,6 +51,7 @@ boolean isAdmin = false;
                 authorization = true;
             }
         }
+        System.out.println(authorization);
         return authorization;
     }
     

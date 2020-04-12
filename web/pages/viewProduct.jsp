@@ -65,7 +65,7 @@
             %>
             <form class="vpbtn btn-default" action="/MAM/AddToCart" method="GET">
                 <%}else if (login != null){%>
-                <form action="/MAM/OfflineCart" method="GET">
+                <form action="/MAM/OfflineCart" method="POST">
                     <%}%>
                 <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
                 <input type="hidden" value="1" name="quantity"/>

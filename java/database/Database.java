@@ -338,8 +338,9 @@ public class Database {
         Vector<Product> products = new Vector();
         try {
             connect();
-            sqlCommand = "select * from products where productname LIKE'%" + keyword + "%'";
+            sqlCommand = "SELECT * FROM products WHERE productname LIKE ? OR description LIKE ?";
             preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, "%"+keyword+"%");
             result = preparedStatment.executeQuery();
             while (result.next()) {
                 products.add(new Product(result.getInt(1),

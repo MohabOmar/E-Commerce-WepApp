@@ -39,21 +39,7 @@
         <link href='https://fonts.googleapis.com/css?family=Quantico' rel='stylesheet' type='text/css'>
     </head>
     <body>
-
         <%@include file="./pages/header.jsp" %>
-
-        <!--        <%@include file="./pages/main.html" %> -->
-      
-
-        <% 
-//            out.println(request.getParameter("val1"));
-//            out.println(request.getParameter("val2"));
-//            out.println(request.getParameter("key"));
-//            
-//            System.out.println("className.methodName()");
-        %>
-        
-        
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
@@ -80,7 +66,7 @@
                             %>
                             <form action="/MAM/AddToCart" method="GET">
                                 <%} else if (login0 != null) {%>
-                                <form action="/MAM/OfflineCart" method="GET">
+                                <form action="/MAM/OfflineCart" method="POST">
                                     <%}%>
                                     <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
                                     <input type="hidden" value="1" name="quantity"/>

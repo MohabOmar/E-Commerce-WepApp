@@ -14,12 +14,24 @@ import javax.servlet.http.HttpSession;
 public class OfflineCart extends HttpServlet 
 {
     HttpSession session;
-    
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
     {
-        session = req.getSession(false);
+        session = req.getSession();
+        if (session.getAttribute(getCartID(req)) != null)
+        {
+            removeProductToVirtualCart(req);
+            showCartInternally();
+        }        
+        resp.sendRedirect("/MAM/main.jsp");
+    }
+
+    
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException 
+    {
+        session = req.getSession();
         
         if (session.getAttribute(getCartID(req)) != null)
         {
@@ -92,6 +104,38 @@ public class OfflineCart extends HttpServlet
             p.getAllProducts().add(new Product(prodcutofID, quantityOfProduct));
         }
         session.setAttribute(cartID, g.toJson(p));
+    }
+    
+    
+    private boolean removeProductToVirtualCart(HttpServletRequest req)
+    {
+        int productID = Integer.parseInt(req.getParameter("pkey"));
+        String quantity = req.getParameter("quantity");        
+        String cartID = getCartID(req);
+        boolean operation = false;
+        Gson g = new Gson();
+        Product p = g.fromJson(session.getAttribute(cartID).toString(), Product.class);
+        if (p != null && p.getAllProducts().size() > 0)
+        {
+            for (int i = 0; i < p.getAllProducts().size(); i++)
+            {
+                if (p.getAllProducts().elementAt(i).getProductKey() == productID)
+                {
+                    if (p.getAllProducts().elementAt(i).getQuantity() > 1)
+                    {
+                        p.setQuantity(p.getAllProducts().elementAt(i).getQuantity() - 1);
+                    }
+                    else
+                    {
+                        p.getAllProducts().removeElementAt(i);
+                    }
+                }
+            }
+        //////////////////////////////////////////////////////////////////////////////////////////////////
+        session.setAttribute(cartID, g.toJson(p));            
+            operation = true;
+        }
+        return operation;
     }
     
     private void showCartInternally ()

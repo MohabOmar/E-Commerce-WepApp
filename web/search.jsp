@@ -33,16 +33,10 @@
         <link rel="stylesheet" href="./css/style.css">
         <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
         <link rel="stylesheet" href="./css/style2.css">
-
-
         <link href='https://fonts.googleapis.com/css?family=Quantico' rel='stylesheet' type='text/css'>
     </head>
     <body>
-
-        <%@include file="./pages/header.jsp" %>
-
-        <!--        <%@include file="./pages/main.html" %> -->
-      
+        <%@include file="./pages/header.jsp" %>      
 
         <div class="container">
             <div class="slider">
@@ -89,7 +83,7 @@
                             %>
                             <form action="/MAM/AddToCart" method="GET">
                                 <%} else if (login0 != null) {%>
-                                <form action="/MAM/OfflineCart" method="GET">
+                                <form action="/MAM/OfflineCart" method="POST">
                                     <%}%>
                                     <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
                                     <input type="hidden" value="1" name="quantity"/>
@@ -108,8 +102,5 @@
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
         <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-        <script src="./js/main.js"></script>  
-        <script>
-
-        </script>  
+        <script src="./js/main.js"></script>
         <%@include file="./pages/footer.html" %>

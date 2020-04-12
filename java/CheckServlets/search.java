@@ -29,17 +29,6 @@ public class search extends HttpServlet {
         String keyword=req.getParameter("keyword");
         db.search(keyword);
         resp.sendRedirect("./pages/searchResult.jsp");
-        
-//        if (req.getParameter("searchType").equals("searchByName"))
-//        {
-//            Product = new product(req.getParameter("keyword"));
-//
-//           
-//                resp.sendRedirect("/test/asdadasd.jsp");
-//        }
-            
     }
-
-           
-    }
+}
 

@@ -69,10 +69,10 @@
                             </td>
                             <td><%=ps.getProductName()%></td>
                             <td><%=ps.getPrice()%></td>
-                            <td class="qty"><input type="number" class="form-control" id="input1" max="<%=q%>" min="<%=q%>" value="<%=q%>"></td>
+                            <td class="qty"><input type="number" name="quantity" class="form-control" id="input1" max="<%=q%>" min="<%=q%>" value="<%=q%>"></td>
                             <td><%=ps.getPrice() * q%></td>
                             <td>
-                                <a href="#" class="btn btn-danger btn-sm">
+                                <a href="/MAM/OfflineCart?pkey=<%=ps.getProductKey()%>" class="btn btn-danger btn-sm">
                                     <i class="fa fa-times"></i>
                                 </a>
                             </td>
