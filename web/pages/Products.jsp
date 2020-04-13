@@ -45,7 +45,7 @@
                             <p class="card-text"><%=po.getPrice()%> EGP</p>
                             <form action="pages/viewProduct.jsp" method="GET">
                                 <input type='hidden' name='pid' value='<%=po.getProductKey()%>'/>
-                                <button type='submit' class="btn btn-primary">View</button>
+                                <button type='submit' class="btn btn-outline-light">View</button>
                             </form>
                             <%
                                 if (lo != null && lo.equalsIgnoreCase("true"))
@@ -58,7 +58,7 @@
                                 <input type="hidden" value="<%=po.getProductKey()%>" name="pkey"/>
                                 <input type="hidden" value="1" name="quantity"/>
                                 <input type="hidden" value="/MAM/main.jsp" name="URL"/>
-                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                                <button type="submit" class="btn btn-outline-light">Add To Cart</button>
                             </form>
                         </div>
                     </div>
@@ -91,7 +91,7 @@
                             <p class="card-text"><%=laptop.getPrice()%> EGP</p>
                             <form action="pages/viewProduct.jsp" method="GET">
                                 <input type='hidden' name='pid' value='<%=laptop.getProductKey()%>'/>
-                                <button type='submit' class="btn btn-primary">View</button>
+                                <button type='submit' class="btn btn-outline-light">View</button>
                             </form>
                             <%
                                 if (lo != null && lo.equalsIgnoreCase("true"))
@@ -104,7 +104,7 @@
                                 <input type="hidden" value="<%=laptop.getProductKey()%>" name="pkey"/>
                                 <input type="hidden" value="1" name="quantity"/>
                                 <input type="hidden" value="/MAM/main.jsp" name="URL"/>
-                                <button type="submit" class="btn btn-primary">Add To Cart</button>
+                                <button type="submit" class="btn btn-outline-light">Add To Cart</button>
                             </form>
                         </div>
                     </div>

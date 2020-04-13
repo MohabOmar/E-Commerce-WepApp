@@ -101,21 +101,13 @@
             <div class="container-fluid p-0">
                 <nav class="navbar navbar-expand-lg navbar-light bg-white">
                     <a class="navbar-brand" href="/MAM/main.jsp">Home</a>
+                    <a class="navbar-brand" href="/MAM/search.jsp?keyword=">Products</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
                     <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
-<!--                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-                            <li class="nav-item active">
-                                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-                        </ul>-->
-
                         <div class="navbar-nav">
                             <li class="nav-item border rounded-circle mx-2 basket-icon">
                                 <a href="javascript:void(0)" data-toggle="modal" data-target="#cartModal"><i class="fas fa-shopping-cart p-2"></i></a>

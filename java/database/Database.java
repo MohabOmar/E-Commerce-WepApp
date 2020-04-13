@@ -8,9 +8,9 @@ import java.util.logging.Logger;
 
 public class Database {
 
-     private final String url = "jdbc:postgresql://rogue.db.elephantsql.com:5432/ehfhempc";
-    private final String user = "ehfhempc";
-    private final String password = "HHsANYF0brUC-gCihkRjKt3a-kRrJ3aA";
+     private final String url = "jdbc:postgresql://localhost:5432/oshop";
+    private final String user = "postgres";
+    private final String password = "amrwsk13";
 
 
     private Connection connection = null;
@@ -339,8 +339,9 @@ public class Database {
         Vector<Product> products = new Vector();
         try {
             connect();
-            sqlCommand = "select * from products where productname LIKE'%" + keyword + "%'";
+            sqlCommand = "select * from products where productname LIKE ?";
             preparedStatment = connection.prepareStatement(sqlCommand);
+            preparedStatment.setString(1, "%"+keyword+"%");
             result = preparedStatment.executeQuery();
             while (result.next()) {
                 products.add(new Product(result.getInt(1),
@@ -774,7 +775,6 @@ public class Database {
         try {
             connect();
             sqlCommand = "select * from products where productname LIKE'%" + keyword + "%' AND price BETWEEN " + val1 + " AND " + val2 + "";
-//            select * from products where productname LIKE '%Apple%' AND price BETWEEN 0 AND 20000;
             preparedStatment = connection.prepareStatement(sqlCommand);
             result = preparedStatment.executeQuery();
             while (result.next()) {
