@@ -101,7 +101,7 @@
             <div class="container-fluid p-0">
                 <nav class="navbar navbar-expand-lg navbar-light bg-white">
                     <a class="navbar-brand" href="/MAM/main.jsp">Home</a>
-                    <a class="navbar-brand" href="/MAM/search.jsp?keyword=">Products</a>
+                    <a class="navbar-brand" href="/MAM/search.jsp">Products</a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                             aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>

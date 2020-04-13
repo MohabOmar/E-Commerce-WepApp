@@ -36,28 +36,27 @@
         <link href='https://fonts.googleapis.com/css?family=Quantico' rel='stylesheet' type='text/css'>
     </head>
     <body>
-        <%@include file="./pages/header.jsp" %>      
-
-        <div class="container-fluid">
-            <div class="slider">
-                <form method="post" class="searchByPrice" action="searchByPrice.jsp">
-                    <div class="rannge">
-                        <output>MIN</output>
-                        <input type = "range" min="0" max="5000" onchange="rangevalue.value = value" name="val1"/>
-                        <output id="rangevalue">0</output>                        
-                    </div>
-                    <div class="rannge">
-                        <output>MAX</output>
-                        <input type = "range" min="5000" max="50000" onchange="rangevalue2.value = value" name="val2"/>
-                        <output id="rangevalue2">50000</output>                        
-                    </div>
-                    <input type="hidden" name="key" value=<%=request.getParameter("keyword")%>>
-                    <input class="btn btn-outline-light" type="submit" value="Submit">
-                </form>
-            </div>
+        <%@include file="./pages/header.jsp" %>
+        
+<%if (request.getParameter("keyword") != null){%>    
+    <div class="container-fluid">
+        <div class="slider">
+            <form method="post" class="searchByPrice" action="searchByPrice.jsp">
+                <div class="rannge">
+                    <output>MIN</output>
+                    <input type = "range" min="0" max="5000" onchange="rangevalue.value = value" name="val1"/>
+                    <output id="rangevalue">0</output>                        
+                </div>
+                <div class="rannge">
+                    <output>MAX</output>
+                    <input type = "range" min="5000" max="50000" onchange="rangevalue2.value = value" name="val2"/>
+                    <output id="rangevalue2">50000</output>                        
+                </div>
+                <input type="hidden" name="key" value=<%=request.getParameter("keyword")%>>
+                <input class="btn btn-outline-light" type="submit" value="Submit">
+            </form>
         </div>
-
-<%if (request.getParameter("keyword") != null){%>                    
+    </div>
         <div class="container Cart">
             <div class="row justify-content-center">
                 <%
@@ -99,46 +98,7 @@
             </div>    
         </div>
 <%}else{%> 
-        <div class="container Cart">
-            <div class="row justify-content-center">
-                <%
-                    Database db = new Database();
-                    Vector<Product> listOfProducts = db.retrieveAllProducts();
-                    for (Product p : listOfProducts) {
-
-                %>
-                <div class="col-md-4" style="margin-bottom: 8%;">
-                    <div class="card shadow" style="width: 20rem;">
-                        <div class="inner">
-                            <img src="<%=p.getImg()%>"  class="card-img-top" alt="...">
-                        </div>
-                        <div class="card-body text-center">
-                            <h5 class="card-title"><%=p.getProductName()%></h5>
-                            <p class="card-text"><%=p.getDesc()%></p>
-                            <p class="card-text"><%=p.getPrice()%> EGP</p>
-                            <form action="pages/viewProduct.jsp" method="GET">
-                                <input type='hidden' name='pid' value='<%=p.getProductKey()%>'/>
-                                <button type='submit' class="btn btn-outline-light">View</button>
-                            </form>
-                            <%
-                                if (login0 != null && login0.equalsIgnoreCase("true")) {
-                            %>
-                            <form action="/MAM/AddToCart" method="GET">
-                                <%} else if (login0 != null) {%>
-                                <form action="/MAM/OfflineCart" method="POST">
-                                    <%}%>
-                                    <input type="hidden" value="<%=p.getProductKey()%>" name="pkey"/>
-                                    <input type="hidden" value="1" name="quantity"/>
-                                    <input type="hidden" value="<%=request.getRequestURI().toString()%>" name="URL"/>
-                                    <button type="submit" class="btn btn-outline-light">Add To Cart</button>
-                                </form>
-                        </div>
-                    </div>
-                </div>
-
-                <%}%> 
-            </div>    
-        </div>
+    <%@include file="./pages/Products.jsp" %>
 <%}%>
 
         <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
