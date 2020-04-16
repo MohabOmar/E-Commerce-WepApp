@@ -69,9 +69,9 @@
                     <img src="../img/ecommerce.JPG" />
                     <div class="row tabs">
                         <a href="adminHome.jsp"><i class="fas fa-home"></i></a>
-                        <a href="#"><i class="fa fa-list-alt" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fas fa-users" aria-hidden="true"></i></a>
-                        <a href="#"><i class="fas fa-search" aria-hidden="true"></i></a>
+                        <a href="showProducts.jsp"><i class="fab fa-product-hunt"></i></a>
+                        <a href="showUsers.jsp"><i class="fas fa-users" aria-hidden="true"></i></a>
+                        <a href="showCategories.jsp"><i class="fab fa-cuttlefish"></i></a>
                     </div>
                     <a href="/MAM/logout" class="bottom">
                         <i class="fas fa-sign-out-alt"></i>
@@ -86,7 +86,7 @@
                         <div class="col-sm-10 top_Menu">
                             <div class="center">
                                 <div class="cards">
-                                    <a href="categories.jsp">Categories</a>
+                                    <a href="categories.jsp">Add Categories</a>
                                 </div>
                                 <div class="cards">
                                     <a href="AddProduct.jsp">Add Product</a>
@@ -95,7 +95,7 @@
                                     <a href="addAdminUser.jsp">New User</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="#">Profile</a>                                
+                                    <a href="/MAM/admin/EditClient.jsp">Profile</a>
                                 </div>
                             </div>
                         </div>

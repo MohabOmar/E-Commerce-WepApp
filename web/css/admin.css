@@ -104,14 +104,14 @@
 .internal_Body .top_Bar .top_Menu .center
 {
     height: 110px;
-    width: 52%;
+    width: 60%;
     margin: auto;
 }
 
 .internal_Body .top_Bar .top_Menu .center .cards
 {
     height: 110px;
-    width: 100px;
+    width: 120px;
     line-height: 110px;
     text-align: center;
     display: inline-block;

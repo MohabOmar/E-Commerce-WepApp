@@ -83,7 +83,7 @@
                         <div class="col-sm-10 top_Menu">
                             <div class="center">
                                 <div class="cards">
-                                    <a href="categories.jsp">Categories</a>
+                                    <a href="categories.jsp">Add Categories</a>
                                 </div>
                                 <div class="cards">
                                     <a href="AddProduct.jsp">Add Product</a>
@@ -92,7 +92,7 @@
                                     <a href="addAdminUser.jsp">New User</a>
                                 </div>
                                 <div class="cards">
-                                    <a href="#">Profile</a>                                
+                                    <a href="/MAM/admin/EditClient.jsp">Profile</a>
                                 </div>
                             </div>
                         </div>
